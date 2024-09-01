@@ -21,15 +21,5 @@ export const Themes: Record<string, Theme> = {
         tertiary: '#16DB65',
       },
     },
-    test: {
-        name: 'Test',
-        colors: {
-            background: 'red',
-            text: 'blue',
-            primary: 'white',
-            secondary: 'green',
-            tertiary: 'orange',
-        },
-    }
     // Add more predefined themes here
   }; 
