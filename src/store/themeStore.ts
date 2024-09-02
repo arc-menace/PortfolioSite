@@ -3,7 +3,7 @@ import { Theme } from '../models/theme';
 import { Themes } from '../models/themes';
 
 const THEME_COOKIE_NAME = 'selected_theme';
-const defaultTheme = 'light';
+const defaultTheme = 'dark';
 
 export const useThemeStore = defineStore('theme', {
     state: () => ({
