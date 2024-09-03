@@ -1,21 +1,23 @@
 <script setup lang="ts">
 
 import { useThemeStore } from '../../store/themeStore';
+import { useNavigationStore } from '../../store/navigationStore';
 import NavbarButton from './NavbarButton.vue';
 
 const themeStore = useThemeStore();
+const navigationStore = useNavigationStore();
 
 </script>
 
 <template>
 
 <div class="navbar" :style="{ backgroundColor: themeStore.currentThemeColors.primary }">
-    <NavbarButton :index="1" text="Home" :onClick="() => {}" />
-    <NavbarButton :index="2" text="About" :onClick="() => {}" />
-    <NavbarButton :index="3" text="Projects" :onClick="() => {}" />
-    <NavbarButton :index="4" text="Contact" :onClick="() => {}" />
-    <NavbarButton :index="5" text="Resume" :onClick="() => {}" />
-    <NavbarButton :index="6" text="Blog" :onClick="() => {}" />
+    <NavbarButton :index="1" text="Home" :onClick="() => {navigationStore.setCurrentPage('home')}" />
+    <NavbarButton :index="2" text="About" :onClick="() => {navigationStore.setCurrentPage('about')}" />
+    <NavbarButton :index="3" text="Projects" :onClick="() => {navigationStore.setCurrentPage('projects')}" />
+    <NavbarButton :index="4" text="Contact" :onClick="() => {navigationStore.setCurrentPage('contact')}" />
+    <NavbarButton :index="5" text="Resume" :onClick="() => {navigationStore.setCurrentPage('resume')}" />
+    <NavbarButton :index="6" text="Blog" :onClick="() => {navigationStore.setCurrentPage('blog')}" />
 </div>
 
 </template>
