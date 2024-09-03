@@ -7,26 +7,36 @@ const defaultTheme = 'dark';
 
 export const useThemeStore = defineStore('theme', {
     state: () => ({
+
         currentTheme: loadThemeFromCookie() || defaultTheme,
-        themes: Themes,
-      }),
+        themes: Themes
+
+    }),
+
     getters: {
-    currentThemeColors(): Theme['colors'] {
-        return this.themes[this.currentTheme].colors;
-    },
-    },
-    actions: {
-    setTheme(themeName: string) {
-        if (this.themes[themeName]) {
-        this.currentTheme = themeName;
-        saveThemeToCookie(themeName);
-        } else {
-        console.warn(`Theme "${themeName}" not found.`);
-        }
-    },
-    addTheme(themeName: string, theme: Theme) {
-        this.themes[themeName] = theme;
+
+        currentThemeColors(): Theme['colors'] {
+            return this.themes[this.currentTheme].colors;
         },
+
+    },
+
+    actions: { 
+
+        setTheme(themeName: string) {
+            if (this.themes[themeName]) {
+                this.currentTheme = themeName;
+                saveThemeToCookie(themeName);
+                document.body.style.backgroundColor = this.currentThemeColors.background;
+            } else {
+                console.warn(`Theme "${themeName}" not found.`);
+            }
+        },
+
+        addTheme(themeName: string, theme: Theme) {
+            this.themes[themeName] = theme;
+        },
+
     },
 });
 

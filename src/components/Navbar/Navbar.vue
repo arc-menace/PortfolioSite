@@ -13,11 +13,9 @@ const navigationStore = useNavigationStore();
 
 <div class="navbar" :style="{ backgroundColor: themeStore.currentThemeColors.primary }">
     <NavbarButton :index="1" text="Home" :onClick="() => {navigationStore.setCurrentPage('home')}" />
-    <NavbarButton :index="2" text="About" :onClick="() => {navigationStore.setCurrentPage('about')}" />
-    <NavbarButton :index="3" text="Projects" :onClick="() => {navigationStore.setCurrentPage('projects')}" />
-    <NavbarButton :index="4" text="Contact" :onClick="() => {navigationStore.setCurrentPage('contact')}" />
-    <NavbarButton :index="5" text="Resume" :onClick="() => {navigationStore.setCurrentPage('resume')}" />
-    <NavbarButton :index="6" text="Blog" :onClick="() => {navigationStore.setCurrentPage('blog')}" />
+    <NavbarButton :index="2" text="Projects" :onClick="() => {navigationStore.setCurrentPage('projects')}" />
+    <NavbarButton :index="3" text="Resume" :onClick="() => {navigationStore.setCurrentPage('resume')}" />
+    <NavbarButton :index="4" text="Blog" :onClick="() => {navigationStore.setCurrentPage('blog')}" />
 </div>
 
 </template>
