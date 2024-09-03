@@ -10,45 +10,46 @@ const theme = useTheme()
 
 let vantaEffect: any = null;
 
-watch(() => theme.current.value.dark, () => {
-    if (theme.current.value.dark) {
-        // @ts-ignore
-        vantaEffect = NET({
+function buildDarkNetEffect() {
+    return NET({
             el: vantaRef.value,
             color: '#4E937A',
-            backgroundColor: '#1c1b22',
-            points: 20,
-            maxDistance: 24,
+            backgroundColor: '#241E4E',
+            points: 10,
+            maxDistance: 20,
             spacing: 17,
             showDots: true
         });
-    }
-    else {
-        // @ts-ignore
-        vantaEffect = NET({
+}
+
+function buildLightNetEffect() {
+    return NET({
             el: vantaRef.value,
             color: '#4E937A',
             backgroundColor: '#ffffff',
-            points: 20,
-            maxDistance: 24,
+            points: 10,
+            maxDistance: 20,
             spacing: 17,
             showDots: true
         });
+}
+
+function buildEffect() {
+    if (theme.current.value.dark) {
+        return buildDarkNetEffect();
     }
+    else {
+        return buildLightNetEffect();
+    }
+}
+
+watch(() => theme.current.value.dark, () => {
+    buildEffect();
 });
 
 onMounted(() => {
     if (!vantaEffect) {
-        // @ts-ignore
-        vantaEffect = NET({
-            el: vantaRef.value,
-            color: '#4E937A',
-            backgroundColor: '#1c1b22',
-            points: 20,
-            maxDistance: 24,
-            spacing: 17,
-            showDots: true
-        });
+        vantaEffect = buildEffect();
     }
 });
 
@@ -64,7 +65,9 @@ onBeforeUnmount(() => {
 
 <template>
     <div ref="vantaRef" class="vanta-background" id="home">
+        <div class="bottom-opacity-gradient">
 
+        </div>
     </div>
 </template>
 
@@ -74,5 +77,14 @@ onBeforeUnmount(() => {
     height: 100vh;
     position: relative;
     overflow: hidden;
+}
+
+.bottom-opacity-gradient {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background-image: linear-gradient(to top, rgba(28, 27, 34, 1), transparent);
 }
 </style>

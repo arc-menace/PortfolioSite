@@ -37,12 +37,14 @@ defineProps({
     flex-direction: row;
     align-items: center;
     gap: 0.5rem;
+    opacity: 1;
 }
 
 .number {
     font-size: 1.5rem;
     font-family: "Consolas", monospace;
     color: #4AAD52;
+    opacity: 1;
 }
 
 .navbar-button {

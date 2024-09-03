@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import NavbarButton from './NavbarButton.vue';
 import ThemeToggle from '../ThemeToggle.vue';
+import { useTheme } from 'vuetify'
+
+const theme = useTheme()
 
 function scrollToId(id: string) {
     let element = document.getElementById(id);
@@ -38,12 +41,13 @@ function scrollToId(id: string) {
         </div>
 
 
-        <div class="navbar-buttons">
+        <div class="navbar-buttons" :class="{ 'dark': theme.global.current.value.dark }">
+            <ThemeToggle />
+            <div class="margin-right-auto"></div>
             <NavbarButton :index="1" text="Home" :onClick="() => { scrollToId('home') }" />
             <NavbarButton :index="2" text="Projects" :onClick="() => { scrollToId('projects') }" />
             <NavbarButton :index="3" text="Resume" :onClick="() => { scrollToId('resume') }" />
             <NavbarButton :index="4" text="Blog" :onClick="() => { scrollToId('blog') }" />
-            <ThemeToggle />
         </div>
     </div>
 
@@ -65,13 +69,18 @@ function scrollToId(id: string) {
     gap: 2rem;
     height: 4rem;
     padding: 0 1rem;
-    background-color: transparent;
+    padding-right: 2rem;
+    background-color: rgba(255, 255, 255, 0.8);
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: 1000;
     overflow: scroll;
+}
+
+.navbar-buttons.dark {
+    background-color: rgba(0, 0, 0, 0.8);
 }
 
 .hamburger-menu {
@@ -99,5 +108,9 @@ function scrollToId(id: string) {
     .hamburger-menu {
         display: block;
     }
+}
+
+.margin-right-auto {
+    margin-right: auto;
 }
 </style>
