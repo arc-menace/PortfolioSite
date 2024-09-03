@@ -1,23 +1,22 @@
 <script setup lang="ts">
-import { useThemeStore } from './store/themeStore';
 
 import Navbar from './components/Navbar/Navbar.vue';
-import ThemeButton from './components/ThemeButton.vue';
-import PageManager from './components/PageManager.vue';
-
-const themeStore = useThemeStore();
-
-themeStore.setTheme('dark');
+import Home from './pages/Home.vue';
+import Projects from './pages/Projects.vue';
+import Resume from './pages/Resume.vue';
+import Blog from './pages/Blog.vue';
 
 </script>
 
 <template>
-
 <Navbar />
 
-<ThemeButton />
+<Home />
+<Projects />
+<Resume />
+<Blog />
 
-<PageManager />
+
 
 </template>
 

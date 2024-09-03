@@ -1,66 +1,78 @@
 <script setup lang="ts">
-
-import { useThemeStore } from '../store/themeStore';
-import { watch } from 'vue';
-
-const themeStore = useThemeStore();
 import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { useTheme } from 'vuetify'
+import { watch } from 'vue'
 // @ts-ignore
 import NET from 'vanta/dist/vanta.net.min.js';
 
 const vantaRef = ref(null);
+const theme = useTheme()
 
-let vantaEffect : any = null;
+let vantaEffect: any = null;
 
-watch(() => themeStore.currentTheme, () => {
-    vantaEffect = NET({
-        el: vantaRef.value,
-        color: themeStore.currentThemeColors.primary,
-        backgroundColor: themeStore.currentThemeColors.background,
-        points: 10,
-        maxDistance: 20,
-        spacing: 15,
-        showDots: true
-    });
+watch(() => theme.current.value.dark, () => {
+    if (theme.current.value.dark) {
+        // @ts-ignore
+        vantaEffect = NET({
+            el: vantaRef.value,
+            color: '#4E937A',
+            backgroundColor: '#1c1b22',
+            points: 20,
+            maxDistance: 24,
+            spacing: 17,
+            showDots: true
+        });
+    }
+    else {
+        // @ts-ignore
+        vantaEffect = NET({
+            el: vantaRef.value,
+            color: '#4E937A',
+            backgroundColor: '#ffffff',
+            points: 20,
+            maxDistance: 24,
+            spacing: 17,
+            showDots: true
+        });
+    }
 });
 
 onMounted(() => {
-  if (!vantaEffect) {
-    vantaEffect = NET({
-      el: vantaRef.value,
-      color: themeStore.currentThemeColors.primary,
-      backgroundColor: themeStore.currentThemeColors.background,
-      points: 10,
-      maxDistance: 20,
-      spacing: 15,
-      showDots: true
-    });
-  }
+    if (!vantaEffect) {
+        // @ts-ignore
+        vantaEffect = NET({
+            el: vantaRef.value,
+            color: '#4E937A',
+            backgroundColor: '#1c1b22',
+            points: 20,
+            maxDistance: 24,
+            spacing: 17,
+            showDots: true
+        });
+    }
 });
 
 onBeforeUnmount(() => {
-  if (vantaEffect) {
-    vantaEffect.destroy();
-    vantaEffect = null;
-  }
+    if (vantaEffect) {
+        vantaEffect.destroy();
+        vantaEffect = null;
+    }
 });
+
 
 </script>
 
 <template>
+    <div ref="vantaRef" class="vanta-background" id="home">
 
-<div ref="vantaRef" class="vanta-background"></div>
-
+    </div>
 </template>
 
 <style scoped>
-
 .vanta-background {
-  width: 100%;
-  height: 100vh; /* Adjust height as needed */
-  position: relative;
-  overflow: hidden; /* Ensure the effect doesn't overflow */
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
 }
-
 </style>
-

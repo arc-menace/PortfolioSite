@@ -1,9 +1,19 @@
 <script setup lang="ts">
-import { useThemeStore } from '../store/themeStore';
 
-const themeStore = useThemeStore();
 </script>
 
 <template>
-    <h1 :style="{ color: themeStore.currentThemeColors.text }">Projects</h1>
+    <div id="projects">
+        <h1>Projects</h1>
+    </div>
 </template>
+
+<style scoped>
+#projects {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+</style>

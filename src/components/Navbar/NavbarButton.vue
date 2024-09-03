@@ -1,9 +1,5 @@
 <script setup lang="ts">
 
-import { useThemeStore } from '../../store/themeStore';
-
-const themeStore = useThemeStore();
-
 defineProps({
     index: {
         type: Number,
@@ -24,9 +20,9 @@ defineProps({
 <template>
    
 <div class="navbar-button-container">
-    <div class="number" :style="{ color: themeStore.currentThemeColors.tertiary }">{{ index }}.</div>
+    <div class="number">{{ index }}.</div>
 
-    <div class="navbar-button" :style="{ color: themeStore.currentThemeColors.text }" @click="() => onClick()">
+    <div class="navbar-button" @click="() => onClick()">
         {{text}}
     </div>
 </div>
@@ -46,6 +42,7 @@ defineProps({
 .number {
     font-size: 1.5rem;
     font-family: "Consolas", monospace;
+    color: #4AAD52;
 }
 
 .navbar-button {
@@ -57,5 +54,37 @@ defineProps({
 .navbar-button:hover {
     text-decoration: underline;
 }
+
+@media only screen and (max-width: 768px) {
+    .navbar-button-container {
+        gap: 0.3rem;
+    }
+
+    .navbar-button {
+        font-size: 1.2rem;
+    }
+
+    .number {
+        font-size: 1.2rem;
+    }
+
+}
+
+@media only screen and (max-width: 480px) {
+    .navbar-button-container {
+        gap: 0rem;
+        justify-content: center;
+    }
+
+    .navbar-button {
+        font-size: 1rem;
+    }
+
+    .number {
+        font-size: 1rem;
+    }
+}
+    
+    
 
 </style>
