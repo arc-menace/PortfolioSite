@@ -15,5 +15,7 @@ const theme = useTheme()
 .theme-toggle {
     background-color: transparent;
     box-shadow: none;
+    z-index: var(--z-index-theme-toggle);
+    margin-left: 1rem;
 }
 </style>

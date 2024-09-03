@@ -2,8 +2,10 @@
 import { ref, onMounted, onBeforeUnmount } from 'vue';
 import { useTheme } from 'vuetify'
 import { watch } from 'vue'
+import { navbarHeight } from '../models/globals';
 // @ts-ignore
 import NET from 'vanta/dist/vanta.net.min.js';
+import Bio from '../components/Bio.vue';
 
 const vantaRef = ref(null);
 const theme = useTheme()
@@ -26,7 +28,7 @@ function buildLightNetEffect() {
     return NET({
             el: vantaRef.value,
             color: '#4E937A',
-            backgroundColor: '#ffffff',
+            backgroundColor: '#DBD3D8',
             points: 10,
             maxDistance: 20,
             spacing: 17,
@@ -65,7 +67,8 @@ onBeforeUnmount(() => {
 
 <template>
     <div ref="vantaRef" class="vanta-background" id="home">
-        <div class="bottom-opacity-gradient">
+        <Bio />
+        <div class="bottom-opacity-gradient" :class="{ 'dark': theme.global.current.value.dark }">
 
         </div>
     </div>
@@ -77,6 +80,8 @@ onBeforeUnmount(() => {
     height: 100vh;
     position: relative;
     overflow: hidden;
+    padding-top: v-bind(navbarHeight);
+    backdrop-filter: blur(10px);
 }
 
 .bottom-opacity-gradient {
@@ -84,7 +89,12 @@ onBeforeUnmount(() => {
     bottom: 0;
     left: 0;
     right: 0;
-    height: 100px;
+    height: 300px;
+    background-image: linear-gradient(to top, rgba(255, 255, 255, 1), transparent);
+}
+
+.bottom-opacity-gradient.dark {
     background-image: linear-gradient(to top, rgba(28, 27, 34, 1), transparent);
 }
+
 </style>
