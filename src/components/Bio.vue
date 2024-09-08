@@ -24,7 +24,7 @@ const theme = useTheme()
     justify-content: space-between;
     height: 100%;
     z-index: 5;
-    overflow: scroll;
+    overflow: hidden;
 }
 
 .bio-top-text {

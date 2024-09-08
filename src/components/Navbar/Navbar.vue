@@ -36,9 +36,6 @@ function scrollToId(id: string) {
                     <v-list-item :onClick="() => { scrollToId('resume') }">
                         <v-list-item-title class="navbar-button-text">Resume</v-list-item-title>
                     </v-list-item>
-                    <v-list-item :onClick="() => { scrollToId('blog') }">
-                        <v-list-item-title class="navbar-button-text">Blog</v-list-item-title>
-                    </v-list-item>
                 </v-list>
             </v-menu>
         </div>
@@ -48,7 +45,6 @@ function scrollToId(id: string) {
             <NavbarButton :index="1" text="Home" :onClick="() => { scrollToId('home') }" />
             <NavbarButton :index="2" text="Projects" :onClick="() => { scrollToId('projects') }" />
             <NavbarButton :index="3" text="Resume" :onClick="() => { scrollToId('resume') }" />
-            <NavbarButton :index="4" text="Blog" :onClick="() => { scrollToId('blog') }" />
         </div>
     </div>
 

@@ -4,7 +4,15 @@ import Navbar from './components/navbar/Navbar.vue';
 import Home from './pages/Home.vue';
 import Projects from './pages/Projects.vue';
 import Resume from './pages/Resume.vue';
-import Blog from './pages/Blog.vue';
+
+import { useTheme } from 'vuetify'
+import { watch } from 'vue'
+
+const theme = useTheme()
+
+watch(() => theme.global.current.value.dark, (isDark) => {
+  document.body.style.backgroundColor = isDark ? '#1c1b22' : '#ffffff'
+}, { immediate: true })
 
 </script>
 
@@ -14,12 +22,5 @@ import Blog from './pages/Blog.vue';
 <Home />
 <Projects />
 <Resume />
-<Blog />
-
-
 
 </template>
-
-<style scoped>
-</style>
-
