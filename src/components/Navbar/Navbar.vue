@@ -1,24 +1,6 @@
-<script setup lang="ts">
-import NavbarButton from './NavbarButton.vue';
-import ThemeToggle from '../ThemeToggle.vue';
-import { useTheme } from 'vuetify'
-import { navbarHeight } from '../../models/globals';
-
-const theme = useTheme()
-
-function scrollToId(id: string) {
-    let element = document.getElementById(id);
-    if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-    }
-}
-
-</script>
-
 <template>
-
-    <div class="navbar" :class="{ 'dark': theme.global.current.value.dark }">
-        <ThemeToggle />
+    <div class="navbar" :class="{ 'dark': theme.global.current.dark }">
+        <SettingsDialog />
         <div class="margin-right-auto"></div>
         <div class="hamburger-menu">
             <v-menu color="transparent" location="bottom">
@@ -47,8 +29,34 @@ function scrollToId(id: string) {
             <NavbarButton :index="3" text="Resume" :onClick="() => { scrollToId('resume') }" />
         </div>
     </div>
-
 </template>
+
+<script lang="ts">
+import { defineComponent } from 'vue';
+import NavbarButton from './NavbarButton.vue';
+import SettingsDialog from '../settings/SettingsDialog.vue';
+import { useTheme } from 'vuetify'
+import { navbarHeight } from '../../models/globals';
+import { scrollToId } from '../../helpers/scrollHelper';
+
+export default defineComponent({
+    name: 'Navbar',
+    components: {
+        NavbarButton,
+        SettingsDialog
+    },
+    data() {
+        return {
+            navbarHeight,
+            theme: useTheme()
+        };
+    },
+    methods: {
+        scrollToId
+    }
+});
+
+</script>
 
 <style scoped>
 .navbar {

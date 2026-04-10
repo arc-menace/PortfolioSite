@@ -1,20 +1,23 @@
-<script setup lang="ts">
+<script lang="ts">
+import { defineComponent } from 'vue';
 
-defineProps({
-    index: {
-        type: Number,
-        required: true
-    },
-    text: {
-        type: String,
-        required: true
-    },
-    onClick: {
-        type: Function,
-        required: true
+export default defineComponent({
+    name: 'NavbarButton',
+    props: {
+        index: {
+            type: Number,
+            required: true
+        },
+        text: {
+            type: String,
+            required: true
+        },
+        onClick: {
+            type: Function,
+            required: true
+        }
     }
-})
-
+});
 </script>
 
 <template>

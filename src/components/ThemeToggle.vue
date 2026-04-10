@@ -1,15 +1,33 @@
-<script setup lang="ts">
-import { useTheme } from 'vuetify'
-
-const theme = useTheme()
-</script>
-
 <template>
-    <v-btn icon @click="theme.global.name.value = theme.global.current.value.dark ? 'light' : 'dark'" class="theme-toggle">
-        <i v-if="theme.global.current.value.dark" class="fa-solid fa-sun"></i>
+    <v-btn icon @click="toggleTheme" class="theme-toggle">
+        <i v-if="isDark" class="fa-solid fa-sun"></i>
         <i v-else class="fa-solid fa-moon"></i>
     </v-btn>
 </template>
+
+<script lang="ts">
+import { defineComponent, type Ref } from 'vue';
+import { useTheme } from 'vuetify'
+
+export default defineComponent({
+    name: 'ThemeToggle',
+    data() {
+        return {
+            theme: useTheme()
+        }
+    },
+    computed: {
+        isDark(): boolean {
+            return this.theme.global.current.dark
+        }
+    },
+    methods: {
+        toggleTheme() {
+            (this.theme.global.name as unknown as Ref<string>).value = this.isDark ? 'light' : 'dark'
+        }
+    }
+})
+</script>
 
 <style scoped>
 .theme-toggle {
