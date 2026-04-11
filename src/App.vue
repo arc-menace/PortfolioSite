@@ -33,7 +33,7 @@ export default defineComponent({
     const theme = useTheme();
     const { initializeTheme, currentColors } = useThemeColors();
 
-    // Load saved preferences first
+    // Load saved preferences (selectedThemeId, consent)
     store.loadState();
 
     // Restore light/dark mode preference
@@ -42,33 +42,19 @@ export default defineComponent({
       theme.change(savedThemeMode)
     }
 
-    // Then apply saved theme colors to Vuetify
+    // Apply saved preset colors to Vuetify
     initializeTheme();
 
     return {
-      theme,
       currentColors,
     };
   },
-  computed: {
-    isDark(): boolean {
-      return this.theme.global.current.value.dark
-    }
-  },
   watch: {
-    isDark: {
-      handler(isDark: boolean) {
-        const bgColor = isDark
-          ? this.currentColors.background
-          : this.currentColors.background;
-        document.body.style.backgroundColor = bgColor;
-      },
-      immediate: true
-    },
     'currentColors.background': {
       handler(newBg: string) {
         document.body.style.backgroundColor = newBg;
-      }
+      },
+      immediate: true,
     }
   }
 })

@@ -7,7 +7,7 @@ import { createVuetify } from 'vuetify'
 import 'vuetify/styles'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
-import { defaultLightTheme, defaultDarkTheme } from './models/themeColors'
+import { defaultPreset } from './models/themeColors'
 
 const vuetify = createVuetify({
     components,
@@ -18,21 +18,23 @@ const vuetify = createVuetify({
             light: {
                 dark: false,
                 colors: {
-                    primary: defaultLightTheme.primary,
-                    secondary: defaultLightTheme.secondary,
-                    accent: defaultLightTheme.accent,
-                    background: defaultLightTheme.background,
-                    surface: defaultLightTheme.surface,
+                    primary: defaultPreset.light.primary,
+                    secondary: defaultPreset.light.secondary,
+                    accent: defaultPreset.light.accent,
+                    background: defaultPreset.light.background,
+                    surface: defaultPreset.light.surface,
+                    text: defaultPreset.light.text,
                 },
             },
             dark: {
                 dark: true,
                 colors: {
-                    primary: defaultDarkTheme.primary,
-                    secondary: defaultDarkTheme.secondary,
-                    accent: defaultDarkTheme.accent,
-                    background: defaultDarkTheme.background,
-                    surface: defaultDarkTheme.surface,
+                    primary: defaultPreset.dark.primary,
+                    secondary: defaultPreset.dark.secondary,
+                    accent: defaultPreset.dark.accent,
+                    background: defaultPreset.dark.background,
+                    surface: defaultPreset.dark.surface,
+                    text: defaultPreset.dark.text,
                 },
             },
         },

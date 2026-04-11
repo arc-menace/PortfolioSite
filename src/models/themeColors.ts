@@ -15,24 +15,6 @@ export interface ThemePreset {
     dark: ThemeColors;
 }
 
-export const defaultLightTheme: ThemeColors = {
-    primary: colors.lightBlue.darken1,
-    secondary: colors.deepPurple.lighten5,
-    accent: colors.blue.darken2,
-    background: colors.shades.white,
-    surface: colors.shades.white,
-    text: colors.grey.darken4,
-};
-
-export const defaultDarkTheme: ThemeColors = {
-    primary: '#4E937A',
-    secondary: '#241E4E',
-    accent: '#FF4081',
-    background: '#1c1b22',
-    surface: '#2d2d30',
-    text: colors.shades.white,
-};
-
 export const themePresets: ThemePreset[] = [
     {
         id: 'default',
@@ -123,7 +105,7 @@ export const themePresets: ThemePreset[] = [
         dark: {
             primary: colors.purple.accent1,
             secondary: colors.deepPurple.darken4,
-            accent: colors.blue.accent3,
+            accent: colors.blue.lighten1,
             background: colors.grey.darken4,
             surface: colors.grey.darken3,
             text: colors.shades.white,
@@ -149,3 +131,5 @@ export const themePresets: ThemePreset[] = [
         },
     },
 ];
+
+export const defaultPreset = themePresets[0];

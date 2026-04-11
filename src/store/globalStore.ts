@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
 import { UserPreferences } from '../models/userPreferences'
-import { themePresets } from '../models/themeColors'
 
 export const useGlobalStore = defineStore('global', {
     state: () => ({
@@ -11,28 +10,18 @@ export const useGlobalStore = defineStore('global', {
             const consent = localStorage.getItem('cookieConsent')
             this.userPreferences.hasConsentedToCookies = consent === 'true'
 
-            const theme = localStorage.getItem('theme')
-            if(theme) {
-                document.documentElement.classList.toggle('dark', theme === 'dark')
-            }
-
             const selectedThemeId = localStorage.getItem('selectedThemeId')
             if (selectedThemeId) {
-                this.applyThemePreset(selectedThemeId)
+                this.userPreferences.selectedThemeId = selectedThemeId
             }
         },
-        saveThemePreference(theme: 'light' | 'dark') {
+        saveThemePreference(mode: 'light' | 'dark') {
             if(!this.userPreferences.hasConsentedToCookies) return
 
-            localStorage.setItem('theme', theme)
+            localStorage.setItem('theme', mode)
         },
-        applyThemePreset(presetId: string) {
-            const preset = themePresets.find(p => p.id === presetId)
-            if (!preset) return
-
+        saveSelectedPreset(presetId: string) {
             this.userPreferences.selectedThemeId = presetId
-            this.userPreferences.lightTheme = { ...preset.light }
-            this.userPreferences.darkTheme = { ...preset.dark }
 
             if (!this.userPreferences.hasConsentedToCookies) return
 

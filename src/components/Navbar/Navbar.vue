@@ -1,5 +1,5 @@
 <template>
-    <div class="navbar" :class="{ 'dark': theme.global.current.dark }">
+    <div class="navbar">
         <SettingsDialog />
         <div class="margin-right-auto"></div>
         <div class="hamburger-menu">
@@ -35,7 +35,6 @@
 import { defineComponent } from 'vue';
 import NavbarButton from './NavbarButton.vue';
 import SettingsDialog from '../settings/SettingsDialog.vue';
-import { useTheme } from 'vuetify'
 import { navbarHeight } from '../../models/globals';
 import { scrollToId } from '../../helpers/scrollHelper';
 
@@ -48,7 +47,6 @@ export default defineComponent({
     data() {
         return {
             navbarHeight,
-            theme: useTheme()
         };
     },
     methods: {
