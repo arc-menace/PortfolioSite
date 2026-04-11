@@ -9,11 +9,13 @@ import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 import { defaultPreset } from './models/themeColors'
 
+const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+
 const vuetify = createVuetify({
     components,
     directives,
     theme: {
-        defaultTheme: 'dark',
+        defaultTheme: prefersDark ? 'dark' : 'light',
         themes: {
             light: {
                 dark: false,

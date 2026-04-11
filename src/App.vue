@@ -5,6 +5,7 @@ import Navbar from './components/navbar/Navbar.vue'
 import Home from './pages/Home.vue'
 import Cookies from './components/cookies/Cookies.vue'
 import Slideshow from './components/slideshow/Slideshow.vue'
+import AboutIntro from './components/about/AboutIntro.vue'
 import DogsSection from './components/about/DogsSection.vue'
 import SmartHomeSection from './components/about/SmartHomeSection.vue'
 import MusicSection from './components/about/MusicSection.vue'
@@ -26,6 +27,9 @@ store.loadState()
 
 if (store.savedThemeMode) {
   theme.change(store.savedThemeMode)
+} else {
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+  theme.change(prefersDark ? 'dark' : 'light')
 }
 
 initializeTheme()
@@ -50,6 +54,7 @@ provide('goToSlide', (id: string) => slideshowRef.value?.goToId(id))
   <main id="main-content">
     <Slideshow ref="slideshowRef" :slide-ids="slideIds">
       <div class="slide"><Home /></div>
+      <div class="slide"><AboutIntro /></div>
       <div class="slide"><DogsSection /></div>
       <div class="slide"><SmartHomeSection /></div>
       <div class="slide"><MusicSection /></div>

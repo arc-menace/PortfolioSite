@@ -1,5 +1,6 @@
 export const SLIDE_IDS = {
   home: 'home',
+  about: 'about',
   aboutDogs: 'about-dogs',
   aboutSmarthome: 'about-smarthome',
   aboutMusic: 'about-music',

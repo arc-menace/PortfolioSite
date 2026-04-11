@@ -9,19 +9,13 @@ import SlideSection from '../SlideSection.vue'
         <div class="dogs-grid">
             <div class="dog-card">
                 <div class="dog-image-wrapper">
-                    <!-- Drop a transparent PNG at /images/dogs/butters.png to show the photo -->
-                    <div class="dog-placeholder" aria-label="Photo of Butters coming soon">
-                        <i class="fa-solid fa-dog" aria-hidden="true"></i>
-                    </div>
+                    <img src="/images/dogs/butters.jpg" alt="Butters" class="dog-image" />
                 </div>
                 <span class="dog-name">Butters</span>
             </div>
             <div class="dog-card">
                 <div class="dog-image-wrapper">
-                    <!-- Drop a transparent PNG at /images/dogs/molly.png to show the photo -->
-                    <div class="dog-placeholder" aria-label="Photo of Molly coming soon">
-                        <i class="fa-solid fa-dog" aria-hidden="true"></i>
-                    </div>
+                    <img src="/images/dogs/molly.jpg" alt="Molly" class="dog-image" />
                 </div>
                 <span class="dog-name">Molly</span>
             </div>
@@ -59,30 +53,24 @@ import SlideSection from '../SlideSection.vue'
 .dog-image-wrapper {
     width: 100%;
     aspect-ratio: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    border-radius: 30%;
+    overflow: hidden;
+    position: relative;
+}
+
+.dog-image-wrapper::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: inset 0 0 40px 12px rgba(0, 0, 0, 0.45);
+    pointer-events: none;
 }
 
 .dog-image {
     width: 100%;
     height: 100%;
-    object-fit: contain;
-}
-
-.dog-placeholder {
-    width: 100%;
-    aspect-ratio: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px dashed rgba(var(--v-theme-text), 0.25);
-    border-radius: 12px;
-    color: rgba(var(--v-theme-text), 0.25);
-}
-
-.dog-placeholder i {
-    font-size: 4rem;
+    object-fit: cover;
 }
 
 .dog-name {
