@@ -5,9 +5,11 @@ import SettingsDialog from '../settings/SettingsDialog.vue';
 import { navbarHeight } from '../../models/globals'
 import { useGlobalStore } from '../../store/globalStore'
 import { SLIDE_IDS } from '../../config/slides'
+import { useHaptics } from '../../composables/useHaptics';
 
 const store = useGlobalStore();
 const isDev = import.meta.env.DEV;
+const { hapticLight } = useHaptics();
 
 const goToSlide = inject<(id: string) => void>('goToSlide')!
 </script>
@@ -22,22 +24,22 @@ const goToSlide = inject<(id: string) => void>('goToSlide')!
         <div class="hamburger-menu">
             <v-menu color="transparent" location="bottom">
                 <template v-slot:activator="{ props, isActive }">
-                    <button class="hamburger-btn" v-bind="props" :aria-expanded="isActive" aria-label="Open navigation menu" aria-haspopup="true">
+                    <button class="hamburger-btn" v-bind="props" @click="hapticLight()" :aria-expanded="isActive" aria-label="Open navigation menu" aria-haspopup="true">
                         <i class="fa-solid fa-bars" aria-hidden="true"></i>
                     </button>
                 </template>
 
                 <v-list>
-                    <v-list-item :onClick="() => goToSlide(SLIDE_IDS.home)">
+                    <v-list-item :onClick="() => { hapticLight(); goToSlide(SLIDE_IDS.home); }">
                         <v-list-item-title class="navbar-button-text">Home</v-list-item-title>
                     </v-list-item>
-                    <v-list-item :onClick="() => goToSlide(SLIDE_IDS.aboutDogs)">
+                    <v-list-item :onClick="() => { hapticLight(); goToSlide(SLIDE_IDS.aboutDogs); }">
                         <v-list-item-title class="navbar-button-text">About</v-list-item-title>
                     </v-list-item>
-                    <v-list-item :onClick="() => goToSlide(SLIDE_IDS.projects)">
+                    <v-list-item :onClick="() => { hapticLight(); goToSlide(SLIDE_IDS.projects); }">
                         <v-list-item-title class="navbar-button-text">Projects</v-list-item-title>
                     </v-list-item>
-                    <v-list-item :onClick="() => goToSlide(SLIDE_IDS.contact)">
+                    <v-list-item :onClick="() => { hapticLight(); goToSlide(SLIDE_IDS.contact); }">
                         <v-list-item-title class="navbar-button-text">Contact</v-list-item-title>
                     </v-list-item>
                 </v-list>

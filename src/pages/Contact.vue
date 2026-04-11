@@ -1,3 +1,9 @@
+<script setup lang="ts">
+import { useHaptics } from '../composables/useHaptics';
+
+const { hapticLight } = useHaptics();
+</script>
+
 <template>
     <section id="contact" aria-label="Contact">
         <div class="contact-container">
@@ -28,6 +34,7 @@
                     href="/JoeHahnResume.pdf"
                     class="contact-link"
                     download
+                    @click="hapticLight()"
                 >
                     <i class="fa-solid fa-file-arrow-down"></i>
                     Resume

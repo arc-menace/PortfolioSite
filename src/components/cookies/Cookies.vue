@@ -1,16 +1,20 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useGlobalStore } from '../../store/globalStore';
+import { useHaptics } from '../../composables/useHaptics';
 
 const globalStore = useGlobalStore();
+const { hapticLight } = useHaptics();
 
 const hasAcknowledgedCookieConsent = computed(() => globalStore.hasAcknowledgedCookieConsent);
 
 function acceptCookies() {
+    hapticLight();
     globalStore.consentToCookies();
 }
 
 function declineCookies() {
+    hapticLight();
     globalStore.declineCookies();
 }
 </script>

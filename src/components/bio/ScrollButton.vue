@@ -1,15 +1,17 @@
 <script setup lang="ts">
 import { inject } from 'vue'
 import { SLIDE_IDS } from '../../config/slides'
+import { useHaptics } from '../../composables/useHaptics'
 
 const goToSlide = inject<(id: string) => void>('goToSlide')!
+const { hapticLight } = useHaptics()
 </script>
 
 <template>
     <button
         type="button"
         class="scroll-button"
-        @click="goToSlide(SLIDE_IDS.about)"
+        @click="() => { hapticLight(); goToSlide(SLIDE_IDS.about); }"
         aria-label="Scroll to About section"
     >
         <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>

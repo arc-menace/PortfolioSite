@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useHaptics } from '../../composables/useHaptics';
 
 const props = defineProps<{
     index: number;
@@ -6,6 +7,7 @@ const props = defineProps<{
     onClick: () => void;
 }>();
 
+const { hapticLight } = useHaptics();
 </script>
 
 <template>
@@ -13,7 +15,7 @@ const props = defineProps<{
 <div class="navbar-button-container">
     <div class="number">{{ index }}.</div>
 
-    <button class="navbar-button" @click="() => onClick()">
+    <button class="navbar-button" @click="() => { hapticLight(); onClick(); }">
         {{text}}
     </button>
 </div>

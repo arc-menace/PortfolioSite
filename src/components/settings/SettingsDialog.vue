@@ -4,17 +4,20 @@ import { useTheme } from 'vuetify';
 import { useThemeColors } from '../../composables/useThemeColors';
 import { useGlobalStore } from '../../store/globalStore';
 import { themePresets } from '../../models/themeColors';
+import { useHaptics } from '../../composables/useHaptics';
 
 const dialog = ref(false);
 const theme = useTheme();
 const store = useGlobalStore();
 const { currentColors, selectedThemeId, applyThemePreset } = useThemeColors();
+const { hapticLight } = useHaptics();
 
 const isDark = computed(() => theme.global.current.value.dark);
 
 const presets = themePresets;
 
 function setTheme(mode: 'light' | 'dark') {
+    hapticLight();
     theme.change(mode);
     store.saveThemePreference(mode);
 }
@@ -27,13 +30,14 @@ function getPresetColors(presetId: string): string[] {
 }
 
 function onPresetClick(presetId: string) {
+    hapticLight();
     applyThemePreset(presetId);
 }
 </script>
 
 <template>
     <div>
-        <v-btn icon @click="dialog = true" class="settings-btn" aria-label="Open settings">
+        <v-btn icon @click="() => { hapticLight(); dialog = true; }" class="settings-btn" aria-label="Open settings">
             <i class="fa-solid fa-gear" aria-hidden="true"></i>
         </v-btn>
 
@@ -41,7 +45,7 @@ function onPresetClick(presetId: string) {
             <v-card class="settings-card">
                 <v-card-title class="settings-title">
                     <span>Settings</span>
-                    <v-btn icon variant="text" @click="dialog = false" size="small" aria-label="Close settings">
+                    <v-btn icon variant="text" @click="() => { hapticLight(); dialog = false; }" size="small" aria-label="Close settings">
                         <i class="fa-solid fa-xmark" aria-hidden="true"></i>
                     </v-btn>
                 </v-card-title>
