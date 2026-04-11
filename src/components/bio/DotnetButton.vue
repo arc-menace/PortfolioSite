@@ -2,14 +2,6 @@
     <a href="https://dotnet.microsoft.com/" target="_blank" rel="noopener noreferrer" class="text-highlight">.NET</a>
 </template>
 
-<script lang="ts">
-    import { defineComponent } from 'vue';
-
-    export default defineComponent({
-        name: 'DotnetButton',
-    });
-</script>
-
 <style>
 .text-highlight {
     background: linear-gradient(45deg, #512bd4, #e73c7e, #512bd4);

@@ -1,20 +1,13 @@
+<script setup lang="ts">
+import { scrollToId } from '../../helpers/scrollHelper';
+</script>
+
+
 <template>
     <button class="scroll-button" @click="scrollToId('projects')" aria-label="Scroll to projects">
         <i class="fa-solid fa-chevron-down"></i>
     </button>
 </template>
-
-<script lang="ts">
-import { defineComponent } from 'vue';
-import { scrollToId } from '../../helpers/scrollHelper';
-
-export default defineComponent({
-    name: 'ScrollButton',
-    methods: {
-        scrollToId
-    }
-});
-</script>
 
 <style scoped>
 @media screen and (max-height: 768px) {

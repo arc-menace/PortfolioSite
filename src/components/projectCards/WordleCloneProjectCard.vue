@@ -5,26 +5,11 @@
 
 </template>
 
-<script lang="ts">
-
+<script setup lang="ts">
 import ProjectCard from './ProjectCard.vue'
 
-export default {
-    name: 'WordleCloneProjectCard',
-    components: {
-        ProjectCard
-    },
-    data() {
-        return {
-            subText
-        }
-    }
-}
-
+// Tags: Vue, Typescript, Pinia, Github Pages
 const subText = "A custom remake of the NYT Wordle Games";
-
-// Tags: Vue, Typescript, Pinia, Github Pages, 
-
 </script>
 
 <style scoped>

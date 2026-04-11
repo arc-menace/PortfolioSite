@@ -1,3 +1,10 @@
+<script setup lang="ts">
+import NavbarButton from './NavbarButton.vue';
+import SettingsDialog from '../settings/SettingsDialog.vue';
+import { navbarHeight } from '../../models/globals';
+import { scrollToId } from '../../helpers/scrollHelper';
+</script>
+
 <template>
     <div class="navbar">
         <SettingsDialog />
@@ -30,31 +37,6 @@
         </div>
     </div>
 </template>
-
-<script lang="ts">
-import { defineComponent } from 'vue';
-import NavbarButton from './NavbarButton.vue';
-import SettingsDialog from '../settings/SettingsDialog.vue';
-import { navbarHeight } from '../../models/globals';
-import { scrollToId } from '../../helpers/scrollHelper';
-
-export default defineComponent({
-    name: 'Navbar',
-    components: {
-        NavbarButton,
-        SettingsDialog
-    },
-    data() {
-        return {
-            navbarHeight,
-        };
-    },
-    methods: {
-        scrollToId
-    }
-});
-
-</script>
 
 <style scoped>
 .navbar {

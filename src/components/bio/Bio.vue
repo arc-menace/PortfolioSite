@@ -1,3 +1,8 @@
+<script setup lang="ts">
+import DotnetButton from './DotnetButton.vue';
+import ScrollButton from './ScrollButton.vue';
+</script>\
+
 <template>
     <div class="bio">
         <p class="bio-top-text">Hi, I'm Joe Hahn</p>
@@ -9,21 +14,6 @@
         <ScrollButton />
     </div>
 </template>
-
-<script lang="ts">
-import { defineComponent } from 'vue';
-import DotnetButton from './DotnetButton.vue';
-import ScrollButton from './ScrollButton.vue';
-
-export default defineComponent({
-    name: 'Bio',
-    components: {
-        DotnetButton,
-        ScrollButton
-    },
-});
-
-</script>
 
 <style scoped>
 .bio {

@@ -1,29 +1,13 @@
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script setup lang="ts">
 import { useThemeColors } from '../../composables/useThemeColors';
 
-export default defineComponent({
-    name: 'NavbarButton',
-    data() {
-        return {
-            themeColors: useThemeColors()
-        };
-    },
-    props: {
-        index: {
-            type: Number,
-            required: true
-        },
-        text: {
-            type: String,
-            required: true
-        },
-        onClick: {
-            type: Function,
-            required: true
-        }
-    }
-});
+const props = defineProps<{
+    index: number;
+    text: string;
+    onClick: () => void;
+}>();
+
+const { currentColors } = useThemeColors();
 </script>
 
 <template>
@@ -52,7 +36,7 @@ export default defineComponent({
 .number {
     font-size: 1.5rem;
     font-family: "Consolas", monospace;
-    color: v-bind('themeColors.currentColors.accent');
+    color: v-bind('currentColors.accent');
     opacity: 1;
 }
 

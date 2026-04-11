@@ -11,16 +11,11 @@
     </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-
-export default defineComponent({
-    name: 'ProjectCard',
-    props: {
-        title: String,
-        subText: String
-    },
-});
+<script setup lang="ts">
+defineProps<{
+    title?: string;
+    subText?: string;
+}>();
 </script>
 
 <style scoped>
