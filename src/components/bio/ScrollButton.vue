@@ -1,7 +1,7 @@
 <template>
-    <div class="scroll-button" :onClick="() => { scrollToId('projects') }">
+    <button class="scroll-button" @click="scrollToId('projects')" aria-label="Scroll to projects">
         <i class="fa-solid fa-chevron-down"></i>
-    </div>
+    </button>
 </template>
 
 <script lang="ts">
@@ -29,6 +29,7 @@ export default defineComponent({
     background-color: #000;
     opacity: 0.5;
     color: #fff;
+    border: none;
     border-radius: 50%;
     position: absolute;
     bottom: 25px;
@@ -45,9 +46,8 @@ export default defineComponent({
 }
 
 .scroll-button:hover {
-    background-color: #4AAD52;
+    background-color: rgb(var(--v-theme-accent));
     opacity: 1;
-    scale: 1.1;
     transition: all 0.3s ease;
 }
 </style>

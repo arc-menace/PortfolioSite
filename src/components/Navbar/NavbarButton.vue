@@ -31,9 +31,9 @@ export default defineComponent({
 <div class="navbar-button-container">
     <div class="number">{{ index }}.</div>
 
-    <div class="navbar-button" @click="() => onClick()">
+    <button class="navbar-button" @click="() => onClick()">
         {{text}}
-    </div>
+    </button>
 </div>
 
 
@@ -60,6 +60,10 @@ export default defineComponent({
     cursor: pointer;
     font-size: 1.5rem;
     font-family: "Consolas", monospace;
+    background: none;
+    border: none;
+    color: inherit;
+    padding: 0;
 }
 
 .navbar-button:hover {

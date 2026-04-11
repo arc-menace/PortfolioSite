@@ -1,0 +1,1 @@
+import{d as s,_ as o,o as t,c as n,a}from"./index-Cj-1ytda.js";const r=s({name:"Resume"}),c={id:"resume"};function d(_,e,m,p,u,i){return t(),n("div",c,[...e[0]||(e[0]=[a("h1",null,"Resume",-1)])])}const l=o(r,[["render",d],["__scopeId","data-v-ec7265d5"]]);export{l as default};

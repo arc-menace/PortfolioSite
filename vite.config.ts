@@ -7,7 +7,18 @@ export default defineConfig({
   plugins: [vue()],
   resolve: {
     alias: [
-      
+
     ]
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules/vanta') || id.includes('node_modules/three')) {
+            return 'vanta'
+          }
+        },
+      },
+    },
   },
 })

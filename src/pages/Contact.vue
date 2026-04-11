@@ -1,0 +1,26 @@
+<template>
+    <div id="contact">
+        <h1>Contact</h1>
+    </div>
+</template>
+
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+export default defineComponent({
+    name: 'Contact'
+});
+</script>
+
+<style scoped>
+
+#contact {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    scroll-snap-align: start;
+}
+
+</style>

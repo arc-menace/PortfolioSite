@@ -4,18 +4,21 @@
   <Home />
   <Projects />
   <Resume />
+  <Contact />
 
   <Cookies />
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, defineAsyncComponent } from 'vue'
 import { useTheme } from 'vuetify'
 import Navbar from './components/Navbar/Navbar.vue';
 import Home from './pages/Home.vue';
-import Projects from './pages/Projects.vue';
-import Resume from './pages/Resume.vue';
 import Cookies from './components/cookies/Cookies.vue';
+
+const Projects = defineAsyncComponent(() => import('./pages/Projects.vue'));
+const Resume = defineAsyncComponent(() => import('./pages/Resume.vue'));
+const Contact = defineAsyncComponent(() => import('./pages/Contact.vue'));
 import { useGlobalStore } from './store/globalStore';
 import { useThemeColors } from './composables/useThemeColors';
 
@@ -26,6 +29,7 @@ export default defineComponent({
     Home,
     Projects,
     Resume,
+    Contact,
     Cookies
   },
   setup() {
@@ -33,13 +37,12 @@ export default defineComponent({
     const theme = useTheme();
     const { initializeTheme, currentColors } = useThemeColors();
 
-    // Load saved preferences (selectedThemeId, consent)
+    // Load saved preferences (selectedThemeId, consent, theme mode)
     store.loadState();
 
     // Restore light/dark mode preference
-    const savedThemeMode = localStorage.getItem('theme');
-    if (savedThemeMode === 'light' || savedThemeMode === 'dark') {
-      theme.change(savedThemeMode)
+    if (store.savedThemeMode) {
+      theme.change(store.savedThemeMode)
     }
 
     // Apply saved preset colors to Vuetify

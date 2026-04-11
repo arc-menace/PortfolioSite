@@ -27,6 +27,7 @@
             <NavbarButton :index="1" text="Home" :onClick="() => { scrollToId('home') }" />
             <NavbarButton :index="2" text="Projects" :onClick="() => { scrollToId('projects') }" />
             <NavbarButton :index="3" text="Resume" :onClick="() => { scrollToId('resume') }" />
+            <NavbarButton :index="4" text="Contact" :onClick="() => { scrollToId('contact') }" />
         </div>
     </div>
 </template>
