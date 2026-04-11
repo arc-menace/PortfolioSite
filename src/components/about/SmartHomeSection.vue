@@ -13,7 +13,7 @@ import Zigbee2MQTTIcon from '../../assets/icons/zigbee2mqtt.svg?component'
 </script>
 
 <template>
-    <SlideSection title="Smart Home" icon="fa-solid fa-house-signal" :center="true" max-width="700px">
+    <SlideSection title="Smart Home" icon="fa-solid fa-house-signal" max-width="700px">
         <p class="slide-text">
             I love having a smart home that I can customize and tinker with. It's been such a fun playground to experiment with home networking and automation on my own hardware.
         </p>

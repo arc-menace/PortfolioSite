@@ -22,7 +22,7 @@ const goTo = (index: number) => {
   isDragging.value = false
   dragOffset.value = 0
   currentIndex.value = clamped
-  setTimeout(() => { isTransitioning.value = false }, 550)
+  setTimeout(() => { isTransitioning.value = false }, 400)
 }
 
 const goNext = () => goTo(currentIndex.value + 1)
@@ -77,10 +77,15 @@ const handleWheel = (e: WheelEvent) => {
 let touchStartY = 0
 let touchDecided = false
 let touchIsSwipe = false
+let touchBlocked = false
 const DECIDE_PX = 8
 const SWIPE_PX = 55
 
 const handleTouchStart = (e: TouchEvent) => {
+  // If a transition is in progress, block the entire gesture (all three
+  // handlers check touchBlocked) so stale state can't corrupt dragOffset.
+  touchBlocked = isTransitioning.value
+  if (touchBlocked) return
   touchStartY = e.touches[0].clientY
   touchDecided = false
   touchIsSwipe = false
@@ -88,6 +93,7 @@ const handleTouchStart = (e: TouchEvent) => {
 }
 
 const handleTouchMove = (e: TouchEvent) => {
+  if (touchBlocked) return
   const deltaY = touchStartY - e.touches[0].clientY
 
   // On first meaningful movement, decide whether this is a slide-swipe or
@@ -107,28 +113,29 @@ const handleTouchMove = (e: TouchEvent) => {
 
   if (touchIsSwipe) {
     e.preventDefault()
-    // Block dragging backward past the first slide
+    // Block dragging past either boundary — no rubber band at the bottom
     if (currentIndex.value === 0 && deltaY < 0) return
-    // Rubber-band resistance at the last slide
-    const atLast = currentIndex.value === props.slideIds.length - 1 && deltaY > 0
-    const resistance = atLast ? 0.25 : 1
-    dragOffset.value = -(deltaY * resistance)
+    if (currentIndex.value === props.slideIds.length - 1 && deltaY > 0) return
+    dragOffset.value = -deltaY
   }
 }
 
 const handleTouchEnd = (e: TouchEvent) => {
+  if (touchBlocked) {
+    touchBlocked = false
+    return
+  }
   const deltaY = touchStartY - e.changedTouches[0].clientY
   if (touchIsSwipe) {
     if (deltaY > SWIPE_PX) {
       goNext()
     } else if (deltaY < -SWIPE_PX) {
       goPrev()
-    } else {
-      // Didn't cross threshold — snap back
-      isDragging.value = false
-      dragOffset.value = 0
     }
   }
+  // Always reset drag state — even if goTo() returned early due to clamping
+  isDragging.value = false
+  dragOffset.value = 0
   touchIsSwipe = false
   touchDecided = false
 }
@@ -149,7 +156,7 @@ watch(currentIndex, (i) => {
 
 const wrapperStyle = computed(() => ({
   transform: `translateY(calc(-${currentIndex.value * 100}vh + ${dragOffset.value}px))`,
-  transition: isDragging.value ? 'none' : 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+  transition: isDragging.value ? 'none' : 'transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
 }))
 
 // ── Lifecycle ────────────────────────────────────────────────────────────────

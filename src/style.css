@@ -1,3 +1,7 @@
+html,
 body {
     margin: 0;
+    /* Prevent pull-to-refresh on mobile browsers from triggering on downward
+       swipes when the user is already at the top of the first slide. */
+    overscroll-behavior-y: none;
 }
