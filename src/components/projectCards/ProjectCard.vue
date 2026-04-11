@@ -1,3 +1,10 @@
+<script setup lang="ts">
+defineProps<{
+    title?: string;
+    subText?: string;
+}>();
+</script>
+
 <template>
     <div class="project-card">
         <div class="title">
@@ -10,13 +17,6 @@
         <slot></slot>
     </div>
 </template>
-
-<script setup lang="ts">
-defineProps<{
-    title?: string;
-    subText?: string;
-}>();
-</script>
 
 <style scoped>
 .project-card {

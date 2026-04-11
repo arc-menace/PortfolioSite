@@ -4,7 +4,7 @@ import { useGlobalStore } from '../../store/globalStore';
 
 const globalStore = useGlobalStore();
 
-const hasConsentedToCookies = computed(() => globalStore.userPreferences.hasConsentedToCookies);
+const hasAcknowledgedCookieConsent = computed(() => globalStore.hasAcknowledgedCookieConsent);
 
 function acceptCookies() {
     globalStore.consentToCookies();
@@ -16,7 +16,7 @@ function declineCookies() {
 </script>
 
 <template>
-    <div class="cookies-container" v-if="!hasConsentedToCookies">
+    <div class="cookies-container" v-if="!hasAcknowledgedCookieConsent">
         <p class="cookies-text">This website uses cookies to store your preferences. No data is collected, shared or monetized.</p>
 
         <div class="cookies-buttons">

@@ -1,3 +1,36 @@
+<script setup lang="ts">
+import { ref, computed } from 'vue';
+import { useTheme } from 'vuetify';
+import { useThemeColors } from '../../composables/useThemeColors';
+import { useGlobalStore } from '../../store/globalStore';
+import { themePresets } from '../../models/themeColors';
+
+const dialog = ref(false);
+const theme = useTheme();
+const store = useGlobalStore();
+const { currentColors, selectedThemeId, applyThemePreset } = useThemeColors();
+
+const isDark = computed(() => theme.global.current.value.dark);
+
+const presets = themePresets;
+
+function setTheme(mode: 'light' | 'dark') {
+    theme.change(mode);
+    store.saveThemePreference(mode);
+}
+
+function getPresetColors(presetId: string): string[] {
+    const preset = themePresets.find(p => p.id === presetId);
+    if (!preset) return [];
+    const colors = isDark.value ? preset.dark : preset.light;
+    return [colors.primary, colors.secondary];
+}
+
+function onPresetClick(presetId: string) {
+    applyThemePreset(presetId);
+}
+</script>
+
 <template>
     <div>
         <v-btn icon @click="dialog = true" class="settings-btn">
@@ -63,39 +96,6 @@
         </v-dialog>
     </div>
 </template>
-
-<script setup lang="ts">
-import { ref, computed } from 'vue';
-import { useTheme } from 'vuetify';
-import { useThemeColors } from '../../composables/useThemeColors';
-import { useGlobalStore } from '../../store/globalStore';
-import { themePresets } from '../../models/themeColors';
-
-const dialog = ref(false);
-const theme = useTheme();
-const store = useGlobalStore();
-const { currentColors, selectedThemeId, applyThemePreset } = useThemeColors();
-
-const isDark = computed(() => theme.global.current.value.dark);
-
-const presets = themePresets;
-
-function setTheme(mode: 'light' | 'dark') {
-    theme.change(mode);
-    store.saveThemePreference(mode);
-}
-
-function getPresetColors(presetId: string): string[] {
-    const preset = themePresets.find(p => p.id === presetId);
-    if (!preset) return [];
-    const colors = isDark.value ? preset.dark : preset.light;
-    return [colors.primary, colors.secondary];
-}
-
-function onPresetClick(presetId: string) {
-    applyThemePreset(presetId);
-}
-</script>
 
 <style scoped>
 .settings-btn {

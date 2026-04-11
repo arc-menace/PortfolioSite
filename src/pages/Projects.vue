@@ -1,3 +1,8 @@
+<script setup lang="ts">
+import SIQProjectCard from '../components/projectCards/SIQProjectCard.vue'
+import WordleCloneProjectCard from '../components/projectCards/WordleCloneProjectCard.vue'
+</script>
+
 <template>
     <div id="projects">
         <h1>Projects</h1>
@@ -7,11 +12,6 @@
         </div>
     </div>
 </template>
-
-<script setup lang="ts">
-import SIQProjectCard from '../components/projectCards/SIQProjectCard.vue'
-import WordleCloneProjectCard from '../components/projectCards/WordleCloneProjectCard.vue'
-</script>
 
 <style scoped>
 #projects {

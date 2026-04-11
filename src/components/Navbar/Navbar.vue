@@ -3,11 +3,18 @@ import NavbarButton from './NavbarButton.vue';
 import SettingsDialog from '../settings/SettingsDialog.vue';
 import { navbarHeight } from '../../models/globals';
 import { scrollToId } from '../../helpers/scrollHelper';
+import { useGlobalStore } from '../../store/globalStore';
+
+const store = useGlobalStore();
+const isDev = import.meta.env.DEV;
 </script>
 
 <template>
     <div class="navbar">
         <SettingsDialog />
+        <v-btn v-if="isDev" icon @click="store.resetCookies()" class="debug-cookies-btn" title="[DEV] Reset cookie consent">
+            <i class="fa-solid fa-cookie-bite"></i>
+        </v-btn>
         <div class="margin-right-auto"></div>
         <div class="hamburger-menu">
             <v-menu color="transparent" location="bottom">
@@ -99,5 +106,10 @@ import { scrollToId } from '../../helpers/scrollHelper';
 
 .margin-right-auto {
     margin-right: auto;
+}
+
+.debug-cookies-btn {
+    background-color: transparent;
+    box-shadow: none;
 }
 </style>

@@ -29,11 +29,13 @@ export const useGlobalStore = defineStore('global', {
     state: () => ({
         userPreferences: new UserPreferences(),
         savedThemeMode: null as 'light' | 'dark' | null,
+        hasAcknowledgedCookieConsent: true // Assume true until we check localStorage to avoid flashing the cookie consent banner
     }),
     actions: {
         loadState() {
             const consent = getItem('cookieConsent')
             this.userPreferences.hasConsentedToCookies = consent === 'true'
+            this.hasAcknowledgedCookieConsent = consent !== null
 
             const selectedThemeId = getItem('selectedThemeId')
             if (selectedThemeId) {
@@ -61,6 +63,7 @@ export const useGlobalStore = defineStore('global', {
         },
         consentToCookies() {
             this.userPreferences.hasConsentedToCookies = true
+            this.hasAcknowledgedCookieConsent = true
 
             setItem('cookieConsent', 'true')
         },
@@ -71,6 +74,13 @@ export const useGlobalStore = defineStore('global', {
         },
         declineCookies() {
             this.userPreferences.hasConsentedToCookies = false
+            this.hasAcknowledgedCookieConsent = true
+
+            this.clearCookies()
+        },
+        resetCookies() {
+            this.userPreferences.hasConsentedToCookies = false
+            this.hasAcknowledgedCookieConsent = false
 
             this.clearCookies()
         }
