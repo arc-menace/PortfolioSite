@@ -62,12 +62,12 @@ const handleWheel = (e: WheelEvent) => {
     e.preventDefault()
     wheelCooldown.value = true
     goNext()
-    setTimeout(() => { wheelCooldown.value = false }, 800)
+    setTimeout(() => { wheelCooldown.value = false }, 50)
   } else if (e.deltaY < 0 && isAtTop(slide)) {
     e.preventDefault()
     wheelCooldown.value = true
     goPrev()
-    setTimeout(() => { wheelCooldown.value = false }, 800)
+    setTimeout(() => { wheelCooldown.value = false }, 50)
   }
 }
 

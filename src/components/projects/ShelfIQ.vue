@@ -1,22 +1,18 @@
 <script setup lang="ts">
-import SlideSection from '../SlideSection.vue'
+import SlideSection from '../slideshow/SlideSection.vue'
+import TechChip from '../shared/TechChip.vue'
 </script>
 
 <template>
     <SlideSection title="ShelfIQ" icon="fa-solid fa-boxes-stacked" label="ShelfIQ project">
-        <p class="project-desc"><!-- Add your project description here --></p>
+        <p class="project-desc">CPG assortment and reporting software for retail category teams that automates Space Planning via a COM interface</p>
         <div class="tag-list">
-            <span class="tag"><!-- tech --></span>
-        </div>
-        <div class="project-links">
-            <!-- Example:
-            <a href="https://github.com/arc-menace/shelfiq" target="_blank" rel="noopener noreferrer" class="project-link">
-                <i class="fa-brands fa-github" aria-hidden="true"></i> GitHub
-            </a>
-            <a href="https://shelfiq.app" target="_blank" rel="noopener noreferrer" class="project-link">
-                <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> Live
-            </a>
-            -->
+            <TechChip label="C#" icon="fa-brands fa-windows" />
+            <TechChip label="SQL Server" icon="fa-solid fa-database" />
+            <TechChip label="Oracle DB" icon="fa-solid fa-database" />
+            <TechChip label="COM Interop" icon="fa-brands fa-windows"/>
+            <TechChip label="WPF" icon="fa-solid fa-window-maximize" />
+            <TechChip label="Space Planning" icon="fa-solid fa-boxes-stacked" />
         </div>
     </SlideSection>
 </template>
@@ -36,15 +32,6 @@ import SlideSection from '../SlideSection.vue'
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
-}
-
-.tag {
-    font-family: 'Consolas', 'Courier New', Courier, monospace;
-    font-size: 0.82rem;
-    padding: 0.3rem 0.7rem;
-    border: 1px solid rgba(var(--v-theme-primary), 0.6);
-    border-radius: 4px;
-    color: rgb(var(--v-theme-primary));
 }
 
 .project-links {

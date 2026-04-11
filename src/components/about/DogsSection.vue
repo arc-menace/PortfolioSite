@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import SlideSection from '../SlideSection.vue'
+import SlideSection from '../slideshow/SlideSection.vue'
 </script>
 
 <template>

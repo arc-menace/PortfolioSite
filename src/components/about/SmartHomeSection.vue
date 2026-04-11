@@ -1,26 +1,64 @@
 <script setup lang="ts">
-import SlideSection from '../SlideSection.vue'
+import SlideSection from '../slideshow/SlideSection.vue'
+import TechChip from '../shared/TechChip.vue'
+
+
+import HomeAssistantIcon from '../../assets/icons/homeassistant.svg?component'
+import ProxMoxIcon from '../../assets/icons/proxmox.svg?component'
+import UbiquitiIcon from '../../assets/icons/ubiquiti.svg?component'
+import ClaudeIcon from '../../assets/icons/claude.svg?component'
+import ZigbeeIcon from '../../assets/icons/zigbee.svg?component'
+import Zigbee2MQTTIcon from '../../assets/icons/zigbee2mqtt.svg?component'
+
 </script>
 
 <template>
     <SlideSection title="Smart Home" icon="fa-solid fa-house-signal" :center="true" max-width="700px">
         <p class="slide-text">
-            What started as automating a few lights turned into a full home automation platform.
-            The whole setup runs on a self-hosted stack with a focus on local-first control — no cloud required.
+            I love having a smart home that I can customize and tinker with. It's been such a fun playground to experiment with home networking and automation on my own hardware.
+        </p>
+        <p class="slide-text">
+            I focus on automations that blend into the background and make life easier, like adaptive lighting throughout the day and dedicated modes for common activities. 
+        </p>
+        <p class="slide-text">
+            NetDaemon allows me to write Home Assistant automations in C#, which is a joy compared to YAML. I run it in a ProxMox VM on a dedicated Intel NUC.
+        </p>
+        <p class="slide-text">
+            Dedicated networks for IoT devices and a focus on local control means that I can keep interacts snappy and not worry about data breaches and privacy issues.
         </p>
         <div class="tech-list">
-            <span class="tech-tag">Home Assistant</span>
-            <span class="tech-tag">MQTT</span>
-            <span class="tech-tag">Node-RED</span>
-            <span class="tech-tag">Zigbee</span>
-            <span class="tech-tag">ESPHome</span>
-            <span class="tech-tag">Raspberry Pi</span>
-            <span class="tech-tag">Docker</span>
+            <TechChip label="Home Assistant">
+                <template #icon>
+                    <HomeAssistantIcon />
+                </template>
+            </TechChip>
+            <TechChip label="ProxMox">
+                <template #icon>
+                    <ProxMoxIcon />
+                </template>
+            </TechChip>
+            <TechChip label="Ubiquiti Unifi">
+                <template #icon>
+                    <UbiquitiIcon />
+                </template>
+            </TechChip>
+            <TechChip label="Claude">
+                <template #icon>
+                    <ClaudeIcon />
+                </template>
+            </TechChip>
+            <TechChip label="Zigbee">
+                <template #icon>
+                    <ZigbeeIcon />
+                </template>
+            </TechChip>
+            <TechChip label="Raspberry Pi" icon="fa-brands fa-raspberry-pi" />
+            <TechChip label="Zigbee2MQTT">
+                <template #icon>
+                    <Zigbee2MQTTIcon />
+                </template>
+            </TechChip>
         </div>
-        <p class="slide-text">
-            Automations handle everything from adaptive lighting and presence detection to energy monitoring.
-            Always something new to build.
-        </p>
     </SlideSection>
 </template>
 
@@ -40,14 +78,5 @@ import SlideSection from '../SlideSection.vue'
     flex-wrap: wrap;
     gap: 0.6rem;
     justify-content: center;
-}
-
-.tech-tag {
-    font-family: 'Consolas', 'Courier New', Courier, monospace;
-    font-size: 0.85rem;
-    padding: 0.35rem 0.8rem;
-    border: 1px solid rgba(var(--v-theme-primary), 0.6);
-    border-radius: 4px;
-    color: rgb(var(--v-theme-primary));
 }
 </style>

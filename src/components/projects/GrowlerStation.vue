@@ -1,19 +1,20 @@
 <script setup lang="ts">
-import SlideSection from '../SlideSection.vue'
+import SlideSection from '../slideshow/SlideSection.vue'
+import TechChip from '../shared/TechChip.vue'
 </script>
 
 <template>
     <SlideSection title="The Growler Station" icon="fa-solid fa-beer-mug-empty" label="The Growler Station project">
         <p class="project-desc">A menu creation and management tool for bars and restaurants.</p>
         <div class="tag-list">
-            <span class="tag">C#</span>
-            <span class="tag">MVC</span>
-            <span class="tag">Blazor</span>
-            <span class="tag">Identity Server</span>
-            <span class="tag">JWT</span>
-            <span class="tag">SQL</span>
-            <span class="tag">Android</span>
-            <span class="tag">Entity Framework</span>
+            <TechChip label="C#" icon="fa-brands fa-microsoft" />
+            <TechChip label="MVC" />
+            <TechChip label="Blazor" />
+            <TechChip label="Identity Server" />
+            <TechChip label="JWT" />
+            <TechChip label="SQL" />
+            <TechChip label="Android" icon="fa-brands fa-android" />
+            <TechChip label="Entity Framework" />
         </div>
         <div class="project-links">
             <!-- Add links when ready:
@@ -40,15 +41,6 @@ import SlideSection from '../SlideSection.vue'
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
-}
-
-.tag {
-    font-family: 'Consolas', 'Courier New', Courier, monospace;
-    font-size: 0.82rem;
-    padding: 0.3rem 0.7rem;
-    border: 1px solid rgba(var(--v-theme-primary), 0.6);
-    border-radius: 4px;
-    color: rgb(var(--v-theme-primary));
 }
 
 .project-links {

@@ -1,15 +1,16 @@
 <script setup lang="ts">
-import SlideSection from '../SlideSection.vue'
+import SlideSection from '../slideshow/SlideSection.vue'
+import TechChip from '../shared/TechChip.vue'
 </script>
 
 <template>
     <SlideSection title="Wordle Clone" icon="fa-solid fa-square-check" label="Wordle Clone project">
         <p class="project-desc">A custom remake of the NYT Wordle game.</p>
         <div class="tag-list">
-            <span class="tag">Vue</span>
-            <span class="tag">TypeScript</span>
-            <span class="tag">Pinia</span>
-            <span class="tag">GitHub Pages</span>
+            <TechChip label="Vue" icon="fa-brands fa-vuejs" />
+            <TechChip label="TypeScript" />
+            <TechChip label="Pinia" />
+            <TechChip label="GitHub Pages" icon="fa-brands fa-github" />
         </div>
         <div class="project-links">
             <!-- Add links when ready:
@@ -39,15 +40,6 @@ import SlideSection from '../SlideSection.vue'
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
-}
-
-.tag {
-    font-family: 'Consolas', 'Courier New', Courier, monospace;
-    font-size: 0.82rem;
-    padding: 0.3rem 0.7rem;
-    border: 1px solid rgba(var(--v-theme-primary), 0.6);
-    border-radius: 4px;
-    color: rgb(var(--v-theme-primary));
 }
 
 .project-links {
