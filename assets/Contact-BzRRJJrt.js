@@ -1,0 +1,1 @@
+import{_ as c,o as e,c as o,a as n}from"./index-Cfb6-qbP.js";const a={},s={id:"contact"};function r(_,t){return e(),o("section",s,[...t[0]||(t[0]=[n("h2",null,"Contact",-1)])])}const f=c(a,[["render",r],["__scopeId","data-v-75bcc834"]]);export{f as default};
