@@ -1,0 +1,1 @@
+import{_ as e,o,c,a}from"./index-DCbguqMJ.js";const n={},s={id:"contact"};function r(_,t){return o(),c("div",s,[...t[0]||(t[0]=[a("h1",null,"Contact",-1)])])}const f=e(n,[["render",r],["__scopeId","data-v-1ffe64c3"]]);export{f as default};
