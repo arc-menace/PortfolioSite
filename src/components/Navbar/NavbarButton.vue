@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useThemeColors } from '../../composables/useThemeColors';
 
 const props = defineProps<{
     index: number;
@@ -7,7 +6,6 @@ const props = defineProps<{
     onClick: () => void;
 }>();
 
-const { currentColors } = useThemeColors();
 </script>
 
 <template>
@@ -36,7 +34,7 @@ const { currentColors } = useThemeColors();
 .number {
     font-size: 1.5rem;
     font-family: "Consolas", monospace;
-    color: v-bind('currentColors.accent');
+    color: rgb(var(--v-theme-accent));
     opacity: 1;
 }
 

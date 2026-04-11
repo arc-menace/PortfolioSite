@@ -17,11 +17,11 @@ function declineCookies() {
 
 <template>
     <div class="cookies-container" v-if="!hasAcknowledgedCookieConsent">
-        <p class="cookies-text">This website uses cookies to store your preferences. No data is collected, shared or monetized.</p>
+        <p class="cookies-text">This website can use cookies to store your preferences. No data is collected, shared or monetized.</p>
 
         <div class="cookies-buttons">
-            <button class="cookies-btn accept" @click="acceptCookies">I Understand</button>
-            <button class="cookies-btn decline" @click="declineCookies">No cookies for me</button>
+            <v-btn class="cookies-btn accept" @click="acceptCookies">I Understand</v-btn>
+            <v-btn class="cookies-btn decline" @click="declineCookies">No cookies for me</v-btn>
         </div>
     </div>
 </template>
@@ -33,11 +33,12 @@ function declineCookies() {
     right: 2rem;
     width: calc(100% - 4rem);
     max-width: 500px;
-    background-color: rgba(0, 0, 0, 0.75);
+    background-color: rgb(var(--v-theme-surface));
     padding: 1.5rem;
     border-radius: 0.75rem;
     display: flex;
     flex-direction: column;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .cookies-text {
@@ -63,27 +64,12 @@ function declineCookies() {
 }
 
 .cookies-btn.accept {
-    background-color: #3b82f6;
-    color: white;
-}
-
-.cookies-btn.accept:hover {
-    background-color: #2563eb;
-    transform: translateY(-1px);
+    background-color: rgb(var(--v-theme-primary));
+    color: rgb(var(--v-theme-text));
 }
 
 .cookies-btn.decline {
-    background-color: #4b5563;
-    color: white;
-}
-
-.cookies-btn.decline:hover {
-    background-color: #374151;
-    transform: translateY(-1px);
-}
-
-.cookies-btn:focus-visible {
-    outline: 2px solid #fff;
-    outline-offset: 2px;
+    background-color: rgb(var(--v-theme-secondary));
+    color: rgb(var(--v-theme-text));
 }
 </style>

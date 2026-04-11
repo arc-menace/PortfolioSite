@@ -1,0 +1,1 @@
+import{_ as e,o,c,a as n}from"./index-CFkEBSwL.js";const a={},s={id:"contact"};function r(_,t){return o(),c("section",s,[...t[0]||(t[0]=[n("h2",null,"Contact",-1)])])}const f=e(a,[["render",r],["__scopeId","data-v-1fedf48f"]]);export{f as default};
