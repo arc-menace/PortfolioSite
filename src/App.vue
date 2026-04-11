@@ -11,7 +11,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { useTheme } from 'vuetify'
-import Navbar from './components/navbar/Navbar.vue';
+import Navbar from './components/Navbar/Navbar.vue';
 import Home from './pages/Home.vue';
 import Projects from './pages/Projects.vue';
 import Resume from './pages/Resume.vue';
@@ -35,6 +35,12 @@ export default defineComponent({
 
     // Load saved preferences first
     store.loadState();
+
+    // Restore light/dark mode preference
+    const savedThemeMode = localStorage.getItem('theme');
+    if (savedThemeMode === 'light' || savedThemeMode === 'dark') {
+      theme.change(savedThemeMode)
+    }
 
     // Then apply saved theme colors to Vuetify
     initializeTheme();

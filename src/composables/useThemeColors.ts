@@ -1,7 +1,7 @@
 import { computed } from 'vue'
 import { useTheme } from 'vuetify'
 import { useGlobalStore } from '../store/globalStore'
-import { ThemeColors } from '../models/themeColors'
+import { ThemeColors, themePresets } from '../models/themeColors'
 
 export function useThemeColors() {
     const theme = useTheme()
@@ -14,23 +14,23 @@ export function useThemeColors() {
         return isDark.value ? store.userPreferences.darkTheme : store.userPreferences.lightTheme
     })
 
+    const selectedThemeId = computed(() => store.userPreferences.selectedThemeId)
+
     function applyColorsToVuetify(mode: 'light' | 'dark', colors: ThemeColors) {
-        const themeColors = theme.themes.value[mode].colors
-        themeColors.primary = colors.primary
-        themeColors.secondary = colors.secondary
-        themeColors.accent = colors.accent
-        themeColors.background = colors.background
-        themeColors.surface = colors.surface
+        const target = theme.themes.value[mode].colors
+        Object.assign(target, {
+            primary: colors.primary,
+            secondary: colors.secondary,
+            accent: colors.accent,
+            background: colors.background,
+            surface: colors.surface,
+        })
     }
 
-    function updateColor(colorKey: keyof ThemeColors, value: string) {
-        store.updateThemeColor(currentMode.value, colorKey, value)
-        applyColorsToVuetify(currentMode.value, currentColors.value)
-    }
-
-    function resetColors() {
-        store.resetThemeColors(currentMode.value)
-        applyColorsToVuetify(currentMode.value, currentColors.value)
+    function applyThemePreset(presetId: string) {
+        store.applyThemePreset(presetId)
+        applyColorsToVuetify('light', store.userPreferences.lightTheme)
+        applyColorsToVuetify('dark', store.userPreferences.darkTheme)
     }
 
     function initializeTheme() {
@@ -42,8 +42,9 @@ export function useThemeColors() {
         isDark,
         currentMode,
         currentColors,
-        updateColor,
-        resetColors,
+        selectedThemeId,
+        themePresets,
+        applyThemePreset,
         initializeTheme,
     }
 }

@@ -23,7 +23,7 @@ export default defineComponent({
     },
     methods: {
         toggleTheme() {
-            (this.theme.global.name as unknown as Ref<string>).value = this.isDark ? 'light' : 'dark'
+            this.theme.change(this.isDark ? 'light' : 'dark');
         }
     }
 })

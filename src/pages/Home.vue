@@ -1,7 +1,7 @@
 <template>
     <div ref="vantaRef" class="vanta-background" id="home">
         <Bio />
-        <div class="bottom-opacity-gradient" :class="{ 'dark': isDark }"></div>
+        <div class="bottom-opacity-gradient" :style="gradientStyle"></div>
     </div>
 </template>
 
@@ -13,6 +13,7 @@ import { navbarHeight } from '../models/globals';
 import NET from 'vanta/dist/vanta.net.min.js';
 import Bio from '../components/bio/Bio.vue';
 import { useGlobalStore } from '../store/globalStore';
+import { useThemeColors } from '../composables/useThemeColors';
 
 export default defineComponent({
     name: 'Home',
@@ -24,7 +25,8 @@ export default defineComponent({
             vantaEffect: null as any,
             theme: useTheme(),
             navbarHeight,
-            store: useGlobalStore()
+            store: useGlobalStore(),
+            themeColors: useThemeColors()
         };
     },
     computed: {
@@ -33,11 +35,23 @@ export default defineComponent({
         },
         settingsDialogOpen(): boolean {
             return this.store.settingsDialogOpen;
+        },
+        selectedThemeId(): string {
+            return this.store.userPreferences.selectedThemeId;
+        },
+        gradientStyle(): Record<string, string> {
+            const bg = this.themeColors.currentColors.background;
+            return {
+                backgroundImage: `linear-gradient(to top, ${bg}, transparent)`
+            };
         }
     },
     watch: {
         isDark() {
-            this.buildEffect();
+            this.rebuildVanta();
+        },
+        selectedThemeId() {
+            this.rebuildVanta();
         }
     },
     mounted() {
@@ -52,34 +66,24 @@ export default defineComponent({
         }
     },
     methods: {
-        buildDarkNetEffect() {
-            return NET({
-                el: this.$refs.vantaRef,
-                color: '#4E937A',
-                backgroundColor: '#241E4E',
-                points: 10,
-                maxDistance: 20,
-                spacing: 17,
-                showDots: true
-            });
-        },
-        buildLightNetEffect() {
-            return NET({
-                el: this.$refs.vantaRef,
-                color: '#4E937A',
-                backgroundColor: '#DBD3D8',
-                points: 10,
-                maxDistance: 20,
-                spacing: 17,
-                showDots: true
-            });
+        rebuildVanta() {
+            if (this.vantaEffect) {
+                this.vantaEffect.destroy();
+            }
+            this.vantaEffect = this.buildEffect();
         },
         buildEffect() {
-            if (this.isDark) {
-                return this.buildDarkNetEffect();
-            } else {
-                return this.buildLightNetEffect();
-            }
+            const colors = this.themeColors.currentColors;
+            return NET({
+                el: this.$refs.vantaRef,
+                color: colors.primary,
+                backgroundColor: colors.secondary,
+                points: 10,
+                maxDistance: 20,
+                spacing: 17,
+                showDots: true,
+                mouseControls: false
+            });
         }
     }
 });
@@ -102,10 +106,5 @@ export default defineComponent({
     left: 0;
     right: 0;
     height: 300px;
-    background-image: linear-gradient(to top, rgba(255, 255, 255, 1), transparent);
-}
-
-.bottom-opacity-gradient.dark {
-    background-image: linear-gradient(to top, rgba(28, 27, 34, 1), transparent);
 }
 </style>

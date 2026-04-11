@@ -1,8 +1,14 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { useThemeColors } from '../../composables/useThemeColors';
 
 export default defineComponent({
     name: 'NavbarButton',
+    data() {
+        return {
+            themeColors: useThemeColors()
+        };
+    },
     props: {
         index: {
             type: Number,
@@ -46,7 +52,7 @@ export default defineComponent({
 .number {
     font-size: 1.5rem;
     font-family: "Consolas", monospace;
-    color: #4AAD52;
+    color: v-bind('themeColors.currentColors.accent');
     opacity: 1;
 }
 

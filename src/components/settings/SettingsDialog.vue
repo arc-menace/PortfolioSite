@@ -16,64 +16,47 @@
                 <v-card-text>
                     <div class="settings-section">
                         <div class="theme-mode-toggle">
-                            <span class="section-label">Theme Mode</span>
-                            <div class="toggle-buttons">
-                                <v-btn
-                                    :variant="!isDark ? 'outlined' : 'text'"
-                                    size="small"
-                                    @click="setTheme('light')"
-                                >
-                                    <i class="fa-solid fa-sun"></i>
-                                    <span class="ml-2">Light</span>
-                                </v-btn>
-                                <v-btn
-                                    :variant="isDark ? 'outlined' : 'text'"
-                                    size="small"
-                                    @click="setTheme('dark')"
-                                >
-                                    <i class="fa-solid fa-moon"></i>
-                                    <span class="ml-2">Dark</span>
-                                </v-btn>
-                            </div>
+                            <v-btn
+                                :variant="!isDark ? 'outlined' : 'text'"
+                                size="small"
+                                @click="setTheme('light')"
+                            >
+                                <i class="fa-solid fa-sun"></i>
+                                <span class="ml-2">Light</span>
+                            </v-btn>
+                            <v-btn
+                                :variant="isDark ? 'outlined' : 'text'"
+                                size="small"
+                                @click="setTheme('dark')"
+                            >
+                                <i class="fa-solid fa-moon"></i>
+                                <span class="ml-2">Dark</span>
+                            </v-btn>
                         </div>
                     </div>
 
                     <v-divider class="my-4"></v-divider>
 
                     <div class="settings-section">
-                        <div class="section-header">
-                            <span class="section-label">Customize Colors</span>
-                            <span class="editing-mode">{{ isDark ? 'Dark' : 'Light' }} theme</span>
-                        </div>
-
-                        <div class="color-options">
-                            <div
-                                class="color-option"
-                                v-for="(value, key) in currentColors"
-                                :key="key"
+                        <div class="theme-presets">
+                            <button
+                                v-for="preset in presets"
+                                :key="preset.id"
+                                class="theme-preset-btn"
+                                :class="{ 'theme-preset-btn--active': selectedThemeId === preset.id }"
+                                :style="selectedThemeId === preset.id ? { borderColor: currentColors.primary } : {}"
+                                @click="onPresetClick(preset.id)"
                             >
-                                <label :for="String(key)">{{ formatLabel(String(key)) }}</label>
-                                <div class="color-input-wrapper">
-                                    <input
-                                        type="color"
-                                        :id="String(key)"
-                                        :value="value"
-                                        @input="(e) => handleColorChange(key, (e.target as HTMLInputElement).value)"
-                                    />
-                                    <span class="color-value">{{ value }}</span>
+                                <div class="preset-colors">
+                                    <div
+                                        v-for="color in getPresetColors(preset.id)"
+                                        :key="color"
+                                        class="preset-color-swatch"
+                                        :style="{ backgroundColor: color }"
+                                    ></div>
                                 </div>
-                            </div>
+                            </button>
                         </div>
-
-                        <v-btn
-                            variant="outlined"
-                            size="small"
-                            block
-                            class="mt-4"
-                            @click="resetColors"
-                        >
-                            Reset to Defaults
-                        </v-btn>
                     </div>
                 </v-card-text>
             </v-card>
@@ -86,7 +69,7 @@ import { defineComponent, ref, computed, watch, type Ref } from 'vue';
 import { useTheme } from 'vuetify';
 import { useThemeColors } from '../../composables/useThemeColors';
 import { useGlobalStore } from '../../store/globalStore';
-import type { ThemeColors } from '../../models/themeColors';
+import { themePresets } from '../../models/themeColors';
 
 export default defineComponent({
     name: 'SettingsDialog',
@@ -94,35 +77,38 @@ export default defineComponent({
         const dialog = ref(false);
         const theme = useTheme();
         const store = useGlobalStore();
-        const { currentColors, updateColor, resetColors } = useThemeColors();
+        const { currentColors, selectedThemeId, applyThemePreset } = useThemeColors();
 
         const isDark = computed(() => theme.global.current.value.dark);
 
-        watch(dialog, (isOpen) => {
-            store.$patch({ settingsDialogOpen: isOpen });
-        });
+        const presets = themePresets;
 
         function setTheme(mode: 'light' | 'dark') {
-            (theme.global.name as unknown as Ref<string>).value = mode;
+            theme.change(mode);
             store.saveThemePreference(mode);
         }
 
-        function handleColorChange(key: string | number, value: string) {
-            updateColor(key as keyof ThemeColors, value);
+        function getPresetColors(presetId: string): string[] {
+            const preset = themePresets.find(p => p.id === presetId);
+            if (!preset) return [];
+            const colors = isDark.value ? preset.dark : preset.light;
+            return [colors.primary, colors.secondary, colors.accent, colors.text];
         }
 
-        function formatLabel(key: string): string {
-            return key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1');
+        function onPresetClick(presetId: string) {
+            applyThemePreset(presetId);
         }
 
         return {
             dialog,
             isDark,
             currentColors,
+            selectedThemeId,
+            presets,
             setTheme,
-            handleColorChange,
-            resetColors,
-            formatLabel,
+            applyThemePreset,
+            getPresetColors,
+            onPresetClick,
         };
     },
 });
@@ -150,80 +136,53 @@ export default defineComponent({
     padding: 0.5rem 0;
 }
 
-.section-label {
-    font-weight: 500;
-    font-size: 0.875rem;
-}
-
-.section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-}
-
-.editing-mode {
-    font-size: 0.75rem;
-    opacity: 0.6;
-}
-
 .theme-mode-toggle {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 }
 
-.toggle-buttons {
-    display: flex;
-    gap: 0.5rem;
-}
-
-.color-options {
+.theme-presets {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
-}
-
-.color-option {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.color-option label {
-    font-size: 0.875rem;
-}
-
-.color-input-wrapper {
-    display: flex;
-    align-items: center;
     gap: 0.5rem;
 }
 
-.color-input-wrapper input[type="color"] {
-    width: 32px;
-    height: 32px;
+.theme-preset-btn {
+    display: flex;
+    align-items: center;
+    width: 100%;
     padding: 0;
-    border: none;
-    border-radius: 4px;
+    border: 2px solid transparent;
+    border-radius: 8px;
     cursor: pointer;
     background: none;
+    overflow: hidden;
+    transition: border-color 0.2s ease;
+    height: 40px;
 }
 
-.color-input-wrapper input[type="color"]::-webkit-color-swatch-wrapper {
-    padding: 0;
+.theme-preset-btn:hover {
+    border-color: rgba(128, 128, 128, 0.4);
 }
 
-.color-input-wrapper input[type="color"]::-webkit-color-swatch {
-    border: 1px solid rgba(128, 128, 128, 0.3);
-    border-radius: 4px;
+.theme-preset-btn--active {
+    border-width: 2px;
 }
 
-.color-value {
-    font-family: monospace;
-    font-size: 0.75rem;
-    opacity: 0.7;
-    min-width: 60px;
+.theme-preset-btn--active:hover {
+    border-color: inherit;
+}
+
+.preset-colors {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.preset-color-swatch {
+    flex: 1;
+    height: 100%;
 }
 
 .ml-2 {
@@ -233,9 +192,5 @@ export default defineComponent({
 .my-4 {
     margin-top: 1rem;
     margin-bottom: 1rem;
-}
-
-.mt-4 {
-    margin-top: 1rem;
 }
 </style>
