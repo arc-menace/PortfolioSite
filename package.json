@@ -11,6 +11,7 @@
     "deploy": "echo www.joe-hahn.com > ./dist/CNAME && gh-pages -d dist"
   },
   "dependencies": {
+    "@rollup/rollup-win32-x64-msvc": "^4.60.1",
     "pinia": "^2.2.2",
     "three": "^0.168.0",
     "vanta": "^0.5.24",

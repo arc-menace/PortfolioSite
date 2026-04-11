@@ -31,6 +31,7 @@ export default defineComponent({
     flex-direction: column;
     justify-content: start;
     align-items: center;
+    scroll-snap-align: start;
 }
 
 .project-cards {

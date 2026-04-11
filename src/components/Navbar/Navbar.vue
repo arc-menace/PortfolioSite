@@ -66,7 +66,7 @@ export default defineComponent({
     justify-content: end;
     height: v-bind(navbarHeight);
     width: 100%;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: transparent;
     position: fixed;
     top: 0;
     left: 0;
@@ -89,10 +89,6 @@ export default defineComponent({
     font-size: 1.2rem;
     font-weight: 500;
     font-family: 'Consolas', 'Courier New', Courier, monospace;
-}
-
-.navbar.dark {
-    background-color: rgba(0, 0, 0, 0.8);
 }
 
 .hamburger-menu {
