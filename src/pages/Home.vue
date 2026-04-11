@@ -1,5 +1,5 @@
 <template>
-    <div ref="vantaRef" class="vanta-background" id="home">
+    <div ref="vantaRef" class="vanta-background" id="home" :style="backgroundStyle">
         <Bio />
         <div class="bottom-opacity-gradient" :style="gradientStyle"></div>
     </div>
@@ -9,11 +9,12 @@
 import { defineComponent } from 'vue';
 import { useTheme } from 'vuetify';
 import { navbarHeight } from '../models/globals';
-// @ts-ignore
-import NET from 'vanta/dist/vanta.net.min.js';
 import Bio from '../components/bio/Bio.vue';
 import { useGlobalStore } from '../store/globalStore';
 import { useThemeColors } from '../composables/useThemeColors';
+
+// @ts-ignore — no type declarations for vanta
+const loadVanta = () => import('vanta/dist/vanta.net.min.js');
 
 export default defineComponent({
     name: 'Home',
@@ -33,12 +34,15 @@ export default defineComponent({
         isDark(): boolean {
             return this.theme.global.current.dark;
         },
-        settingsDialogOpen(): boolean {
-            return this.store.settingsDialogOpen;
-        },
         selectedThemeId(): string {
             return this.store.userPreferences.selectedThemeId;
         },
+        backgroundStyle(): Record<string, string> {
+            return {
+                backgroundColor: this.themeColors.currentColors.secondary
+            };
+        },
+        // creates a gradient that fades from the background of the vanta effect (v-theme-secondary) to the actual background color
         gradientStyle(): Record<string, string> {
             const bg = this.themeColors.currentColors.background;
             return {
@@ -55,9 +59,12 @@ export default defineComponent({
         }
     },
     mounted() {
-        if (!this.vantaEffect) {
-            this.vantaEffect = this.buildEffect();
-        }
+        // Defer vanta so the page paints immediately with just the background color
+        requestAnimationFrame(() => {
+            if (!this.vantaEffect) {
+                this.buildEffect();
+            }
+        });
     },
     beforeUnmount() {
         if (this.vantaEffect) {
@@ -70,11 +77,12 @@ export default defineComponent({
             if (this.vantaEffect) {
                 this.vantaEffect.destroy();
             }
-            this.vantaEffect = this.buildEffect();
+            this.buildEffect();
         },
-        buildEffect() {
+        async buildEffect() {
+            const { default: NET } = await loadVanta();
             const colors = this.themeColors.currentColors;
-            return NET({
+            this.vantaEffect = NET({
                 el: this.$refs.vantaRef,
                 color: colors.primary,
                 backgroundColor: colors.secondary,

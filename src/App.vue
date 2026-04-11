@@ -3,7 +3,6 @@
 
   <Home />
   <Projects />
-  <Resume />
   <Contact />
 
   <Cookies />
@@ -17,7 +16,6 @@ import Home from './pages/Home.vue';
 import Cookies from './components/cookies/Cookies.vue';
 
 const Projects = defineAsyncComponent(() => import('./pages/Projects.vue'));
-const Resume = defineAsyncComponent(() => import('./pages/Resume.vue'));
 const Contact = defineAsyncComponent(() => import('./pages/Contact.vue'));
 import { useGlobalStore } from './store/globalStore';
 import { useThemeColors } from './composables/useThemeColors';
@@ -28,7 +26,6 @@ export default defineComponent({
     Navbar,
     Home,
     Projects,
-    Resume,
     Contact,
     Cookies
   },
