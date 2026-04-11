@@ -5,7 +5,7 @@ import WordleCloneProjectCard from '../components/projectCards/WordleCloneProjec
 
 <template>
     <section id="projects">
-        <h2>Projects</h2>
+        <h2>What I've Built</h2>
         <div class="project-cards">
             <SIQProjectCard/>
             <WordleCloneProjectCard/>

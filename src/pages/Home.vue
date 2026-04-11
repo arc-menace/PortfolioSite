@@ -64,7 +64,8 @@ async function buildEffect() {
         maxDistance: 20,
         spacing: 17,
         showDots: true,
-        mouseControls: false
+        mouseControls: false,
+        touchControls: false
     });
 }
 </script>
