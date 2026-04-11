@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { UserPreferences } from '../models/userPreferences'
-import { ThemeColors, themePresets } from '../models/themeColors'
+import { themePresets } from '../models/themeColors'
 
 export const useGlobalStore = defineStore('global', {
     state: () => ({

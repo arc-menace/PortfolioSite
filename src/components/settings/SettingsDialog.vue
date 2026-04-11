@@ -65,7 +65,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, watch, type Ref } from 'vue';
+import { defineComponent, ref, computed } from 'vue';
 import { useTheme } from 'vuetify';
 import { useThemeColors } from '../../composables/useThemeColors';
 import { useGlobalStore } from '../../store/globalStore';
@@ -92,7 +92,7 @@ export default defineComponent({
             const preset = themePresets.find(p => p.id === presetId);
             if (!preset) return [];
             const colors = isDark.value ? preset.dark : preset.light;
-            return [colors.primary, colors.secondary, colors.accent, colors.text];
+            return [colors.primary, colors.secondary];
         }
 
         function onPresetClick(presetId: string) {
