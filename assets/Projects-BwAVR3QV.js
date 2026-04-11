@@ -1,1 +1,0 @@
-import{d as t,o,c as s,w as a,a as n,S as r,_ as c}from"./index-D5Vqy-qZ.js";const i=t({__name:"Projects",setup(_){return(p,e)=>(o(),s(r,{title:"What I've Built"},{default:a(()=>[...e[0]||(e[0]=[n("p",{class:"intro-text"},"A few things I've worked on. Swipe to dig in.",-1)])]),_:1}))}}),f=c(i,[["__scopeId","data-v-21fea10f"]]);export{f as default};
