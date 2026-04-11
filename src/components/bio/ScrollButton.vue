@@ -1,20 +1,13 @@
-<template>
-    <div class="scroll-button" :onClick="() => { scrollToId('projects') }">
-        <i class="fa-solid fa-chevron-down"></i>
-    </div>
-</template>
-
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script setup lang="ts">
 import { scrollToId } from '../../helpers/scrollHelper';
-
-export default defineComponent({
-    name: 'ScrollButton',
-    methods: {
-        scrollToId
-    }
-});
 </script>
+
+
+<template>
+    <button class="scroll-button" @click="scrollToId('projects')" aria-label="Scroll to projects">
+        <i class="fa-solid fa-chevron-down"></i>
+    </button>
+</template>
 
 <style scoped>
 @media screen and (max-height: 768px) {
@@ -29,6 +22,7 @@ export default defineComponent({
     background-color: #000;
     opacity: 0.5;
     color: #fff;
+    border: none;
     border-radius: 50%;
     position: absolute;
     bottom: 25px;
@@ -45,9 +39,8 @@ export default defineComponent({
 }
 
 .scroll-button:hover {
-    background-color: #4AAD52;
+    background-color: rgb(var(--v-theme-accent));
     opacity: 1;
-    scale: 1.1;
     transition: all 0.3s ease;
 }
 </style>

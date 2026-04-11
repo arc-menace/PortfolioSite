@@ -1,55 +1,86 @@
 import { defineStore } from 'pinia'
 import { UserPreferences } from '../models/userPreferences'
-import { ThemeColors, themePresets } from '../models/themeColors'
+
+function getItem(key: string): string | null {
+    try {
+        return localStorage.getItem(key)
+    } catch {
+        return null
+    }
+}
+
+function setItem(key: string, value: string) {
+    try {
+        localStorage.setItem(key, value)
+    } catch {
+        // localStorage unavailable (private browsing, storage full, etc.)
+    }
+}
+
+function removeItem(key: string) {
+    try {
+        localStorage.removeItem(key)
+    } catch {
+        // localStorage unavailable
+    }
+}
 
 export const useGlobalStore = defineStore('global', {
     state: () => ({
         userPreferences: new UserPreferences(),
+        savedThemeMode: null as 'light' | 'dark' | null,
+        hasAcknowledgedCookieConsent: true // Assume true until we check localStorage to avoid flashing the cookie consent banner
     }),
     actions: {
         loadState() {
-            const consent = localStorage.getItem('cookieConsent')
+            const consent = getItem('cookieConsent')
             this.userPreferences.hasConsentedToCookies = consent === 'true'
+            this.hasAcknowledgedCookieConsent = consent !== null
 
-            const theme = localStorage.getItem('theme')
-            if(theme) {
-                document.documentElement.classList.toggle('dark', theme === 'dark')
-            }
-
-            const selectedThemeId = localStorage.getItem('selectedThemeId')
+            const selectedThemeId = getItem('selectedThemeId')
             if (selectedThemeId) {
-                this.applyThemePreset(selectedThemeId)
+                this.userPreferences.selectedThemeId = selectedThemeId
+            }
+
+            const theme = getItem('theme')
+            if (theme === 'light' || theme === 'dark') {
+                this.savedThemeMode = theme
             }
         },
-        saveThemePreference(theme: 'light' | 'dark') {
-            if(!this.userPreferences.hasConsentedToCookies) return
-
-            localStorage.setItem('theme', theme)
-        },
-        applyThemePreset(presetId: string) {
-            const preset = themePresets.find(p => p.id === presetId)
-            if (!preset) return
-
-            this.userPreferences.selectedThemeId = presetId
-            this.userPreferences.lightTheme = { ...preset.light }
-            this.userPreferences.darkTheme = { ...preset.dark }
+        saveThemePreference(mode: 'light' | 'dark') {
+            this.savedThemeMode = mode
 
             if (!this.userPreferences.hasConsentedToCookies) return
 
-            localStorage.setItem('selectedThemeId', presetId)
+            setItem('theme', mode)
+        },
+        saveSelectedPreset(presetId: string) {
+            this.userPreferences.selectedThemeId = presetId
+
+            if (!this.userPreferences.hasConsentedToCookies) return
+
+            setItem('selectedThemeId', presetId)
         },
         consentToCookies() {
             this.userPreferences.hasConsentedToCookies = true
+            this.hasAcknowledgedCookieConsent = true
 
-            localStorage.setItem('cookieConsent', 'true')
+            setItem('cookieConsent', 'true')
         },
         clearCookies() {
-            localStorage.removeItem('cookieConsent')
-            localStorage.removeItem('theme')
-            localStorage.removeItem('selectedThemeId')
+            removeItem('cookieConsent')
+            removeItem('theme')
+            removeItem('selectedThemeId')
         },
         declineCookies() {
             this.userPreferences.hasConsentedToCookies = false
+            this.hasAcknowledgedCookieConsent = true
+
+            this.clearCookies()
+        },
+        resetCookies() {
+            this.userPreferences.hasConsentedToCookies = false
+            this.hasAcknowledgedCookieConsent = false
 
             this.clearCookies()
         }

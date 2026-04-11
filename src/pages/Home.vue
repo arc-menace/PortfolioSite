@@ -1,93 +1,80 @@
-<template>
-    <div ref="vantaRef" class="vanta-background" id="home">
-        <Bio />
-        <div class="bottom-opacity-gradient" :style="gradientStyle"></div>
-    </div>
-</template>
-
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script setup lang="ts">
+import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue';
 import { useTheme } from 'vuetify';
 import { navbarHeight } from '../models/globals';
-// @ts-ignore
-import NET from 'vanta/dist/vanta.net.min.js';
 import Bio from '../components/bio/Bio.vue';
 import { useGlobalStore } from '../store/globalStore';
 import { useThemeColors } from '../composables/useThemeColors';
 
-export default defineComponent({
-    name: 'Home',
-    components: {
-        Bio
-    },
-    data() {
-        return {
-            vantaEffect: null as any,
-            theme: useTheme(),
-            navbarHeight,
-            store: useGlobalStore(),
-            themeColors: useThemeColors()
-        };
-    },
-    computed: {
-        isDark(): boolean {
-            return this.theme.global.current.dark;
-        },
-        settingsDialogOpen(): boolean {
-            return this.store.settingsDialogOpen;
-        },
-        selectedThemeId(): string {
-            return this.store.userPreferences.selectedThemeId;
-        },
-        gradientStyle(): Record<string, string> {
-            const bg = this.themeColors.currentColors.background;
-            return {
-                backgroundImage: `linear-gradient(to top, ${bg}, transparent)`
-            };
+// @ts-ignore — no type declarations for vanta
+const loadVanta = () => import('vanta/dist/vanta.net.min.js');
+
+const vantaRef = ref<HTMLElement | null>(null);
+const vantaEffect = ref<any>(null);
+const theme = useTheme();
+const store = useGlobalStore();
+const themeColors = useThemeColors();
+
+const isDark = computed(() => theme.global.current.value.dark);
+const selectedThemeId = computed(() => store.userPreferences.selectedThemeId);
+
+const backgroundStyle = computed(() => ({
+    backgroundColor: themeColors.currentColors.value.secondary
+}));
+
+// creates a gradient that fades from the background of the vanta effect (v-theme-secondary) to the actual background color
+const gradientStyle = computed(() => ({
+    backgroundImage: `linear-gradient(to top, ${themeColors.currentColors.value.background}, transparent)`
+}));
+
+watch(isDark, () => rebuildVanta());
+watch(selectedThemeId, () => rebuildVanta());
+
+onMounted(() => {
+    // Defer vanta so the page paints immediately with just the background color
+    requestAnimationFrame(() => {
+        if (!vantaEffect.value) {
+            buildEffect();
         }
-    },
-    watch: {
-        isDark() {
-            this.rebuildVanta();
-        },
-        selectedThemeId() {
-            this.rebuildVanta();
-        }
-    },
-    mounted() {
-        if (!this.vantaEffect) {
-            this.vantaEffect = this.buildEffect();
-        }
-    },
-    beforeUnmount() {
-        if (this.vantaEffect) {
-            this.vantaEffect.destroy();
-            this.vantaEffect = null;
-        }
-    },
-    methods: {
-        rebuildVanta() {
-            if (this.vantaEffect) {
-                this.vantaEffect.destroy();
-            }
-            this.vantaEffect = this.buildEffect();
-        },
-        buildEffect() {
-            const colors = this.themeColors.currentColors;
-            return NET({
-                el: this.$refs.vantaRef,
-                color: colors.primary,
-                backgroundColor: colors.secondary,
-                points: 10,
-                maxDistance: 20,
-                spacing: 17,
-                showDots: true,
-                mouseControls: false
-            });
-        }
+    });
+});
+
+onBeforeUnmount(() => {
+    if (vantaEffect.value) {
+        vantaEffect.value.destroy();
+        vantaEffect.value = null;
     }
 });
+
+function rebuildVanta() {
+    if (vantaEffect.value) {
+        vantaEffect.value.destroy();
+    }
+    buildEffect();
+}
+
+async function buildEffect() {
+    const { default: NET } = await loadVanta();
+    const colors = themeColors.currentColors.value;
+    vantaEffect.value = NET({
+        el: vantaRef.value,
+        color: colors.primary,
+        backgroundColor: colors.secondary,
+        points: 10,
+        maxDistance: 20,
+        spacing: 17,
+        showDots: true,
+        mouseControls: false
+    });
+}
 </script>
+
+<template>
+    <div ref="vantaRef" class="vanta-background" id="home" :style="backgroundStyle">
+        <Bio />
+        <div class="bottom-opacity-gradient" :style="gradientStyle"></div>
+    </div>
+</template>
 
 <style scoped>
 .vanta-background {

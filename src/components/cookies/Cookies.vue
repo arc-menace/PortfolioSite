@@ -1,5 +1,22 @@
+<script setup lang="ts">
+import { computed } from 'vue';
+import { useGlobalStore } from '../../store/globalStore';
+
+const globalStore = useGlobalStore();
+
+const hasAcknowledgedCookieConsent = computed(() => globalStore.hasAcknowledgedCookieConsent);
+
+function acceptCookies() {
+    globalStore.consentToCookies();
+}
+
+function declineCookies() {
+    globalStore.declineCookies();
+}
+</script>
+
 <template>
-    <div class="cookies-container" v-if="!hasConsentedToCookies">
+    <div class="cookies-container" v-if="!hasAcknowledgedCookieConsent">
         <p class="cookies-text">This website uses cookies to store your preferences. No data is collected, shared or monetized.</p>
 
         <div class="cookies-buttons">
@@ -8,34 +25,6 @@
         </div>
     </div>
 </template>
-
-<script lang="ts">
-import { defineComponent } from 'vue';
-import { useGlobalStore } from '../../store/globalStore';
-
-export default defineComponent({
-    name: 'Cookies',
-    data() {
-        return {
-            globalStore: useGlobalStore()
-        };
-    },
-    methods: {
-        acceptCookies() {
-            this.globalStore.consentToCookies();
-        },
-        declineCookies() {
-            this.globalStore.declineCookies();
-        }
-    },
-    computed: {
-        hasConsentedToCookies(): boolean {
-            return this.globalStore.userPreferences.hasConsentedToCookies;
-        }
-    }
-});
-
-</script>
 
 <style scoped>
 .cookies-container {
