@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, provide, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 
 const props = defineProps<{
   slideIds: string[]
@@ -29,7 +29,11 @@ const goPrev = () => goTo(currentIndex.value - 1)
 
 const goToId = (id: string) => {
   const i = props.slideIds.indexOf(id)
-  if (i !== -1) goTo(i)
+  if (i === -1) {
+    console.warn(`[Slideshow] goToId: slide "${id}" not found in slideIds`)
+    return
+  }
+  goTo(i)
 }
 
 defineExpose({ goToId })
@@ -47,23 +51,23 @@ const isAtBottom = (el: HTMLElement) =>
 
 // ── Wheel ────────────────────────────────────────────────────────────────────
 
-let wheelCooldown = false
+const wheelCooldown = ref(false)
 
 const handleWheel = (e: WheelEvent) => {
-  if (isTransitioning.value || wheelCooldown) return
+  if (isTransitioning.value || wheelCooldown.value) return
   const slide = getCurrentSlide()
   if (!slide) return
 
   if (e.deltaY > 0 && isAtBottom(slide)) {
     e.preventDefault()
-    wheelCooldown = true
+    wheelCooldown.value = true
     goNext()
-    setTimeout(() => { wheelCooldown = false }, 800)
+    setTimeout(() => { wheelCooldown.value = false }, 800)
   } else if (e.deltaY < 0 && isAtTop(slide)) {
     e.preventDefault()
-    wheelCooldown = true
+    wheelCooldown.value = true
     goPrev()
-    setTimeout(() => { wheelCooldown = false }, 800)
+    setTimeout(() => { wheelCooldown.value = false }, 800)
   }
 }
 
@@ -127,6 +131,18 @@ const handleTouchEnd = (e: TouchEvent) => {
   touchDecided = false
 }
 
+// ── Accessibility ────────────────────────────────────────────────────────────
+
+const ariaAnnouncement = ref('')
+
+watch(currentIndex, (i) => {
+  const id = props.slideIds[i] ?? ''
+  ariaAnnouncement.value = id
+    .split('-')
+    .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(' ')
+})
+
 // ── Style ────────────────────────────────────────────────────────────────────
 
 const wrapperStyle = computed(() => ({
@@ -159,6 +175,7 @@ onUnmounted(() => {
     <div class="slides-wrapper" :style="wrapperStyle">
       <slot />
     </div>
+    <div class="sr-only" aria-live="polite" aria-atomic="true">{{ ariaAnnouncement }}</div>
   </div>
 </template>
 
@@ -176,6 +193,18 @@ onUnmounted(() => {
 }
 
 /* Applied to every .slide wrapper placed by App.vue */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 :deep(.slide) {
   height: 100vh;
   width: 100%;

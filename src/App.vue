@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { defineAsyncComponent, ref, provide, watch } from 'vue'
 import { useTheme } from 'vuetify'
-import Navbar from './components/Navbar/Navbar.vue'
+import Navbar from './components/navbar/Navbar.vue'
 import Home from './pages/Home.vue'
 import Cookies from './components/cookies/Cookies.vue'
-import Slideshow from './components/Slideshow/Slideshow.vue'
+import Slideshow from './components/slideshow/Slideshow.vue'
 import DogsSection from './components/about/DogsSection.vue'
 import SmartHomeSection from './components/about/SmartHomeSection.vue'
 import MusicSection from './components/about/MusicSection.vue'
@@ -13,6 +13,7 @@ import WordlClone from './components/projects/WordlClone.vue'
 import GrowlerStation from './components/projects/GrowlerStation.vue'
 import { useGlobalStore } from './store/globalStore'
 import { useThemeColors } from './composables/useThemeColors'
+import { SLIDE_IDS } from './config/slides'
 
 const Projects = defineAsyncComponent(() => import('./pages/Projects.vue'))
 const Contact = defineAsyncComponent(() => import('./pages/Contact.vue'))
@@ -33,12 +34,7 @@ watch(() => currentColors.value.background, (newBg: string) => {
   document.body.style.backgroundColor = newBg
 }, { immediate: true })
 
-const slideIds = [
-  'home',
-  'about-dogs', 'about-smarthome', 'about-music',
-  'projects', 'project-shelfiq', 'project-wordle', 'project-growler',
-  'contact',
-]
+const slideIds = Object.values(SLIDE_IDS)
 
 const slideshowRef = ref<{ goToId: (id: string) => void } | null>(null)
 provide('goToSlide', (id: string) => slideshowRef.value?.goToId(id))
