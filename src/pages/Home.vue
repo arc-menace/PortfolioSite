@@ -94,5 +94,6 @@ async function buildEffect() {
     left: 0;
     right: 0;
     height: 300px;
+    transform: translateZ(0);
 }
 </style>
