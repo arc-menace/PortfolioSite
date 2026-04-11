@@ -1,7 +1,7 @@
 <template>
-    <div id="contact">
-        <h1>Contact</h1>
-    </div>
+    <section id="contact">
+        <h2>Contact</h2>
+    </section>
 </template>
 
 <style scoped>

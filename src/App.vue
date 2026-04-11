@@ -31,11 +31,35 @@ watch(() => currentColors.value.background, (newBg: string) => {
 </script>
 
 <template>
-  <Navbar />
+  <a href="#main-content" class="skip-nav">Skip to main content</a>
 
-  <Home />
-  <Projects />
-  <Contact />
+  <header>
+    <Navbar />
+  </header>
+
+  <main id="main-content">
+    <Home />
+    <Projects />
+    <Contact />
+  </main>
 
   <Cookies />
 </template>
+
+<style>
+.skip-nav {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  padding: 0.5rem 1rem;
+  background: #000;
+  color: #fff;
+  font-size: 1rem;
+  z-index: 9999;
+  text-decoration: none;
+}
+
+.skip-nav:focus {
+  top: 0;
+}
+</style>

@@ -70,10 +70,10 @@ async function buildEffect() {
 </script>
 
 <template>
-    <div ref="vantaRef" class="vanta-background" id="home" :style="backgroundStyle">
+    <section ref="vantaRef" class="vanta-background" id="home" :style="backgroundStyle" aria-label="Home">
         <Bio />
         <div class="bottom-opacity-gradient" :style="gradientStyle"></div>
-    </div>
+    </section>
 </template>
 
 <style scoped>

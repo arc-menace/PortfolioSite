@@ -5,7 +5,7 @@ import { scrollToId } from '../../helpers/scrollHelper';
 
 <template>
     <button class="scroll-button" @click="scrollToId('projects')" aria-label="Scroll to projects">
-        <i class="fa-solid fa-chevron-down"></i>
+        <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
     </button>
 </template>
 
@@ -42,5 +42,11 @@ import { scrollToId } from '../../helpers/scrollHelper';
     background-color: rgb(var(--v-theme-accent));
     opacity: 1;
     transition: all 0.3s ease;
+}
+
+.scroll-button:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 3px;
+    opacity: 1;
 }
 </style>

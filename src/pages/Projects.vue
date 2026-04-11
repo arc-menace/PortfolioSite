@@ -4,13 +4,13 @@ import WordleCloneProjectCard from '../components/projectCards/WordleCloneProjec
 </script>
 
 <template>
-    <div id="projects">
-        <h1>Projects</h1>
+    <section id="projects">
+        <h2>Projects</h2>
         <div class="project-cards">
             <SIQProjectCard/>
             <WordleCloneProjectCard/>
         </div>
-    </div>
+    </section>
 </template>
 
 <style scoped>

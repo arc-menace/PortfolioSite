@@ -6,16 +6,16 @@ defineProps<{
 </script>
 
 <template>
-    <div class="project-card">
-        <div class="title">
+    <article class="project-card">
+        <h3 class="title">
             {{ $props.title }}
-        </div>
-        <div>
+        </h3>
+        <p>
             {{ $props.subText }}
-        </div>
+        </p>
 
         <slot></slot>
-    </div>
+    </article>
 </template>
 
 <style scoped>

@@ -5,7 +5,7 @@ import ScrollButton from './ScrollButton.vue';
 
 <template>
     <div class="bio">
-        <p class="bio-top-text">Hi, I'm Joe Hahn</p>
+        <h1 class="bio-top-text">Hi, I'm Joe Hahn</h1>
         <div class="bio-bottom-text">
             <span>I'm a full stack developer specializing in</span>
             <DotnetButton />

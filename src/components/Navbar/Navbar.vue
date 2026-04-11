@@ -10,16 +10,18 @@ const isDev = import.meta.env.DEV;
 </script>
 
 <template>
-    <div class="navbar">
+    <nav class="navbar" aria-label="Main navigation">
         <SettingsDialog />
-        <v-btn v-if="isDev" icon @click="store.resetCookies()" class="debug-cookies-btn" title="[DEV] Reset cookie consent">
-            <i class="fa-solid fa-cookie-bite"></i>
+        <v-btn v-if="isDev" icon @click="store.resetCookies()" class="debug-cookies-btn" aria-label="[DEV] Reset cookie consent">
+            <i class="fa-solid fa-cookie-bite" aria-hidden="true"></i>
         </v-btn>
         <div class="margin-right-auto"></div>
         <div class="hamburger-menu">
             <v-menu color="transparent" location="bottom">
-                <template v-slot:activator="{ props }">
-                    <i class="fa-solid fa-bars" v-bind="props"></i>
+                <template v-slot:activator="{ props, isActive }">
+                    <button class="hamburger-btn" v-bind="props" :aria-expanded="isActive" aria-label="Open navigation menu" aria-haspopup="true">
+                        <i class="fa-solid fa-bars" aria-hidden="true"></i>
+                    </button>
                 </template>
 
                 <v-list>
@@ -42,7 +44,7 @@ const isDev = import.meta.env.DEV;
             <NavbarButton :index="2" text="Projects" :onClick="() => { scrollToId('projects') }" />
             <NavbarButton :index="3" text="Contact" :onClick="() => { scrollToId('contact') }" />
         </div>
-    </div>
+    </nav>
 </template>
 
 <style scoped>
@@ -84,8 +86,24 @@ const isDev = import.meta.env.DEV;
     margin-right: 1rem;
 }
 
-.fa-bars {
+.hamburger-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: inherit;
+    padding: 0.25rem;
     margin-right: 1rem;
+    border-radius: 4px;
+    line-height: 1;
+}
+
+.hamburger-btn:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+}
+
+.fa-bars {
+    font-size: 1.5rem;
 }
 
 @media only screen and (max-width: 768px) {

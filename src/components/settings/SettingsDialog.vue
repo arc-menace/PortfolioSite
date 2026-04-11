@@ -33,16 +33,16 @@ function onPresetClick(presetId: string) {
 
 <template>
     <div>
-        <v-btn icon @click="dialog = true" class="settings-btn">
-            <i class="fa-solid fa-gear"></i>
+        <v-btn icon @click="dialog = true" class="settings-btn" aria-label="Open settings">
+            <i class="fa-solid fa-gear" aria-hidden="true"></i>
         </v-btn>
 
         <v-dialog v-model="dialog" max-width="400">
             <v-card class="settings-card">
                 <v-card-title class="settings-title">
                     <span>Settings</span>
-                    <v-btn icon variant="text" @click="dialog = false" size="small">
-                        <i class="fa-solid fa-xmark"></i>
+                    <v-btn icon variant="text" @click="dialog = false" size="small" aria-label="Close settings">
+                        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
                     </v-btn>
                 </v-card-title>
 
@@ -53,16 +53,18 @@ function onPresetClick(presetId: string) {
                                 :variant="!isDark ? 'outlined' : 'text'"
                                 size="small"
                                 @click="setTheme('light')"
+                                :aria-pressed="!isDark"
                             >
-                                <i class="fa-solid fa-sun"></i>
+                                <i class="fa-solid fa-sun" aria-hidden="true"></i>
                                 <span class="ml-2">Light</span>
                             </v-btn>
                             <v-btn
                                 :variant="isDark ? 'outlined' : 'text'"
                                 size="small"
                                 @click="setTheme('dark')"
+                                :aria-pressed="isDark"
                             >
-                                <i class="fa-solid fa-moon"></i>
+                                <i class="fa-solid fa-moon" aria-hidden="true"></i>
                                 <span class="ml-2">Dark</span>
                             </v-btn>
                         </div>
@@ -78,6 +80,9 @@ function onPresetClick(presetId: string) {
                                 class="theme-preset-btn"
                                 :class="{ 'theme-preset-btn--active': selectedThemeId === preset.id }"
                                 :style="selectedThemeId === preset.id ? { borderColor: currentColors.primary } : {}"
+                                :aria-label="`${preset.id.charAt(0).toUpperCase() + preset.id.slice(1)} theme`"
+                                :aria-pressed="selectedThemeId === preset.id"
+                                :title="`${preset.id.charAt(0).toUpperCase() + preset.id.slice(1)} theme (${isDark ? 'Dark' : 'Light'})`"
                                 @click="onPresetClick(preset.id)"
                             >
                                 <div class="preset-colors">
@@ -147,6 +152,11 @@ function onPresetClick(presetId: string) {
 
 .theme-preset-btn:hover {
     border-color: rgba(128, 128, 128, 0.4);
+}
+
+.theme-preset-btn:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
 }
 
 .theme-preset-btn--active {

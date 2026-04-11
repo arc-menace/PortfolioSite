@@ -81,4 +81,9 @@ function declineCookies() {
     background-color: #374151;
     transform: translateY(-1px);
 }
+
+.cookies-btn:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+}
 </style>

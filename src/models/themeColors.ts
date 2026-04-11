@@ -29,7 +29,7 @@ export const themePresets: ThemePreset[] = [
         dark: {
             primary: colors.teal.base,
             secondary: colors.indigo.darken4,
-            accent: colors.pink.darken1,
+            accent: colors.pink.lighten4,
             background: colors.grey.darken4,
             surface: colors.grey.darken3,
             text: colors.shades.white,

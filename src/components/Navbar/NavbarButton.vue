@@ -54,6 +54,12 @@ const { currentColors } = useThemeColors();
     text-decoration: underline;
 }
 
+.navbar-button:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 4px;
+    border-radius: 2px;
+}
+
 @media only screen and (max-width: 768px) {
     .navbar-button-container {
         gap: 0.3rem;
