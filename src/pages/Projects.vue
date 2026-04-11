@@ -1,32 +1,20 @@
 <script setup lang="ts">
-import SIQProjectCard from '../components/projectCards/SIQProjectCard.vue'
-import WordleCloneProjectCard from '../components/projectCards/WordleCloneProjectCard.vue'
+import SlideSection from '../components/SlideSection.vue'
 </script>
 
 <template>
-    <section id="projects">
-        <h2>What I've Built</h2>
-        <div class="project-cards">
-            <SIQProjectCard/>
-            <WordleCloneProjectCard/>
-        </div>
-    </section>
+    <SlideSection title="What I've Built">
+        <p class="intro-text">A few things I've worked on. Swipe to dig in.</p>
+    </SlideSection>
 </template>
 
 <style scoped>
-#projects {
-    padding-top: 5rem;
-    min-height: 100vh;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: center;
-    scroll-snap-align: start;
-}
-
-.project-cards {
-    display: grid;
-    padding: 1rem;
+.intro-text {
+    font-family: 'Consolas', 'Courier New', Courier, monospace;
+    font-size: 1rem;
+    color: rgb(var(--v-theme-text));
+    opacity: 0.7;
+    margin: 0;
+    line-height: 1.6;
 }
 </style>

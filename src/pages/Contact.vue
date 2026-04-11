@@ -1,5 +1,5 @@
 <template>
-    <section id="contact">
+    <section id="contact" aria-label="Contact">
         <div class="contact-container">
             <h2 class="contact-heading">Always Open to New Opportunities</h2>
 
@@ -44,7 +44,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    scroll-snap-align: start;
+
 }
 
 .contact-container {

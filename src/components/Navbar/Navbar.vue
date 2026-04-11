@@ -1,12 +1,14 @@
 <script setup lang="ts">
+import { inject } from 'vue';
 import NavbarButton from './NavbarButton.vue';
 import SettingsDialog from '../settings/SettingsDialog.vue';
 import { navbarHeight } from '../../models/globals';
-import { scrollToId } from '../../helpers/scrollHelper';
 import { useGlobalStore } from '../../store/globalStore';
 
 const store = useGlobalStore();
 const isDev = import.meta.env.DEV;
+
+const goToSlide = inject<(id: string) => void>('goToSlide')!
 </script>
 
 <template>
@@ -25,24 +27,27 @@ const isDev = import.meta.env.DEV;
                 </template>
 
                 <v-list>
-                    <v-list-item :onClick="() => { scrollToId('home') }">
+                    <v-list-item :onClick="() => goToSlide('home')">
                         <v-list-item-title class="navbar-button-text">Home</v-list-item-title>
                     </v-list-item>
-                    <v-list-item :onClick="() => { scrollToId('projects') }">
+                    <v-list-item :onClick="() => goToSlide('about-dogs')">
+                        <v-list-item-title class="navbar-button-text">About</v-list-item-title>
+                    </v-list-item>
+                    <v-list-item :onClick="() => goToSlide('projects')">
                         <v-list-item-title class="navbar-button-text">Projects</v-list-item-title>
                     </v-list-item>
-                    <v-list-item :onClick="() => { scrollToId('resume') }">
-                        <v-list-item-title class="navbar-button-text">Resume</v-list-item-title>
+                    <v-list-item :onClick="() => goToSlide('contact')">
+                        <v-list-item-title class="navbar-button-text">Contact</v-list-item-title>
                     </v-list-item>
                 </v-list>
             </v-menu>
         </div>
 
-
         <div class="navbar-buttons">
-            <NavbarButton :index="1" text="Home" :onClick="() => { scrollToId('home') }" />
-            <NavbarButton :index="2" text="Projects" :onClick="() => { scrollToId('projects') }" />
-            <NavbarButton :index="3" text="Contact" :onClick="() => { scrollToId('contact') }" />
+            <NavbarButton :index="1" text="Home" :onClick="() => goToSlide('home')" />
+            <NavbarButton :index="2" text="About" :onClick="() => goToSlide('about-dogs')" />
+            <NavbarButton :index="3" text="Projects" :onClick="() => goToSlide('projects')" />
+            <NavbarButton :index="4" text="Contact" :onClick="() => goToSlide('contact')" />
         </div>
     </nav>
 </template>

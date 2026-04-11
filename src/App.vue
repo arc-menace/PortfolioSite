@@ -1,33 +1,47 @@
 <script setup lang="ts">
-import { defineAsyncComponent, watch } from 'vue'
+import { defineAsyncComponent, ref, provide, watch } from 'vue'
 import { useTheme } from 'vuetify'
-import Navbar from './components/Navbar/Navbar.vue';
-import Home from './pages/Home.vue';
-import Cookies from './components/cookies/Cookies.vue';
-import { useGlobalStore } from './store/globalStore';
-import { useThemeColors } from './composables/useThemeColors';
+import Navbar from './components/Navbar/Navbar.vue'
+import Home from './pages/Home.vue'
+import Cookies from './components/cookies/Cookies.vue'
+import Slideshow from './components/Slideshow/Slideshow.vue'
+import DogsSection from './components/about/DogsSection.vue'
+import SmartHomeSection from './components/about/SmartHomeSection.vue'
+import MusicSection from './components/about/MusicSection.vue'
+import ShelfIQ from './components/projects/ShelfIQ.vue'
+import WordlClone from './components/projects/WordlClone.vue'
+import GrowlerStation from './components/projects/GrowlerStation.vue'
+import { useGlobalStore } from './store/globalStore'
+import { useThemeColors } from './composables/useThemeColors'
 
-const Projects = defineAsyncComponent(() => import('./pages/Projects.vue'));
-const Contact = defineAsyncComponent(() => import('./pages/Contact.vue'));
+const Projects = defineAsyncComponent(() => import('./pages/Projects.vue'))
+const Contact = defineAsyncComponent(() => import('./pages/Contact.vue'))
 
-const store = useGlobalStore();
-const theme = useTheme();
-const { initializeTheme, currentColors } = useThemeColors();
+const store = useGlobalStore()
+const theme = useTheme()
+const { initializeTheme, currentColors } = useThemeColors()
 
-// Load saved preferences (selectedThemeId, consent, theme mode)
-store.loadState();
+store.loadState()
 
-// Restore light/dark mode preference
 if (store.savedThemeMode) {
   theme.change(store.savedThemeMode)
 }
 
-// Apply saved preset colors to Vuetify
-initializeTheme();
+initializeTheme()
 
 watch(() => currentColors.value.background, (newBg: string) => {
-  document.body.style.backgroundColor = newBg;
-}, { immediate: true });
+  document.body.style.backgroundColor = newBg
+}, { immediate: true })
+
+const slideIds = [
+  'home',
+  'about-dogs', 'about-smarthome', 'about-music',
+  'projects', 'project-shelfiq', 'project-wordle', 'project-growler',
+  'contact',
+]
+
+const slideshowRef = ref<{ goToId: (id: string) => void } | null>(null)
+provide('goToSlide', (id: string) => slideshowRef.value?.goToId(id))
 </script>
 
 <template>
@@ -38,9 +52,17 @@ watch(() => currentColors.value.background, (newBg: string) => {
   </header>
 
   <main id="main-content">
-    <Home />
-    <Projects />
-    <Contact />
+    <Slideshow ref="slideshowRef" :slide-ids="slideIds">
+      <div class="slide"><Home /></div>
+      <div class="slide"><DogsSection /></div>
+      <div class="slide"><SmartHomeSection /></div>
+      <div class="slide"><MusicSection /></div>
+      <div class="slide"><Projects /></div>
+      <div class="slide"><ShelfIQ /></div>
+      <div class="slide"><WordlClone /></div>
+      <div class="slide"><GrowlerStation /></div>
+      <div class="slide"><Contact /></div>
+    </Slideshow>
   </main>
 
   <Cookies />

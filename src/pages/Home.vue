@@ -85,7 +85,7 @@ async function buildEffect() {
     overflow: hidden;
     padding-top: v-bind(navbarHeight);
     backdrop-filter: blur(10px);
-    scroll-snap-align: start;
+
 }
 
 .bottom-opacity-gradient {
