@@ -3,6 +3,7 @@ import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 
 const props = defineProps<{
   slideIds: string[]
+  topColor?: string
 }>()
 
 const currentIndex = ref(0)
@@ -106,10 +107,11 @@ const handleTouchMove = (e: TouchEvent) => {
 
   if (touchIsSwipe) {
     e.preventDefault()
-    // Rubber-band resistance at the first and last slide
-    const atFirst = currentIndex.value === 0 && deltaY < 0
+    // Block dragging backward past the first slide
+    if (currentIndex.value === 0 && deltaY < 0) return
+    // Rubber-band resistance at the last slide
     const atLast = currentIndex.value === props.slideIds.length - 1 && deltaY > 0
-    const resistance = atFirst || atLast ? 0.25 : 1
+    const resistance = atLast ? 0.25 : 1
     dragOffset.value = -(deltaY * resistance)
   }
 }
@@ -122,7 +124,7 @@ const handleTouchEnd = (e: TouchEvent) => {
     } else if (deltaY < -SWIPE_PX) {
       goPrev()
     } else {
-      // Didn't cross threshold — spring back
+      // Didn't cross threshold — snap back
       isDragging.value = false
       dragOffset.value = 0
     }
@@ -173,6 +175,7 @@ onUnmounted(() => {
 <template>
   <div ref="containerRef" class="slideshow-container">
     <div class="slides-wrapper" :style="wrapperStyle">
+      <div v-if="topColor" class="top-cap" :style="{ backgroundColor: topColor }" aria-hidden="true" />
       <slot />
     </div>
     <div class="sr-only" aria-live="polite" aria-atomic="true">{{ ariaAnnouncement }}</div>
@@ -187,9 +190,19 @@ onUnmounted(() => {
 }
 
 .slides-wrapper {
+  position: relative;
   display: flex;
   flex-direction: column;
   will-change: transform;
+}
+
+.top-cap {
+  position: absolute;
+  top: -100vh;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  pointer-events: none;
 }
 
 /* Applied to every .slide wrapper placed by App.vue */

@@ -79,6 +79,7 @@ async function buildEffect() {
 
 <style scoped>
 .vanta-background {
+    box-sizing: border-box;
     width: 100%;
     height: 100vh;
     position: relative;

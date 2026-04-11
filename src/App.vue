@@ -52,7 +52,7 @@ provide('goToSlide', (id: string) => slideshowRef.value?.goToId(id))
   </header>
 
   <main id="main-content">
-    <Slideshow ref="slideshowRef" :slide-ids="slideIds">
+    <Slideshow ref="slideshowRef" :slide-ids="slideIds" :top-color="currentColors.secondary">
       <div class="slide"><Home /></div>
       <div class="slide"><AboutIntro /></div>
       <div class="slide"><DogsSection /></div>
