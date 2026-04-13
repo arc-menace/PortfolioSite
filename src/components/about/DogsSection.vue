@@ -1,5 +1,49 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import SlideSection from '../slideshow/SlideSection.vue'
+import DogModal from './DogModal.vue'
+import { useHaptics } from '../../composables/useHaptics'
+
+const { hapticLight } = useHaptics()
+
+const dogs = [
+    {
+        name: 'Butters',
+        image: '/images/dogs/butters.jpg',
+        gender: 'male' as const,
+        birthday: new Date(2022, 11, 26),
+        weight: 83,
+        breeds: [
+            { name: 'Labrador Retriever', percentage: 35.4 },
+            { name: 'Great Pyrenees', percentage: 26.3 },
+            { name: 'American Pit Bull Terrier', percentage: 25.2 },
+            { name: 'Australian Cattle Dog', percentage: 13.1 },
+        ],
+        loves: ['Peanut Butter', 'Squeaky Toys', 'Group Naps', 'Going to the Park'],
+        dislikes: ['The Vet', 'Frogs', 'Eye Drops'],
+    },
+    {
+        name: 'Molly',
+        image: '/images/dogs/molly.jpg',
+        gender: 'female' as const,
+        birthday: new Date(2019, 8, 15),
+        weight: 43,
+        breeds: [
+            { name: 'Australian Shepherd', percentage: 100 },
+        ],
+        loves: ['Going to Work', 'Being Snuggled', 'Getting Her Teeth Brushed'],
+        dislikes: ['The Dryer', 'The Fire Alarm', 'Being Ignored'],
+    },
+]
+
+const selectedDog = ref<typeof dogs[number] | null>(null)
+const showModal = ref(false)
+
+function openDogModal(dog: typeof dogs[number]) {
+    hapticLight()
+    selectedDog.value = dog
+    showModal.value = true
+}
 </script>
 
 <template>
@@ -7,19 +51,15 @@ import SlideSection from '../slideshow/SlideSection.vue'
         <p class="slide-text">The real MVPs. They keep the home office lively and remind me when it's time to stop coding.</p>
 
         <div class="dogs-grid">
-            <div class="dog-card">
+            <div v-for="dog in dogs" :key="dog.name" class="dog-card" @click="openDogModal(dog)">
                 <div class="dog-image-wrapper">
-                    <img src="/images/dogs/butters.jpg" alt="Butters" class="dog-image" />
+                    <img :src="dog.image" :alt="dog.name" class="dog-image" />
                 </div>
-                <span class="dog-name">Butters</span>
-            </div>
-            <div class="dog-card">
-                <div class="dog-image-wrapper">
-                    <img src="/images/dogs/molly.jpg" alt="Molly" class="dog-image" />
-                </div>
-                <span class="dog-name">Molly</span>
+                <span class="dog-name">{{ dog.name }}</span>
             </div>
         </div>
+
+        <DogModal v-model="showModal" :dog="selectedDog" />
     </SlideSection>
 </template>
 
@@ -48,6 +88,7 @@ import SlideSection from '../slideshow/SlideSection.vue'
     flex-direction: column;
     align-items: center;
     gap: 0.75rem;
+    cursor: pointer;
 }
 
 .dog-image-wrapper {
@@ -56,6 +97,7 @@ import SlideSection from '../slideshow/SlideSection.vue'
     border-radius: 30%;
     overflow: hidden;
     position: relative;
+    transition: box-shadow 0.3s ease;
 }
 
 .dog-image-wrapper::after {
@@ -67,10 +109,19 @@ import SlideSection from '../slideshow/SlideSection.vue'
     pointer-events: none;
 }
 
+.dog-card:hover .dog-image-wrapper {
+    box-shadow: 0 0 24px 8px rgba(var(--v-theme-secondary), 0.5);
+}
+
 .dog-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.dog-card:hover .dog-image {
+    transform: scale(1.05);
 }
 
 .dog-name {
