@@ -1,0 +1,1 @@
+import{d as t,o,c as s,w as a,a as n,S as c,_ as i}from"./index-C4mmgmue.js";const r=t({__name:"Projects",setup(d){return(_,e)=>(o(),s(c,{title:"What I've Built",icon:"fa-solid fa-code"},{default:a(()=>[...e[0]||(e[0]=[n("p",{class:"intro-text"},"A few things I've worked on. Swipe to dig in.",-1)])]),_:1}))}}),f=i(r,[["__scopeId","data-v-774d5d2b"]]);export{f as default};
