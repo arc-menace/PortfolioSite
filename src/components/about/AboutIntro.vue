@@ -3,7 +3,7 @@ import SlideSection from '../slideshow/SlideSection.vue'
 </script>
 
 <template>
-    <SlideSection title="About Me">
+    <SlideSection title="About Me" icon="fa-solid fa-user" :first="true">
         <p class="intro-text">Outside of work I'm into dogs, smart home tinkering, and music. Swipe to learn more.</p>
     </SlideSection>
 </template>

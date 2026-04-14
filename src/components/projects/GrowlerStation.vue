@@ -4,7 +4,7 @@ import TechChip from '../shared/TechChip.vue'
 </script>
 
 <template>
-    <SlideSection title="The Growler Station" label="The Growler Station project">
+    <SlideSection title="The Growler Station" icon="fa-solid fa-beer-mug-empty" label="The Growler Station project" :last="true">
         <p class="project-desc">A menu creation and management tool for bars and restaurants.</p>
         <div class="tag-list">
             <TechChip label="C#" icon="fa-brands fa-microsoft" />

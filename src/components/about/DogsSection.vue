@@ -47,7 +47,7 @@ function openDogModal(dog: typeof dogs[number]) {
 </script>
 
 <template>
-    <SlideSection title="Butters &amp; Molly">
+    <SlideSection title="Butters &amp; Molly" icon="fa-solid fa-paw">
         <p class="slide-text">The real MVPs. They keep the home office lively and remind me when it's time to stop coding.</p>
 
         <div class="dogs-grid">

@@ -4,7 +4,7 @@ import TechChip from '../shared/TechChip.vue'
 </script>
 
 <template>
-    <SlideSection title="Wordle Clone" label="Wordle Clone project">
+    <SlideSection title="Wordle Clone" icon="fa-solid fa-square-check" label="Wordle Clone project">
         <p class="project-desc">A custom remake of the NYT Wordle game.</p>
         <div class="tag-list">
             <TechChip label="Vue" icon="fa-brands fa-vuejs" />

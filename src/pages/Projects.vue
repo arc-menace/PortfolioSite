@@ -3,7 +3,7 @@ import SlideSection from '../components/slideshow/SlideSection.vue'
 </script>
 
 <template>
-    <SlideSection title="What I've Built">
+    <SlideSection title="What I've Built" icon="fa-solid fa-code">
         <p class="intro-text">A few things I've worked on. Swipe to dig in.</p>
     </SlideSection>
 </template>
