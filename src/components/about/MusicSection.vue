@@ -37,7 +37,7 @@ const picks: MusicPick[] = [
 </script>
 
 <template>
-    <SlideSection title="Music" icon="fa-solid fa-music" :center="true" max-width="700px">
+    <SlideSection title="Music">
         <p class="slide-text">Some picks worth a listen. Choose your platform.</p>
 
         <div class="picks-list">

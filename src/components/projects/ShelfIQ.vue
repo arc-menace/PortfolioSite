@@ -4,7 +4,7 @@ import TechChip from '../shared/TechChip.vue'
 </script>
 
 <template>
-    <SlideSection title="ShelfIQ" icon="fa-solid fa-boxes-stacked" label="ShelfIQ project">
+    <SlideSection title="ShelfIQ" label="ShelfIQ project">
         <p class="project-desc">CPG assortment and reporting software for retail category teams that automates Space Planning via a COM interface.</p>
         <div class="tag-list">
             <TechChip label="C#" icon="fa-brands fa-windows" />
