@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue'
+import { computed } from 'vue'
 import { useHaptics } from '../../composables/useHaptics'
 
 interface DogBreed {
@@ -29,35 +29,14 @@ const emit = defineEmits<{
 
 const { hapticLight } = useHaptics()
 
-const currentSlide = ref(0)
-const totalSlides = 5
-
 const dialogValue = computed({
     get: () => props.modelValue,
     set: (val: boolean) => emit('update:modelValue', val)
 })
 
-watch(() => props.modelValue, (val) => {
-    if (val) currentSlide.value = 0
-})
-
 function close() {
     hapticLight()
     dialogValue.value = false
-}
-
-function prevSlide() {
-    hapticLight()
-    if (currentSlide.value > 0) currentSlide.value--
-}
-
-function nextSlide() {
-    hapticLight()
-    if (currentSlide.value < totalSlides - 1) currentSlide.value++
-}
-
-function goToSlideIndex(index: number) {
-    currentSlide.value = index
 }
 
 function calculateAge(birthday: Date): number {
@@ -108,29 +87,6 @@ const gaugeTicks = [0, 30, 60, 90, 120].map(w => ({
 
             <!-- Scrollable Body -->
             <div class="dog-modal-body">
-                <!-- Image Carousel -->
-                <div class="carousel">
-                    <div class="carousel-track" :style="{ transform: `translateX(-${currentSlide * 100}%)` }">
-                        <div v-for="i in totalSlides" :key="i" class="carousel-slide">
-                            <img :src="dog.image" :alt="`${dog.name} photo ${i}`" />
-                        </div>
-                    </div>
-                    <button v-if="currentSlide > 0" class="carousel-btn carousel-prev" @click="prevSlide" aria-label="Previous photo">
-                        <i class="fa-solid fa-chevron-left"></i>
-                    </button>
-                    <button v-if="currentSlide < totalSlides - 1" class="carousel-btn carousel-next" @click="nextSlide" aria-label="Next photo">
-                        <i class="fa-solid fa-chevron-right"></i>
-                    </button>
-                    <div class="carousel-dots">
-                        <button v-for="i in totalSlides" :key="i"
-                            class="carousel-dot"
-                            :class="{ 'carousel-dot--active': currentSlide === i - 1 }"
-                            @click="goToSlideIndex(i - 1)"
-                            :aria-label="`Go to photo ${i}`"
-                        ></button>
-                    </div>
-                </div>
-
                 <div class="modal-content">
                     <!-- Breed Mix -->
                     <div class="section">
@@ -279,86 +235,6 @@ const gaugeTicks = [0, 30, 60, 90, 120].map(w => ({
     overflow-y: auto;
     flex: 1;
     overscroll-behavior: contain;
-}
-
-/* Carousel */
-.carousel {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 4 / 3;
-    overflow: hidden;
-}
-
-.carousel-track {
-    display: flex;
-    height: 100%;
-    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    will-change: transform;
-}
-
-.carousel-slide {
-    min-width: 100%;
-    height: 100%;
-}
-
-.carousel-slide img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.carousel-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.45);
-    color: #fff;
-    border: none;
-    border-radius: 50%;
-    width: 36px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    font-size: 0.85rem;
-    transition: background 0.2s;
-}
-
-.carousel-btn:hover {
-    background: rgba(0, 0, 0, 0.65);
-}
-
-.carousel-btn:focus-visible {
-    outline: 2px solid #fff;
-    outline-offset: 2px;
-}
-
-.carousel-prev { left: 10px; }
-.carousel-next { right: 10px; }
-
-.carousel-dots {
-    position: absolute;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 6px;
-}
-
-.carousel-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    border: none;
-    background: rgba(255, 255, 255, 0.45);
-    cursor: pointer;
-    padding: 0;
-    transition: background 0.2s;
-}
-
-.carousel-dot--active {
-    background: #fff;
 }
 
 /* Content */

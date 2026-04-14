@@ -48,7 +48,7 @@ const goToSlide = inject<(id: string) => void>('goToSlide')!
 
         <div class="navbar-buttons">
             <NavbarButton :index="1" text="Home" :onClick="() => goToSlide(SLIDE_IDS.home)" />
-            <NavbarButton :index="2" text="About" :onClick="() => goToSlide(SLIDE_IDS.aboutDogs)" />
+            <NavbarButton :index="2" text="About" :onClick="() => goToSlide(SLIDE_IDS.about)" />
             <NavbarButton :index="3" text="Projects" :onClick="() => goToSlide(SLIDE_IDS.projects)" />
             <NavbarButton :index="4" text="Contact" :onClick="() => goToSlide(SLIDE_IDS.contact)" />
         </div>

@@ -33,7 +33,6 @@ const { hapticLight } = useHaptics();
                 <a
                     href="/JoeHahnResume.pdf"
                     class="contact-link"
-                    download
                     @click="hapticLight()"
                 >
                     <i class="fa-solid fa-file-arrow-down"></i>
