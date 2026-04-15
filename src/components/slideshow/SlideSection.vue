@@ -17,6 +17,7 @@ withDefaults(defineProps<{
   <section class="slide-section" :aria-label="label ?? title">
     <div class="section-container" :style="{ maxWidth }">
       <div
+        v-if="icon"
         class="timeline-rail"
         :class="{ 'timeline-rail--first': first, 'timeline-rail--last': last }"
         aria-hidden="true"
