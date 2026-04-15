@@ -19,7 +19,7 @@ const projects = [
     {
         icon: 'fa-solid fa-beer-mug-empty',
         name: 'Growler Station',
-        role: 'Personal Project',
+        role: 'Software Engineer I',
         description: 'Menu creation and management tool for bars and restaurants, with an Android TV display app for live menus.',
         tags: ['.NET', 'Blazor', 'Android', 'Entity Framework'],
     },

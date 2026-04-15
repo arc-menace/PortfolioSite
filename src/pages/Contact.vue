@@ -59,6 +59,7 @@ const { hapticLight } = useHaptics();
     align-items: flex-start;
     gap: 1.5rem;
     text-align: left;
+    padding: 1rem;
 }
 
 .contact-heading {
