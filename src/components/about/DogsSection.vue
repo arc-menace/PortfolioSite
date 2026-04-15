@@ -48,7 +48,7 @@ function openDogModal(dog: typeof dogs[number]) {
 
 <template>
     <SlideSection title="Butters &amp; Molly" icon="fa-solid fa-paw">
-        <p class="slide-text">The real MVPs. They keep the home office lively and remind me when it's time to stop coding.</p>
+        <p class="slide-text">I love these little goof balls</p>
 
         <div class="dogs-grid">
             <div v-for="dog in dogs" :key="dog.name" class="dog-card" @click="openDogModal(dog)">
@@ -71,7 +71,7 @@ function openDogModal(dog: typeof dogs[number]) {
     opacity: 0.75;
     margin: 0;
     line-height: 1.6;
-    text-align: center;
+    text-align: left;
 }
 
 .dogs-grid {

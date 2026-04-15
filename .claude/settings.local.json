@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run:*)",
+      "Bash(timeout 8 npx vite --host)",
+      "mcp__Claude_Preview__preview_start"
+    ]
+  }
+}

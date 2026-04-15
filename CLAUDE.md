@@ -31,7 +31,6 @@ This is a **vertical fullscreen slideshow**, not a traditional router-based SPA.
 2. `about` — About intro
 3. `about-dogs` — Dogs section
 4. `about-smarthome` — Smart home tech
-5. `about-music` — Music picks
 6. `projects` — Projects overview
 7. `project-shelfiq` — ShelfIQ project detail
 8. `project-wordle` — Wordle Clone project detail
@@ -50,7 +49,7 @@ src/
 ├── zindex.css                 # Z-index constants
 ├── pages/                     # Top-level slide content (Home, Projects, Contact)
 ├── components/
-│   ├── about/                 # About sub-slides (intro, dogs, smarthome, music)
+│   ├── about/                 # About sub-slides (intro, dogs, smarthome)
 │   ├── bio/                   # Home page bio, scroll button, .NET button
 │   ├── cookies/               # Cookie consent banner
 │   ├── navbar/                # Navbar + NavbarButton (responsive, hamburger <480px)

@@ -3,7 +3,6 @@ export const SLIDE_IDS = {
   about: 'about',
   aboutDogs: 'about-dogs',
   aboutSmarthome: 'about-smarthome',
-  aboutMusic: 'about-music',
   projects: 'projects',
   projectShelfiq: 'project-shelfiq',
   projectWordle: 'project-wordle',

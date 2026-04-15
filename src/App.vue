@@ -8,7 +8,6 @@ import Slideshow from './components/slideshow/Slideshow.vue'
 import AboutIntro from './components/about/AboutIntro.vue'
 import DogsSection from './components/about/DogsSection.vue'
 import SmartHomeSection from './components/about/SmartHomeSection.vue'
-import MusicSection from './components/about/MusicSection.vue'
 import ShelfIQ from './components/projects/ShelfIQ.vue'
 import WordlClone from './components/projects/WordlClone.vue'
 import GrowlerStation from './components/projects/GrowlerStation.vue'
@@ -60,7 +59,6 @@ provide('currentSlideId', currentSlideId as Ref<string>)
       <div class="slide"><AboutIntro /></div>
       <div class="slide"><DogsSection /></div>
       <div class="slide"><SmartHomeSection /></div>
-      <div class="slide"><MusicSection /></div>
       <div class="slide"><Projects /></div>
       <div class="slide"><ShelfIQ /></div>
       <div class="slide"><WordlClone /></div>

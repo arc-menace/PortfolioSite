@@ -5,7 +5,7 @@ import TechChip from '../shared/TechChip.vue'
 
 <template>
     <SlideSection title="Wordle Clone" icon="fa-solid fa-square-check" label="Wordle Clone project">
-        <p class="project-desc">A custom remake of the NYT Wordle game.</p>
+        <p class="project-desc">A custom remake of the NYT Wordle game that lets you play as many times as you want.</p>
         <div class="project-links">
             <a href="https://github.com/arc-menace/WordleDupe" target="_blank" rel="noopener noreferrer" class="project-link">
                 <i class="fa-brands fa-github" aria-hidden="true"></i> GitHub
@@ -15,11 +15,10 @@ import TechChip from '../shared/TechChip.vue'
             </a>
         </div>
         <div class="tag-list">
-            <TechChip label="Vue" icon="fa-brands fa-vuejs" />
-            <TechChip label="TypeScript" />
-            <TechChip label="Pinia" />
-            <TechChip label="GitHub Pages" icon="fa-brands fa-github" />
-            <TechChip label="REST API" icon="fa-solid fa-server" />
+            <TechChip label="Vue" icon="fa-brands fa-vuejs" url="https://vuejs.org/"/>
+            <TechChip label="TypeScript" url="https://www.typescriptlang.org/"/>
+            <TechChip label="Pinia" url="https://pinia.vuejs.org/"/>
+            <TechChip label="GitHub Pages" icon="fa-brands fa-github" url="https://docs.github.com/en/pages"/>
         </div>
     </SlideSection>
 </template>
@@ -39,13 +38,14 @@ import TechChip from '../shared/TechChip.vue'
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
+    max-width: 550px;
 }
 
 .project-links {
     display: flex;
     gap: 0.75rem;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: flex-start;
 }
 
 .project-link {
@@ -61,7 +61,6 @@ import TechChip from '../shared/TechChip.vue'
     text-decoration: none;
     transition: border-color 0.15s ease, color 0.15s ease;
     width: 45%;
-    justify-content: center;
 }
 
 .project-link:hover {

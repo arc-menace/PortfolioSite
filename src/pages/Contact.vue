@@ -56,9 +56,9 @@ const { hapticLight } = useHaptics();
 .contact-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     gap: 1.5rem;
-    text-align: center;
+    text-align: left;
 }
 
 .contact-heading {

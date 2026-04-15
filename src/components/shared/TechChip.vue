@@ -1,18 +1,23 @@
 <script setup lang="ts">
-defineProps<{
+const props = defineProps<{
     label: string
     icon?: string
+    url?: string
 }>()
 </script>
 
 <template>
-    <span class="tech-chip">
+    <component
+        :is="props.url ? 'a' : 'span'"
+        class="tech-chip"
+        v-bind="props.url ? { href: props.url, target: '_blank', rel: 'noopener noreferrer' } : {}"
+    >
         <i v-if="icon" :class="icon" class="chip-icon" aria-hidden="true"></i>
         <span v-else class="chip-icon">
             <slot name="icon" />
         </span>
         {{ label }}
-    </span>
+    </component>
 </template>
 
 <style scoped>
@@ -38,5 +43,16 @@ defineProps<{
 .chip-icon :deep(svg) {
     width: 1em;
     height: 1em;
+}
+
+a.tech-chip {
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+a.tech-chip:hover {
+    background-color: rgba(var(--v-theme-primary), 0.1);
+    border-color: rgb(var(--v-theme-primary));
 }
 </style>

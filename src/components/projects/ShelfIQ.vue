@@ -7,12 +7,15 @@ import TechChip from '../shared/TechChip.vue'
     <SlideSection title="ShelfIQ" icon="fa-solid fa-boxes-stacked" label="ShelfIQ project">
         <p class="project-desc">CPG assortment and reporting software for retail category teams that automates Space Planning via a COM interface.</p>
         <div class="tag-list">
-            <TechChip label="C#" icon="fa-brands fa-windows" />
-            <TechChip label="SQL Server" icon="fa-solid fa-database" />
-            <TechChip label="Oracle DB" icon="fa-solid fa-database" />
-            <TechChip label="COM Interop" icon="fa-brands fa-windows"/>
-            <TechChip label="WPF" icon="fa-solid fa-window-maximize" />
-            <TechChip label="Space Planning" icon="fa-solid fa-boxes-stacked" />
+            <TechChip label=".NET" icon="fa-brands fa-windows" url="https://dotnet.microsoft.com/"/>
+            <TechChip label="Blazor" icon="fa-brands fa-windows" url="https://dotnet.microsoft.com/en-us/apps/aspnet/web-apps/blazor"/>
+            <TechChip label="SQL Server" icon="fa-solid fa-database" url="https://www.microsoft.com/en-us/sql-server/"/>
+            <TechChip label="Oracle DB" icon="fa-solid fa-database" url="https://www.oracle.com/database/"/>
+            <TechChip label="COM Interop" icon="fa-brands fa-windows" url="https://learn.microsoft.com/en-us/dotnet/standard/native-interop/cominterop"/>
+            <TechChip label="WPF" icon="fa-solid fa-window-maximize" url="https://learn.microsoft.com/en-us/dotnet/desktop/wpf/overview/"/>
+            <TechChip label="Space Planning" icon="fa-solid fa-boxes-stacked" url="https://blueyonder.com/solutions/retail-planning/space-planning"/>
+            <TechChip label="Entity Framework" icon="fa-solid fa-database" url="https://learn.microsoft.com/en-us/aspnet/entity-framework"/>
+            <TechChip label="Excel" icon="fa-solid fa-file-excel" url="https://excel.cloud.microsoft/en-us/?wdOrigin=MARKETING.EXCEL.OPEN"/>
         </div>
 
         <div class="highlights-grid">
@@ -63,6 +66,7 @@ import TechChip from '../shared/TechChip.vue'
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
+    max-width: 550px;
 }
 
 .highlights-grid {

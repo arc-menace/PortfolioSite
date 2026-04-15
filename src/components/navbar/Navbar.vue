@@ -33,7 +33,7 @@ const goToSlide = inject<(id: string) => void>('goToSlide')!
                     <v-list-item :onClick="() => { hapticLight(); goToSlide(SLIDE_IDS.home); }">
                         <v-list-item-title class="navbar-button-text">Home</v-list-item-title>
                     </v-list-item>
-                    <v-list-item :onClick="() => { hapticLight(); goToSlide(SLIDE_IDS.aboutDogs); }">
+                    <v-list-item :onClick="() => { hapticLight(); goToSlide(SLIDE_IDS.about); }">
                         <v-list-item-title class="navbar-button-text">About</v-list-item-title>
                     </v-list-item>
                     <v-list-item :onClick="() => { hapticLight(); goToSlide(SLIDE_IDS.projects); }">
