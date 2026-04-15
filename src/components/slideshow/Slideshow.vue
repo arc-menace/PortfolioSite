@@ -6,6 +6,8 @@ const props = defineProps<{
   topColor?: string
 }>()
 
+const emit = defineEmits<{ slideChange: [id: string] }>()
+
 const currentIndex = ref(0)
 const dragOffset = ref(0)
 const isDragging = ref(false)
@@ -150,6 +152,7 @@ watch(currentIndex, (i) => {
     .split('-')
     .map(w => w.charAt(0).toUpperCase() + w.slice(1))
     .join(' ')
+  emit('slideChange', id)
 })
 
 // ── Style ────────────────────────────────────────────────────────────────────

@@ -138,4 +138,10 @@ const goToSlide = inject<(id: string) => void>('goToSlide')!
     background-color: transparent;
     box-shadow: none;
 }
+
+@media only screen and (max-width: 480px) {
+    .debug-cookies-btn {
+        margin-left: 1rem;
+    }
+}
 </style>

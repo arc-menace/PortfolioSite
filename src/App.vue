@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineAsyncComponent, ref, provide, watch } from 'vue'
+import { defineAsyncComponent, ref, provide, watch, type Ref } from 'vue'
 import { useTheme } from 'vuetify'
 import Navbar from './components/navbar/Navbar.vue'
 import Home from './pages/Home.vue'
@@ -42,6 +42,9 @@ const slideIds = Object.values(SLIDE_IDS)
 
 const slideshowRef = ref<{ goToId: (id: string) => void } | null>(null)
 provide('goToSlide', (id: string) => slideshowRef.value?.goToId(id))
+
+const currentSlideId = ref<string>(SLIDE_IDS.home)
+provide('currentSlideId', currentSlideId as Ref<string>)
 </script>
 
 <template>
@@ -52,7 +55,7 @@ provide('goToSlide', (id: string) => slideshowRef.value?.goToId(id))
   </header>
 
   <main id="main-content">
-    <Slideshow ref="slideshowRef" :slide-ids="slideIds" :top-color="currentColors.secondary">
+    <Slideshow ref="slideshowRef" :slide-ids="slideIds" :top-color="currentColors.secondary" @slide-change="id => currentSlideId = id">
       <div class="slide"><Home /></div>
       <div class="slide"><AboutIntro /></div>
       <div class="slide"><DogsSection /></div>

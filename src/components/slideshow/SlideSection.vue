@@ -152,6 +152,10 @@ withDefaults(defineProps<{
     --icon-center: calc(1.8rem * 1.2 / 2);  /* 1.08rem */
   }
 
+  .section-container {
+    padding-left: 0.5rem;
+  }
+
   .section-heading {
     font-size: 1.8rem;
   }
