@@ -8,7 +8,7 @@ import { useHaptics } from '../../composables/useHaptics';
 
 const dialog = ref(false);
 const currentSlideId = inject<Ref<string>>('currentSlideId', ref('home'));
-const isTimelineSlide = computed(() => !['home', 'about', 'contact'].includes(currentSlideId.value));
+const isTimelineSlide = computed(() => !['home', 'contact'].includes(currentSlideId.value));
 const theme = useTheme();
 const store = useGlobalStore();
 const { currentColors, selectedThemeId, applyThemePreset } = useThemeColors();
