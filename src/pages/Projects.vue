@@ -1,5 +1,9 @@
 <script setup lang="ts">
+import { inject } from 'vue'
 import SlideSection from '../components/slideshow/SlideSection.vue'
+import { SLIDE_IDS } from '../config/slides'
+
+const goToSlide = inject<(id: string) => void>('goToSlide')
 
 const projects = [
     {
@@ -8,6 +12,7 @@ const projects = [
         role: 'Software Engineer II',
         description: 'CPG assortment and reporting software for retail category teams. Built workflow engines, integrations, and analytical dashboards.',
         tags: ['.NET', 'Blazor', 'WPF', 'SQL Server'],
+        slideId: SLIDE_IDS.projectShelfiq,
     },
     {
         icon: 'fa-solid fa-square-check',
@@ -15,6 +20,7 @@ const projects = [
         role: 'Personal Project',
         description: 'A custom remake of the NYT Wordle game with unlimited plays. Built with Vue 3 and deployed on GitHub Pages.',
         tags: ['Vue', 'TypeScript', 'Pinia'],
+        slideId: SLIDE_IDS.projectWordle,
     },
     {
         icon: 'fa-solid fa-beer-mug-empty',
@@ -22,6 +28,7 @@ const projects = [
         role: 'Software Engineer I',
         description: 'Menu creation and management tool for bars and restaurants, with an Android TV display app for live menus.',
         tags: ['.NET', 'Blazor', 'Android', 'Entity Framework'],
+        slideId: SLIDE_IDS.projectGrowler,
     },
 ]
 </script>
@@ -32,7 +39,7 @@ const projects = [
             <p class="intro-text">I enjoy solving real problems with code — whether it's enterprise software at work or side projects on the weekend. Scroll down for the details on each.</p>
 
             <div class="projects-list">
-                <div v-for="project in projects" :key="project.name" class="project-card">
+                <div v-for="project in projects" :key="project.name" class="project-card" role="button" tabindex="0" @click="goToSlide?.(project.slideId)" @keydown.enter="goToSlide?.(project.slideId)" @keydown.space.prevent="goToSlide?.(project.slideId)">
                     <div class="project-icon-wrap">
                         <i :class="[project.icon, 'project-icon']"></i>
                     </div>
@@ -85,6 +92,7 @@ const projects = [
     border: 1px solid rgba(var(--v-theme-primary), 0.15);
     background: rgba(var(--v-theme-primary), 0.04);
     transition: border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
 }
 
 .project-card:hover {
