@@ -1,6 +1,24 @@
 <script setup lang="ts">
 import SlideSection from '../slideshow/SlideSection.vue'
 import TechChip from '../shared/TechChip.vue'
+
+const LOGO_DEV_TOKEN = 'pk_O_YubjNGQK-CkK7JSZhUHA'
+
+const brands = [
+    { name: 'Walmart',      domain: 'walmart.com' },
+    { name: 'Target',       domain: 'target.com' },
+    { name: 'Swire Coca-Cola', domain: 'swirecc.com' },
+    { name: 'Nestlé',       domain: 'nestle.com' },
+    { name: 'PepsiCo',      domain: 'pepsico.com' },
+    { name: 'Anheuser-Busch',      domain: 'anheuser-busch.com' },
+    { name: 'Kraft Heinz',  domain: 'kraftheinzcompany.com' },
+    { name: 'Mondelez',     domain: 'mondelezinternational.com' },
+    { name: 'Unilever',     domain: 'unilever.com' },
+]
+
+function logoUrl(domain: string) {
+    return `https://img.logo.dev/${domain}?token=${LOGO_DEV_TOKEN}&size=80&format=png`
+}
 </script>
 
 <template>
@@ -16,6 +34,21 @@ import TechChip from '../shared/TechChip.vue'
             <TechChip label="Space Planning" icon="fa-solid fa-boxes-stacked" url="https://blueyonder.com/solutions/retail-planning/space-planning"/>
             <TechChip label="Entity Framework" icon="fa-solid fa-database" url="https://learn.microsoft.com/en-us/aspnet/entity-framework"/>
             <TechChip label="Excel" icon="fa-solid fa-file-excel" url="https://excel.cloud.microsoft/en-us/?wdOrigin=MARKETING.EXCEL.OPEN"/>
+        </div>
+
+        <div class="brand-carousel-wrapper">
+            <div class="brand-carousel-header">Used by some of the world's largest brands</div>
+            <div class="brand-carousel-mask">
+                <div class="brand-carousel-track">
+                    <v-tooltip v-for="(brand, i) in [...brands, ...brands]" :key="`${brand.domain}-${i}`" :text="brand.name" location="top">
+                        <template #activator="{ props }">
+                            <div class="brand-logo-item" v-bind="props">
+                                <img :src="logoUrl(brand.domain)" :alt="brand.name" class="brand-logo" />
+                            </div>
+                        </template>
+                    </v-tooltip>
+                </div>
+            </div>
         </div>
 
         <div class="highlights-grid">
@@ -107,6 +140,67 @@ import TechChip from '../shared/TechChip.vue'
     color: rgb(var(--v-theme-text));
     opacity: 0.65;
     line-height: 1.5;
+}
+
+.brand-carousel-wrapper {
+    max-width: 680px;
+    width: 100%;
+}
+
+.brand-carousel-header {
+    font-family: 'Consolas', 'Courier New', Courier, monospace;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgb(var(--v-theme-text));
+    opacity: 0.45;
+    margin-bottom: 0.75rem;
+}
+
+.brand-carousel-mask {
+    overflow: hidden;
+    /* exactly 4 slots: 4 × 150px + 3 × 20px gaps = 660px */
+    width: 660px;
+    max-width: 100%;
+    mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
+}
+
+.brand-carousel-track {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    width: max-content;
+    animation: scroll-left 24s linear infinite;
+}
+
+.brand-logo-item {
+    flex-shrink: 0;
+    width: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 94px;
+}
+
+.brand-logo {
+    max-width: 140px;
+    max-height: 72px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    filter: opacity(0.85);
+    transition: filter 0.25s ease;
+}
+
+.brand-logo:hover {
+    filter: opacity(1);
+}
+
+@keyframes scroll-left {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
 }
 
 @media only screen and (max-width: 600px) {
