@@ -11,6 +11,11 @@ const { hapticLight } = useHaptics();
 
             <p class="contact-tagline">Let's build something together.</p>
 
+            <div class="contact-availability">
+                <p class="availability-line">Currently seeking full-time positions, with a preference for roles in the <strong>Denver, CO</strong> area.</p>
+                <p class="availability-line availability-note">I do not work with military or weapons contractors.</p>
+            </div>
+
             <div class="contact-links">
                 <a
                     href="https://github.com/arc-menace"
@@ -76,6 +81,26 @@ const { hapticLight } = useHaptics();
     color: rgb(var(--v-theme-text));
     opacity: 0.7;
     margin: 0;
+}
+
+.contact-availability {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin: 0;
+}
+
+.availability-line {
+    font-family: 'Consolas', 'Courier New', Courier, monospace;
+    font-size: 0.95rem;
+    color: rgb(var(--v-theme-text));
+    opacity: 0.7;
+    margin: 0;
+}
+
+.availability-note {
+    opacity: 0.5;
+    font-size: 0.85rem;
 }
 
 .contact-links {
