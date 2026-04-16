@@ -36,7 +36,9 @@ const { hapticLight } = useHaptics();
                     LinkedIn
                 </a>
                 <a
-                    href="/JoeHahnResume.pdf"
+                    href="https://github.com/arc-menace/Resume/releases/tag/latest"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     class="contact-link"
                     @click="hapticLight()"
                 >
