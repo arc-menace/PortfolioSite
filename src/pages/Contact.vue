@@ -13,7 +13,7 @@ const { hapticLight } = useHaptics();
 
             <div class="contact-availability">
                 <p class="availability-line">Currently seeking full-time positions, with a preference for roles in the <strong>Denver, CO</strong> area.</p>
-                <p class="availability-line availability-note">I do not work with military or weapons contractors.</p>
+                <p class="availability-line availability-note">I do not work with military or weapons contractors, gambling sites or fossil fuel companies.</p>
             </div>
 
             <div class="contact-links">
