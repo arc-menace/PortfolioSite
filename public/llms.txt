@@ -1,0 +1,38 @@
+# Joe Hahn — Full Stack Developer
+
+## About
+
+Joe Hahn is a full stack developer specializing in .NET desktop and web development. They are currently seeking full-time software engineering positions.
+
+- Website: https://www.joe-hahn.com
+- GitHub: https://github.com/arc-menace
+- LinkedIn: https://www.linkedin.com/in/joseph-hahn-35b561219
+- Email: contact@joe-hahn.com
+
+## Skills & Technologies
+
+- **Languages:** C#, TypeScript, SQL, HTML, CSS
+- **Frameworks:** .NET, Blazor, WPF, Vue 3, Entity Framework, Pinia
+- **Platforms:** Windows desktop (WPF), Web (Blazor/Vue), Android
+- **Databases:** SQL Server
+- **Tools:** Vite, Git, GitHub Pages
+
+## Projects
+
+### ShelfIQ (Software Engineer II)
+CPG assortment and reporting software for retail category teams. Built workflow engines, third-party integrations, and analytical dashboards.
+Technologies: .NET, Blazor, WPF, SQL Server
+
+### Wordle Clone (Personal Project)
+A custom remake of the NYT Wordle game with unlimited plays and no account required. Deployed on GitHub Pages.
+Technologies: Vue 3, TypeScript, Pinia
+Live: https://arc-menace.github.io/Wordle/
+
+### Growler Station (Software Engineer I)
+Menu creation and management tool for bars and restaurants, paired with an Android TV display app for live digital menus.
+Technologies: .NET, Blazor, Android, Entity Framework
+
+## Contact
+
+Joe is open to full-time roles, with a preference for positions in the Denver, CO area or remote work.
+Reach out via LinkedIn or email at contact@joe-hahn.com

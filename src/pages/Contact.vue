@@ -36,6 +36,14 @@ const { hapticLight } = useHaptics();
                     LinkedIn
                 </a>
                 <a
+                    href="mailto:contact@joe-hahn.com"
+                    class="contact-link"
+                    @click="hapticLight()"
+                >
+                    <i class="fa-solid fa-envelope"></i>
+                    Email
+                </a>
+                <a
                     href="https://github.com/arc-menace/Resume/releases/tag/latest"
                     target="_blank"
                     rel="noopener noreferrer"
