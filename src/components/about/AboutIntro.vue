@@ -2,7 +2,7 @@
 import SlideSection from '../slideshow/SlideSection.vue'
 
 const facts = [
-    { icon: 'fa-solid fa-location-dot', label: 'Location', value: 'Bentonville, AR' },
+    { icon: 'fa-solid fa-location-dot', label: 'Location', value: 'Denver, CO' },
     { icon: 'fa-solid fa-briefcase', label: 'Experience', value: '5 Years' },
     { icon: 'fa-solid fa-building', label: 'Role', value: 'Software Engineer II at Nuqleous (now Engine)' },
     { icon: 'fa-solid fa-shield-halved', label: 'Eagle Scout', value: 'Class of 2018' },
