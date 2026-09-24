@@ -3,7 +3,7 @@ import { defineAsyncComponent, ref, provide, watch, type Ref } from 'vue'
 import { useTheme } from 'vuetify'
 import Navbar from './components/navbar/Navbar.vue'
 import Home from './pages/Home.vue'
-import Cookies from './components/cookies/Cookies.vue'
+import PrivacyNotice from './components/privacy/PrivacyNotice.vue'
 import Slideshow from './components/slideshow/Slideshow.vue'
 import AboutIntro from './components/about/AboutIntro.vue'
 import DogsSection from './components/about/DogsSection.vue'
@@ -44,6 +44,11 @@ provide('goToSlide', (id: string) => slideshowRef.value?.goToId(id))
 
 const currentSlideId = ref<string>(SLIDE_IDS.home)
 provide('currentSlideId', currentSlideId as Ref<string>)
+
+function onSlideChange(id: string) {
+  currentSlideId.value = id
+  window.umami?.track('slide-view', { slide: id })
+}
 </script>
 
 <template>
@@ -54,7 +59,7 @@ provide('currentSlideId', currentSlideId as Ref<string>)
   </header>
 
   <main id="main-content">
-    <Slideshow ref="slideshowRef" :slide-ids="slideIds" :top-color="currentColors.secondary" @slide-change="id => currentSlideId = id">
+    <Slideshow ref="slideshowRef" :slide-ids="slideIds" :top-color="currentColors.secondary" @slide-change="onSlideChange">
       <div class="slide"><Home /></div>
       <div class="slide"><AboutIntro /></div>
       <div class="slide"><DogsSection /></div>
@@ -67,7 +72,7 @@ provide('currentSlideId', currentSlideId as Ref<string>)
     </Slideshow>
   </main>
 
-  <Cookies />
+  <PrivacyNotice />
 </template>
 
 <style>

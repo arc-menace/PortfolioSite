@@ -29,13 +29,14 @@ export const useGlobalStore = defineStore('global', {
     state: () => ({
         userPreferences: new UserPreferences(),
         savedThemeMode: null as 'light' | 'dark' | null,
-        hasAcknowledgedCookieConsent: true // Assume true until we check localStorage to avoid flashing the cookie consent banner
+        hasAcknowledgedPrivacyNotice: true // Assume true until we check localStorage to avoid flashing the privacy notice
     }),
     actions: {
         loadState() {
-            const consent = getItem('cookieConsent')
-            this.userPreferences.hasConsentedToCookies = consent === 'true'
-            this.hasAcknowledgedCookieConsent = consent !== null
+            // Legacy key from the old accept/decline banner
+            removeItem('cookieConsent')
+
+            this.hasAcknowledgedPrivacyNotice = getItem('privacyNoticeAcknowledged') === 'true'
 
             const selectedThemeId = getItem('selectedThemeId')
             if (selectedThemeId) {
@@ -49,40 +50,19 @@ export const useGlobalStore = defineStore('global', {
         },
         saveThemePreference(mode: 'light' | 'dark') {
             this.savedThemeMode = mode
-
-            if (!this.userPreferences.hasConsentedToCookies) return
-
             setItem('theme', mode)
         },
         saveSelectedPreset(presetId: string) {
             this.userPreferences.selectedThemeId = presetId
-
-            if (!this.userPreferences.hasConsentedToCookies) return
-
             setItem('selectedThemeId', presetId)
         },
-        consentToCookies() {
-            this.userPreferences.hasConsentedToCookies = true
-            this.hasAcknowledgedCookieConsent = true
-
-            setItem('cookieConsent', 'true')
+        acknowledgePrivacyNotice() {
+            this.hasAcknowledgedPrivacyNotice = true
+            setItem('privacyNoticeAcknowledged', 'true')
         },
-        clearCookies() {
-            removeItem('cookieConsent')
-            removeItem('theme')
-            removeItem('selectedThemeId')
-        },
-        declineCookies() {
-            this.userPreferences.hasConsentedToCookies = false
-            this.hasAcknowledgedCookieConsent = true
-
-            this.clearCookies()
-        },
-        resetCookies() {
-            this.userPreferences.hasConsentedToCookies = false
-            this.hasAcknowledgedCookieConsent = false
-
-            this.clearCookies()
+        resetPrivacyNotice() {
+            this.hasAcknowledgedPrivacyNotice = false
+            removeItem('privacyNoticeAcknowledged')
         }
     }
 })

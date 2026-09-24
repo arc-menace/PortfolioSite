@@ -7,18 +7,20 @@ const { hapticLight } = useHaptics();
 <template>
     <section id="contact" aria-label="Contact">
         <div class="contact-container">
-            <h2 class="contact-heading">Always Open to New Opportunities</h2>
+            <h2 class="contact-heading">Get in Touch</h2>
 
-            <p class="contact-tagline">Let's build something together.</p>
+            <p class="contact-tagline">Always happy to talk code, projects, or dogs.</p>
 
             <div class="contact-availability">
-                <p class="availability-line">Currently seeking full-time positions, with a preference for roles in the <strong>Denver, CO</strong> area.</p>
+                <p class="availability-line">Currently a Software Engineer II at <strong>Lean TECHniques</strong>, based in <strong>Denver, CO</strong>.</p>
                 <p class="availability-line availability-note">I do not work with military or weapons contractors, gambling sites or fossil fuel companies.</p>
             </div>
 
             <div class="contact-links">
                 <a
                     href="https://github.com/arc-menace"
+                    data-umami-event="contact-click"
+                    data-umami-event-link="github"
                     target="_blank"
                     rel="noopener noreferrer"
                     class="contact-link"
@@ -28,6 +30,8 @@ const { hapticLight } = useHaptics();
                 </a>
                 <a
                     href="https://www.linkedin.com/in/joseph-hahn-35b561219"
+                    data-umami-event="contact-click"
+                    data-umami-event-link="linkedin"
                     target="_blank"
                     rel="noopener noreferrer"
                     class="contact-link"
@@ -37,6 +41,8 @@ const { hapticLight } = useHaptics();
                 </a>
                 <a
                     href="mailto:contact@joe-hahn.com"
+                    data-umami-event="contact-click"
+                    data-umami-event-link="email"
                     class="contact-link"
                     @click="hapticLight()"
                 >
@@ -45,6 +51,8 @@ const { hapticLight } = useHaptics();
                 </a>
                 <a
                     href="https://github.com/arc-menace/Resume/releases/tag/latest"
+                    data-umami-event="contact-click"
+                    data-umami-event-link="resume"
                     target="_blank"
                     rel="noopener noreferrer"
                     class="contact-link"

@@ -43,7 +43,7 @@ Slide IDs are defined in `src/config/slides.ts`. Navigation is handled by `goToS
 
 ```
 src/
-├── App.vue                    # Root — wraps Slideshow, Navbar, Settings, Cookies
+├── App.vue                    # Root — wraps Slideshow, Navbar, Settings, PrivacyNotice
 ├── main.ts                    # Entry — registers Vuetify, Pinia, mounts app
 ├── style.css                  # Global styles
 ├── zindex.css                 # Z-index constants
@@ -51,7 +51,7 @@ src/
 ├── components/
 │   ├── about/                 # About sub-slides (intro, dogs, smarthome)
 │   ├── bio/                   # Home page bio, scroll button, .NET button
-│   ├── cookies/               # Cookie consent banner
+│   ├── privacy/               # Privacy notice (info-only, dismissible)
 │   ├── navbar/                # Navbar + NavbarButton (responsive, hamburger <480px)
 │   ├── projects/              # Individual project detail components
 │   ├── settings/              # Theme/color settings dialog
@@ -68,7 +68,7 @@ src/
 
 - **Composables** — `useHaptics()` for haptic feedback, `useThemeColors()` for reactive theme management
 - **Provide/Inject** — `goToSlide()` is provided at App level, injected where needed
-- **Pinia store** (`useGlobalStore`) — manages user preferences, theme mode, cookie consent; persists to localStorage when cookies are accepted
+- **Pinia store** (`useGlobalStore`) — manages user preferences, theme mode, privacy notice acknowledgement; persists preferences to localStorage
 - **Scoped CSS + Vuetify CSS variables** — theming via `rgb(var(--v-theme-primary))` pattern, no Tailwind
 - **Lazy loading** — Projects and Contact pages use `defineAsyncComponent`
 - **Code splitting** — Vanta + Three.js are split into a separate `vanta` chunk via Rollup manual chunks

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useHaptics } from '../../composables/useHaptics';
 
-const props = defineProps<{
+defineProps<{
     index: number;
     text: string;
     onClick: () => void;

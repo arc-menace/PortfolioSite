@@ -17,8 +17,8 @@ const goToSlide = inject<(id: string) => void>('goToSlide')!
 <template>
     <nav class="navbar" aria-label="Main navigation">
         <SettingsDialog />
-        <v-btn v-if="isDev" icon @click="store.resetCookies()" class="debug-cookies-btn" aria-label="[DEV] Reset cookie consent">
-            <i class="fa-solid fa-cookie-bite" aria-hidden="true"></i>
+        <v-btn v-if="isDev" icon @click="store.resetPrivacyNotice()" class="debug-privacy-btn" aria-label="[DEV] Reset privacy notice">
+            <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
         </v-btn>
         <div class="margin-right-auto"></div>
         <div class="hamburger-menu">
@@ -134,13 +134,13 @@ const goToSlide = inject<(id: string) => void>('goToSlide')!
     margin-right: auto;
 }
 
-.debug-cookies-btn {
+.debug-privacy-btn {
     background-color: transparent;
     box-shadow: none;
 }
 
 @media only screen and (max-width: 480px) {
-    .debug-cookies-btn {
+    .debug-privacy-btn {
         margin-left: -2rem;
     }
 }

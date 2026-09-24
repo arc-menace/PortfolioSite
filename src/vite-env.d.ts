@@ -7,3 +7,9 @@ declare module '*.svg?component' {
     const component: DefineComponent
     export default component
 }
+
+interface Window {
+    umami?: {
+        track: (event: string, data?: Record<string, string | number>) => void
+    }
+}

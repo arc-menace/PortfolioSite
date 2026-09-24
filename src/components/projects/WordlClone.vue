@@ -7,10 +7,10 @@ import TechChip from '../shared/TechChip.vue'
     <SlideSection title="Wordle Clone" icon="fa-solid fa-square-check" label="Wordle Clone project">
         <p class="project-desc">A custom remake of the NYT Wordle game that lets you play as many times as you want.</p>
         <div class="project-links">
-            <a href="https://github.com/arc-menace/WordleDupe" target="_blank" rel="noopener noreferrer" class="project-link">
+            <a href="https://github.com/arc-menace/WordleDupe" data-umami-event="project-link-click" data-umami-event-project="wordle" data-umami-event-link="github" target="_blank" rel="noopener noreferrer" class="project-link">
                 <i class="fa-brands fa-github" aria-hidden="true"></i> GitHub
             </a>
-            <a href="https://arc-menace.github.io/WordleDupe/" target="_blank" rel="noopener noreferrer" class="project-link">
+            <a href="https://arc-menace.github.io/WordleDupe/" data-umami-event="project-link-click" data-umami-event-project="wordle" data-umami-event-link="live" target="_blank" rel="noopener noreferrer" class="project-link">
                 <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> Live
             </a>
         </div>

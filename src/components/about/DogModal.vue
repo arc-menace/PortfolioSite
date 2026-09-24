@@ -54,7 +54,6 @@ const breedColors = ['#4CAF50', '#2196F3', '#FF9800', '#9C27B0']
 // Weight gauge calculations
 const GAUGE_CX = 100
 const GAUGE_CY = 100
-const GAUGE_R = 70
 const GAUGE_NEEDLE_R = 50
 const GAUGE_MAX = 120
 
