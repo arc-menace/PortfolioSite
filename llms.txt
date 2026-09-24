@@ -2,7 +2,7 @@
 
 ## About
 
-Joe Hahn is a full stack developer specializing in .NET desktop and web development. They are currently seeking full-time software engineering positions.
+Joe Hahn is a full stack developer specializing in .NET desktop and web development. They currently work for Lean TECHniques as a Software Engineer II.
 
 - Website: https://www.joe-hahn.com
 - GitHub: https://github.com/arc-menace
@@ -34,5 +34,4 @@ Technologies: .NET, Blazor, Android, Entity Framework
 
 ## Contact
 
-Joe is open to full-time roles, with a preference for positions in the Denver, CO area or remote work.
-Reach out via LinkedIn or email at contact@joe-hahn.com
+Joe is always happy to connect with other developers. Reach out via LinkedIn or email at contact@joe-hahn.com
