@@ -12,7 +12,6 @@ const { hapticLight } = useHaptics();
             <p class="contact-tagline">Always happy to talk code, projects, or dogs.</p>
 
             <div class="contact-availability">
-                <p class="availability-line">Currently a Software Engineer II at <strong>Lean TECHniques</strong>, based in <strong>Denver, CO</strong>.</p>
                 <p class="availability-line availability-note">I do not work with military or weapons contractors, gambling sites or fossil fuel companies.</p>
             </div>
 
