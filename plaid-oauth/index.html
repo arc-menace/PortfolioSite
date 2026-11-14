@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Hidden page: identifies the operator of the Life Admin app for Plaid's security/app profile.
+         Not linked from the site, not in the sitemap. -->
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Life Admin — Joe Hahn</title>
+    <link rel="icon" href="/favicon.ico" />
+    <style>
+      :root {
+        --bg: #f6f7f9;
+        --card: #ffffff;
+        --text: #1d2330;
+        --muted: #5b6474;
+        --border: #e2e5ea;
+        --link: #2f5bd3;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #12151b;
+          --card: #1b1f27;
+          --text: #e7e9ee;
+          --muted: #9aa3b2;
+          --border: #2a303b;
+          --link: #8fb0ff;
+        }
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 16px;
+        background: var(--bg);
+        color: var(--text);
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        line-height: 1.55;
+      }
+      main {
+        width: 100%;
+        max-width: 560px;
+        padding: 32px 28px;
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+      }
+      h1 { margin: 0 0 4px; font-size: 1.4rem; font-weight: 600; }
+      .subtitle { margin: 0 0 24px; color: var(--muted); }
+      h2 {
+        margin: 24px 0 6px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      p { margin: 0; }
+      a { color: var(--link); }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Life Admin</h1>
+      <p class="subtitle">A private, personal application operated by Joe Hahn</p>
+
+      <h2>Operator</h2>
+      <p>
+        Life Admin is built and run by Joe Hahn, an individual software developer based in
+        Denver, CO. It is not a company or a commercial product.
+      </p>
+
+      <h2>Purpose</h2>
+      <p>
+        Life Admin is a personal tool for organizing my own household and financial
+        administration. It uses Plaid to connect to my own financial accounts.
+      </p>
+
+      <h2>Users</h2>
+      <p>
+        I am the only user. The app is not offered to the public, has no sign-up, and does
+        not hold anyone else's data.
+      </p>
+
+      <h2>Access</h2>
+      <p>
+        The app is self-hosted and reachable only over my private Tailscale network. It is not
+        exposed to the public internet, and I access it only from my own devices.
+      </p>
+
+      <h2>Contact</h2>
+      <p>
+        <a href="mailto:contact@joe-hahn.com">contact@joe-hahn.com</a> ·
+        <a href="https://www.joe-hahn.com/">www.joe-hahn.com</a>
+      </p>
+    </main>
+  </body>
+</html>
