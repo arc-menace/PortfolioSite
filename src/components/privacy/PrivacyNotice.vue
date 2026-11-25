@@ -36,7 +36,9 @@ function acknowledge() {
     border-radius: 0.75rem;
     display: flex;
     flex-direction: column;
+    border: 1px solid var(--hairline);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: var(--z-index-navbar);
 }
 
 .privacy-notice-text {

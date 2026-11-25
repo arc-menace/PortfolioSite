@@ -181,6 +181,7 @@ const gaugeTicks = [0, 30, 60, 90, 120].map(w => ({
 <style scoped>
 /* Card layout */
 .dog-modal-card {
+    font-family: var(--font-sans);
     border-radius: 16px !important;
     overflow: hidden;
     display: flex;
@@ -201,7 +202,6 @@ const gaugeTicks = [0, 30, 60, 90, 120].map(w => ({
 }
 
 .dog-modal-name {
-    font-family: 'Consolas', 'Courier New', Courier, monospace;
     font-size: 1.25rem;
     font-weight: 700;
     color: rgb(var(--v-theme-text));
@@ -251,7 +251,6 @@ const gaugeTicks = [0, 30, 60, 90, 120].map(w => ({
 }
 
 .section-title {
-    font-family: 'Consolas', 'Courier New', Courier, monospace;
     font-size: 0.9rem;
     font-weight: 600;
     color: rgb(var(--v-theme-text));
@@ -282,7 +281,6 @@ const gaugeTicks = [0, 30, 60, 90, 120].map(w => ({
 }
 
 .breed-segment-label {
-    font-family: 'Consolas', monospace;
     font-size: 0.65rem;
     color: #fff;
     font-weight: 700;
@@ -299,7 +297,6 @@ const gaugeTicks = [0, 30, 60, 90, 120].map(w => ({
     display: flex;
     align-items: center;
     gap: 0.35rem;
-    font-family: 'Consolas', monospace;
     font-size: 0.78rem;
     color: rgb(var(--v-theme-text));
 }
@@ -339,7 +336,6 @@ const gaugeTicks = [0, 30, 60, 90, 120].map(w => ({
 }
 
 .stat-label {
-    font-family: 'Consolas', monospace;
     font-size: 0.85rem;
     font-weight: 600;
     color: rgb(var(--v-theme-text));
@@ -356,7 +352,6 @@ const gaugeTicks = [0, 30, 60, 90, 120].map(w => ({
 }
 
 .tick-text {
-    font-family: 'Consolas', monospace;
     font-size: 9px;
     fill: rgb(var(--v-theme-text));
     opacity: 0.5;
@@ -371,7 +366,6 @@ const gaugeTicks = [0, 30, 60, 90, 120].map(w => ({
 }
 
 .gauge-label {
-    font-family: 'Consolas', monospace;
     font-size: 13px;
     font-weight: 700;
     fill: rgb(var(--v-theme-text));
@@ -392,7 +386,6 @@ const gaugeTicks = [0, 30, 60, 90, 120].map(w => ({
     border-radius: 20px;
     background: rgba(76, 175, 80, 0.12);
     border: 1px solid rgba(76, 175, 80, 0.25);
-    font-family: 'Consolas', monospace;
     font-size: 0.8rem;
     color: rgb(var(--v-theme-text));
 }
@@ -417,7 +410,6 @@ const gaugeTicks = [0, 30, 60, 90, 120].map(w => ({
     border-radius: 8px;
     background: rgba(244, 67, 54, 0.08);
     border-left: 3px solid rgba(244, 67, 54, 0.4);
-    font-family: 'Consolas', monospace;
     font-size: 0.8rem;
     color: rgb(var(--v-theme-text));
 }

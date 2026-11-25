@@ -24,42 +24,37 @@ Personal portfolio for Joe Hahn at **www.joe-hahn.com**.
 
 ### Navigation Model
 
-This is a **vertical fullscreen slideshow**, not a traditional router-based SPA. The entire app is a stack of 100vh slides that the user navigates via scroll, swipe, keyboard, or navbar buttons.
+This is a **single, natively scrolling page** — no router and no scroll hijacking. A fixed navbar links to four sections.
 
-**Slides (in order):**
-1. `home` — Bio + Vanta animated background
-2. `about` — About intro
-3. `about-dogs` — Dogs section
-4. `about-smarthome` — Smart home tech
-6. `projects` — Projects overview
-7. `project-shelfiq` — ShelfIQ project detail
-8. `project-wordle` — Wordle Clone project detail
-9. `project-growler` — Growler Station project detail
-10. `contact` — Contact links
+**Sections (in order):**
+1. `home` — Bio + Vanta animated background (full-viewport hero)
+2. `about` — Intro + facts, dogs, smart home
+3. `projects` — ShelfIQ, Wordle Clone, Growler Station
+4. `contact` — Contact links
 
-Slide IDs are defined in `src/config/slides.ts`. Navigation is handled by `goToSlide(id)` which is provided/injected from `App.vue` into child components.
+Section IDs are defined in `src/config/sections.ts` and double as element ids / URL hashes (`/#projects`). `useSectionNav()` (called once in `App.vue`) tracks the active section and scroll state and exposes `goToSection(id)`; all three are provided/injected into child components.
 
 ### Directory Layout
 
 ```
 src/
-├── App.vue                    # Root — wraps Slideshow, Navbar, Settings, PrivacyNotice
+├── App.vue                    # Root — Navbar, the four sections, footer, PrivacyNotice
 ├── main.ts                    # Entry — registers Vuetify, Pinia, mounts app
-├── style.css                  # Global styles
+├── style.css                  # Global tokens (fonts, hairlines, gutters) + shared text classes
 ├── zindex.css                 # Z-index constants
-├── pages/                     # Top-level slide content (Home, Projects, Contact)
+├── pages/                     # Top-level sections (Home, About, Projects, Contact)
 ├── components/
-│   ├── about/                 # About sub-slides (intro, dogs, smarthome)
+│   ├── about/                 # About sub-sections (intro, dogs, smarthome)
 │   ├── bio/                   # Home page bio, scroll button, .NET button
 │   ├── privacy/               # Privacy notice (info-only, dismissible)
+│   ├── layout/                # PageSection — section wrapper (title rail + content column)
 │   ├── navbar/                # Navbar + NavbarButton (responsive, hamburger <480px)
-│   ├── projects/              # Individual project detail components
+│   ├── projects/              # ProjectSection wrapper + individual project entries
 │   ├── settings/              # Theme/color settings dialog
-│   ├── shared/                # Reusable components (TechChip)
-│   └── slideshow/             # Slideshow engine + SlideSection wrapper
-├── composables/               # useHaptics, useThemeColors
+│   └── shared/                # Reusable components (TechChip)
+├── composables/               # useHaptics, useThemeColors, useSectionNav
 ├── store/                     # Pinia store (globalStore.ts)
-├── config/                    # Slide ID constants
+├── config/                    # Section ID constants
 ├── models/                    # Types & constants (globals, themeColors, userPreferences)
 └── assets/icons/              # SVG icons (imported as components)
 ```
@@ -67,20 +62,22 @@ src/
 ### Key Patterns
 
 - **Composables** — `useHaptics()` for haptic feedback, `useThemeColors()` for reactive theme management
-- **Provide/Inject** — `goToSlide()` is provided at App level, injected where needed
+- **Provide/Inject** — `goToSection()`, `activeSectionId` and `isScrolled` are provided at App level, injected where needed
 - **Pinia store** (`useGlobalStore`) — manages user preferences, theme mode, privacy notice acknowledgement; persists preferences to localStorage
 - **Scoped CSS + Vuetify CSS variables** — theming via `rgb(var(--v-theme-primary))` pattern, no Tailwind
-- **Lazy loading** — Projects and Contact pages use `defineAsyncComponent`
+- **Shared tokens** — `style.css` defines `--font-sans`, `--font-mono`, `--text-muted`, `--text-subtle`, `--hairline` and the `.lead` / `.body-text` / `.sub-heading` / `.text-link` classes; use these instead of redefining text styles per component
 - **Code splitting** — Vanta + Three.js are split into a separate `vanta` chunk via Rollup manual chunks
 
-### Slideshow Engine (`src/components/slideshow/Slideshow.vue`)
+### Page Layout
 
-Handles all navigation input:
-- **Wheel scroll** — 500ms cooldown between slide changes
-- **Touch swipe** — 8px threshold to decide swipe vs in-slide scroll, 55px threshold to trigger slide change
-- **Rubber-band effect** at the last slide (0.25 resistance)
-- **Boundary detection** — checks if a slide is scrolled to top/bottom before allowing cross-slide navigation
-- Slides use `will-change: transform` and 0.5s cubic-bezier transitions
+- `PageSection` (`src/components/layout/PageSection.vue`) wraps About, Projects and Contact: section title in a sticky left rail on wide screens (>=900px), stacked above the content below that. Its top padding clears the fixed navbar when a section is scrolled to.
+- The hero (`pages/Home.vue`) is `100svh`; everything after it flows at natural height.
+- The navbar is transparent at the top of the page and gains a blurred background + hairline once scrolled. The link for the section in view gets `aria-current` and an underline.
+- `goToSection` smooth-scrolls (instant under `prefers-reduced-motion`), moves focus to the section, and updates the URL hash with `replaceState`.
+
+### Design Conventions
+
+Keep it plain and editorial: sans-serif body text, monospace only for the hero, navbar and section titles. Separate things with whitespace and hairlines rather than boxes. Avoid tinted cards, icon-in-circle badges, uppercase letter-spaced labels, glows and decorative animation. The theme's primary color is an accent (active nav, link underlines, focus rings), not a fill.
 
 ### Theme System
 
@@ -97,14 +94,15 @@ All content is **hardcoded in component templates** — there is no CMS or data 
 
 ## Responsive Breakpoints
 
-- **>480px** — full navbar with numbered buttons
-- **<=480px** — hamburger menu, text scales down, contact links stack vertically
+- **>=900px** — section title sits in a left rail beside the content
+- **>480px** — full navbar with numbered links
+- **<=480px** — hamburger menu, text scales down, fact rows stack, contact links form a 2x2 grid
 - **<=768px** — navbar font sizes reduce, scroll button hidden on short viewports
 
 ## Accessibility
 
 - Skip-to-content link
-- ARIA live region announces current slide
+- Nav links are real anchors with `aria-current` on the section in view; focus follows navigation
 - Semantic HTML (section, nav, main, header)
 - Focus-visible outlines on interactive elements
 

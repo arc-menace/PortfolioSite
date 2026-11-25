@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import SlideSection from '../slideshow/SlideSection.vue'
 import DogModal from './DogModal.vue'
 import { useHaptics } from '../../composables/useHaptics'
 
@@ -47,73 +46,78 @@ function openDogModal(dog: typeof dogs[number]) {
 </script>
 
 <template>
-    <SlideSection title="Butters &amp; Molly" icon="fa-solid fa-paw">
-        <p class="slide-text">I love these little goof balls</p>
+    <div class="dogs">
+        <h3 class="sub-heading">Butters &amp; Molly</h3>
+        <p class="body-text">I love these little goof balls</p>
 
         <div class="dogs-grid">
-            <div v-for="dog in dogs" :key="dog.name" class="dog-card" @click="openDogModal(dog)">
-                <div class="dog-image-wrapper">
-                    <img :src="dog.image" :alt="dog.name" class="dog-image" />
-                </div>
-                <span class="dog-name">{{ dog.name }}</span>
-            </div>
+            <button
+                v-for="dog in dogs"
+                :key="dog.name"
+                type="button"
+                class="dog-card"
+                :aria-label="`View ${dog.name}'s profile`"
+                @click="openDogModal(dog)"
+            >
+                <span class="dog-image-wrapper">
+                    <img :src="dog.image" :alt="dog.name" class="dog-image" loading="lazy" />
+                </span>
+                <span class="dog-caption">
+                    <span class="dog-name">{{ dog.name }}</span>
+                    <span class="dog-hint">View profile</span>
+                </span>
+            </button>
         </div>
 
         <DogModal v-model="showModal" :dog="selectedDog" />
-    </SlideSection>
+    </div>
 </template>
 
 <style scoped>
-.slide-text {
-    font-family: 'Consolas', 'Courier New', Courier, monospace;
-    font-size: 1rem;
-    color: rgb(var(--v-theme-text));
-    opacity: 0.75;
-    margin: 0;
-    line-height: 1.6;
-    text-align: left;
+.dogs {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
 .dogs-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-    max-width: 500px;
-    align-self: center;
-    width: 100%;
+    gap: 1.25rem;
+    max-width: 30rem;
+    margin-top: 0.5rem;
 }
 
 .dog-card {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 0.75rem;
+    gap: 0.6rem;
+    padding: 0;
+    border: none;
+    background: none;
+    color: inherit;
+    font: inherit;
+    text-align: left;
     cursor: pointer;
 }
 
+.dog-card:focus-visible {
+    outline: 2px solid rgb(var(--v-theme-primary));
+    outline-offset: 4px;
+    border-radius: 12px;
+}
+
 .dog-image-wrapper {
+    display: block;
     width: 100%;
     aspect-ratio: 1;
-    border-radius: 30%;
+    border-radius: 12px;
     overflow: hidden;
-    position: relative;
-    transition: box-shadow 0.3s ease;
-}
-
-.dog-image-wrapper::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    box-shadow: inset 0 0 40px 12px rgba(0, 0, 0, 0.45);
-    pointer-events: none;
-}
-
-.dog-card:hover .dog-image-wrapper {
-    box-shadow: 0 0 24px 8px rgba(var(--v-theme-secondary), 0.5);
+    background: var(--hairline);
 }
 
 .dog-image {
+    display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -121,19 +125,35 @@ function openDogModal(dog: typeof dogs[number]) {
 }
 
 .dog-card:hover .dog-image {
-    transform: scale(1.05);
+    transform: scale(1.03);
+}
+
+.dog-caption {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem;
 }
 
 .dog-name {
-    font-family: 'Consolas', 'Courier New', Courier, monospace;
-    font-size: 1.1rem;
+    font-size: 1.0625rem;
     font-weight: 600;
     color: rgb(var(--v-theme-text));
 }
 
-@media only screen and (max-width: 480px) {
-    .dogs-grid {
-        gap: 1.25rem;
+.dog-hint {
+    font-size: 0.875rem;
+    color: var(--text-subtle);
+    transition: color 0.15s ease;
+}
+
+.dog-card:hover .dog-hint {
+    color: rgb(var(--v-theme-text));
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .dog-image {
+        transition: none;
     }
 }
 </style>

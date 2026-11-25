@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import SlideSection from '../slideshow/SlideSection.vue'
 import TechChip from '../shared/TechChip.vue'
 
 
@@ -13,17 +12,18 @@ import Zigbee2MQTTIcon from '../../assets/icons/zigbee2mqtt.svg?component'
 </script>
 
 <template>
-    <SlideSection title="Smart Home" icon="fa-solid fa-house-signal">
-        <p class="slide-text">
+    <div class="smart-home">
+        <h3 class="sub-heading">Smart Home</h3>
+        <p class="body-text">
             I love having a smart home that I can customize and tinker with. It's been such a fun playground to experiment with home networking and automation on my own hardware.
         </p>
-        <p class="slide-text">
+        <p class="body-text">
             I focus on automations that blend into the background and make life easier, like adaptive lighting throughout the day and dedicated modes for common activities. 
         </p>
-        <p class="slide-text">
+        <p class="body-text">
             NetDaemon allows me to write Home Assistant automations in C#, which is a joy compared to YAML. I run it in a ProxMox VM on a dedicated Intel NUC.
         </p>
-        <p class="slide-text">
+        <p class="body-text">
             Dedicated networks for IoT devices and a focus on local control means that I can keep interactions snappy and not worry about data breaches and privacy issues.
         </p>
         <div class="tech-list">
@@ -59,24 +59,20 @@ import Zigbee2MQTTIcon from '../../assets/icons/zigbee2mqtt.svg?component'
                 </template>
             </TechChip>
         </div>
-    </SlideSection>
+    </div>
 </template>
 
 <style scoped>
-.slide-text {
-    font-family: 'Consolas', 'Courier New', Courier, monospace;
-    font-size: 1rem;
-    color: rgb(var(--v-theme-text));
-    opacity: 0.75;
-    margin: 0;
-    line-height: 1.6;
-    text-align: left;
+.smart-home {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
 .tech-list {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.6rem;
-    max-width: 550px;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
 }
 </style>

@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import DotnetButton from './DotnetButton.vue';
 import ScrollButton from './ScrollButton.vue';
-</script>\
+</script>
+
 
 <template>
     <div class="bio">
@@ -31,7 +32,7 @@ import ScrollButton from './ScrollButton.vue';
     font-size: 4rem;
     font-weight: 700;
     color: rgb(var(--v-theme-text));
-    font-family: 'Consolas', 'Courier New', Courier, monospace;
+    font-family: var(--font-mono);
     max-width: 80%;
     margin-top: 10%;
 }
@@ -41,7 +42,7 @@ import ScrollButton from './ScrollButton.vue';
     font-size: 2rem;
     font-weight: 400;
     color: rgb(var(--v-theme-text));
-    font-family: 'Consolas', 'Courier New', Courier, monospace;
+    font-family: var(--font-mono);
     max-width: 80%;
 }
 </style>

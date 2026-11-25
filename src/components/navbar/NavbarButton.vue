@@ -4,6 +4,8 @@ import { useHaptics } from '../../composables/useHaptics';
 defineProps<{
     index: number;
     text: string;
+    sectionId: string;
+    active: boolean;
     onClick: () => void;
 }>();
 
@@ -11,85 +13,62 @@ const { hapticLight } = useHaptics();
 </script>
 
 <template>
-   
-<div class="navbar-button-container">
-    <div class="number">{{ index }}.</div>
-
-    <button class="navbar-button" @click="() => { hapticLight(); onClick(); }">
-        {{text}}
-    </button>
-</div>
-
-
+    <a
+        class="navbar-link"
+        :class="{ 'navbar-link--active': active }"
+        :href="`#${sectionId}`"
+        :aria-current="active ? 'location' : undefined"
+        @click.prevent="() => { hapticLight(); onClick(); }"
+    >
+        <span class="number" aria-hidden="true">{{ index }}.</span>
+        <span class="label">{{ text }}</span>
+    </a>
 </template>
 
 <style scoped>
-
-.navbar-button-container {
+.navbar-link {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 0.5rem;
-    opacity: 1;
+    font-size: 1.5rem;
+    font-family: var(--font-mono);
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 .number {
-    font-size: 1.5rem;
-    font-family: "Consolas", monospace;
     color: rgb(var(--v-theme-accent));
-    opacity: 1;
 }
 
-.navbar-button {
-    cursor: pointer;
-    font-size: 1.5rem;
-    font-family: "Consolas", monospace;
-    background: none;
-    border: none;
-    color: inherit;
-    padding: 0;
-}
-
-.navbar-button:hover {
+.label {
     text-decoration: underline;
+    text-decoration-color: transparent;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.3em;
+    transition: text-decoration-color 0.2s ease;
 }
 
-.navbar-button:focus-visible {
+.navbar-link:hover .label {
+    text-decoration-color: currentColor;
+}
+
+.navbar-link--active .label,
+.navbar-link--active:hover .label {
+    text-decoration-color: rgb(var(--v-theme-primary));
+}
+
+.navbar-link:focus-visible {
     outline: 2px solid currentColor;
     outline-offset: 4px;
     border-radius: 2px;
 }
 
 @media only screen and (max-width: 768px) {
-    .navbar-button-container {
+    .navbar-link {
         gap: 0.3rem;
-    }
-
-    .navbar-button {
         font-size: 1.2rem;
     }
-
-    .number {
-        font-size: 1.2rem;
-    }
-
 }
-
-@media only screen and (max-width: 480px) {
-    .navbar-button-container {
-        gap: 0rem;
-        justify-content: center;
-    }
-
-    .navbar-button {
-        font-size: 1rem;
-    }
-
-    .number {
-        font-size: 1rem;
-    }
-}
-    
-    
-
 </style>

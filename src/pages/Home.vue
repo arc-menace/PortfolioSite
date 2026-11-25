@@ -71,7 +71,7 @@ async function buildEffect() {
 </script>
 
 <template>
-    <section ref="vantaRef" class="vanta-background" id="home" :style="backgroundStyle" aria-label="Home">
+    <section ref="vantaRef" class="vanta-background" id="home" :style="backgroundStyle" aria-label="Home" tabindex="-1">
         <Bio />
         <div class="bottom-opacity-gradient" :style="gradientStyle"></div>
     </section>
@@ -82,6 +82,7 @@ async function buildEffect() {
     box-sizing: border-box;
     width: 100%;
     height: 100vh;
+    height: 100svh;
     position: relative;
     overflow: hidden;
     padding-top: v-bind(navbarHeight);

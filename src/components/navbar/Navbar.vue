@@ -1,28 +1,37 @@
 <script setup lang="ts">
-import { inject } from 'vue';
+import { inject, ref, type Ref } from 'vue';
 import NavbarButton from './NavbarButton.vue';
 import SettingsDialog from '../settings/SettingsDialog.vue';
 import { navbarHeight } from '../../models/globals'
 import { useGlobalStore } from '../../store/globalStore'
-import { SLIDE_IDS } from '../../config/slides'
+import { SECTION_IDS, type SectionId } from '../../config/sections'
 import { useHaptics } from '../../composables/useHaptics';
 
 const store = useGlobalStore();
 const isDev = import.meta.env.DEV;
 const { hapticLight } = useHaptics();
 
-const goToSlide = inject<(id: string) => void>('goToSlide')!
+const goToSection = inject<(id: SectionId) => void>('goToSection')!
+const activeSectionId = inject<Ref<SectionId>>('activeSectionId', ref(SECTION_IDS.home))
+const isScrolled = inject<Ref<boolean>>('isScrolled', ref(false))
+
+const links: { id: SectionId; text: string }[] = [
+    { id: SECTION_IDS.home, text: 'Home' },
+    { id: SECTION_IDS.about, text: 'About' },
+    { id: SECTION_IDS.projects, text: 'Projects' },
+    { id: SECTION_IDS.contact, text: 'Contact' },
+]
 </script>
 
 <template>
-    <nav class="navbar" aria-label="Main navigation">
+    <nav class="navbar" :class="{ 'navbar--scrolled': isScrolled }" aria-label="Main navigation">
         <SettingsDialog />
         <v-btn v-if="isDev" icon @click="store.resetPrivacyNotice()" class="debug-privacy-btn" aria-label="[DEV] Reset privacy notice">
             <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
         </v-btn>
         <div class="margin-right-auto"></div>
         <div class="hamburger-menu">
-            <v-menu color="transparent" location="bottom">
+            <v-menu location="bottom end">
                 <template v-slot:activator="{ props, isActive }">
                     <button class="hamburger-btn" v-bind="props" @click="hapticLight()" :aria-expanded="isActive" aria-label="Open navigation menu" aria-haspopup="true">
                         <i class="fa-solid fa-bars" aria-hidden="true"></i>
@@ -30,27 +39,28 @@ const goToSlide = inject<(id: string) => void>('goToSlide')!
                 </template>
 
                 <v-list>
-                    <v-list-item :onClick="() => { hapticLight(); goToSlide(SLIDE_IDS.home); }">
-                        <v-list-item-title class="navbar-button-text">Home</v-list-item-title>
-                    </v-list-item>
-                    <v-list-item :onClick="() => { hapticLight(); goToSlide(SLIDE_IDS.about); }">
-                        <v-list-item-title class="navbar-button-text">About</v-list-item-title>
-                    </v-list-item>
-                    <v-list-item :onClick="() => { hapticLight(); goToSlide(SLIDE_IDS.projects); }">
-                        <v-list-item-title class="navbar-button-text">Projects</v-list-item-title>
-                    </v-list-item>
-                    <v-list-item :onClick="() => { hapticLight(); goToSlide(SLIDE_IDS.contact); }">
-                        <v-list-item-title class="navbar-button-text">Contact</v-list-item-title>
+                    <v-list-item
+                        v-for="link in links"
+                        :key="link.id"
+                        :active="activeSectionId === link.id"
+                        :onClick="() => { hapticLight(); goToSection(link.id); }"
+                    >
+                        <v-list-item-title class="navbar-button-text">{{ link.text }}</v-list-item-title>
                     </v-list-item>
                 </v-list>
             </v-menu>
         </div>
 
         <div class="navbar-buttons">
-            <NavbarButton :index="1" text="Home" :onClick="() => goToSlide(SLIDE_IDS.home)" />
-            <NavbarButton :index="2" text="About" :onClick="() => goToSlide(SLIDE_IDS.about)" />
-            <NavbarButton :index="3" text="Projects" :onClick="() => goToSlide(SLIDE_IDS.projects)" />
-            <NavbarButton :index="4" text="Contact" :onClick="() => goToSlide(SLIDE_IDS.contact)" />
+            <NavbarButton
+                v-for="(link, i) in links"
+                :key="link.id"
+                :index="i + 1"
+                :text="link.text"
+                :section-id="link.id"
+                :active="activeSectionId === link.id"
+                :onClick="() => goToSection(link.id)"
+            />
         </div>
     </nav>
 </template>
@@ -63,12 +73,23 @@ const goToSlide = inject<(id: string) => void>('goToSlide')!
     justify-content: end;
     height: v-bind(navbarHeight);
     width: 100%;
+    color: rgb(var(--v-theme-text));
     background-color: transparent;
+    border-bottom: 1px solid transparent;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: var(--z-index-navbar);
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+/* Once the page is scrolled the bar sits over content, so it needs a backing. */
+.navbar--scrolled {
+    background-color: rgba(var(--v-theme-background), 0.82);
+    border-bottom-color: var(--hairline);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
 }
 
 .navbar-buttons {
@@ -77,7 +98,7 @@ const goToSlide = inject<(id: string) => void>('goToSlide')!
     align-items: center;
     justify-content: end;
     gap: 2rem;
-    height: 4rem;
+    height: 100%;
     padding: 0 1rem;
     padding-right: 2rem;
 }
@@ -85,7 +106,7 @@ const goToSlide = inject<(id: string) => void>('goToSlide')!
 .navbar-button-text {
     font-size: 1.2rem;
     font-weight: 500;
-    font-family: 'Consolas', 'Courier New', Courier, monospace;
+    font-family: var(--font-mono);
 }
 
 .hamburger-menu {
@@ -115,8 +136,9 @@ const goToSlide = inject<(id: string) => void>('goToSlide')!
 }
 
 @media only screen and (max-width: 768px) {
-    .navbar {
+    .navbar-buttons {
         gap: 1.5rem;
+        padding-right: 1.25rem;
     }
 }
 
@@ -137,11 +159,6 @@ const goToSlide = inject<(id: string) => void>('goToSlide')!
 .debug-privacy-btn {
     background-color: transparent;
     box-shadow: none;
-}
-
-@media only screen and (max-width: 480px) {
-    .debug-privacy-btn {
-        margin-left: -2rem;
-    }
+    color: inherit;
 }
 </style>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import SlideSection from '../slideshow/SlideSection.vue'
+import ProjectSection from './ProjectSection.vue'
 import TechChip from '../shared/TechChip.vue'
 
 const LOGO_DEV_TOKEN = 'pk_O_YubjNGQK-CkK7JSZhUHA'
@@ -16,14 +16,62 @@ const brands = [
     { name: 'Unilever',     domain: 'unilever.com' },
 ]
 
+const highlights = [
+    {
+        title: 'Workflow Engine',
+        body: 'Built a workflow system for tracking 10–30 concurrent actions across 1,000–10,000 planograms with performant real-time status updates.',
+    },
+    {
+        title: 'Assortment Action',
+        body: 'Designed a general-purpose assortment action with multi-level dependency resolution, complex business logic, and thorough unit and snapshot test coverage.',
+    },
+    {
+        title: 'CKB Integration',
+        body: 'Integrated an undocumented CKB database with minimal vendor support and designed a bulk-write cache layer that significantly outperformed the legacy record-by-record approach.',
+    },
+    {
+        title: 'UX & Dashboards',
+        body: 'Led UX improvements across complex analytical dashboards, making dense data navigable and actionable for both power users and less experienced stakeholders.',
+    },
+]
+
 function logoUrl(domain: string) {
     return `https://img.logo.dev/${domain}?token=${LOGO_DEV_TOKEN}&size=80&format=png`
 }
 </script>
 
 <template>
-    <SlideSection title="ShelfIQ" icon="fa-solid fa-boxes-stacked" label="ShelfIQ project">
-        <p class="project-desc">CPG assortment and reporting software for retail category teams that automates Space Planning via a COM interface.</p>
+    <ProjectSection title="ShelfIQ" role="Software Engineer II">
+        <p class="body-text">CPG assortment and reporting software for retail category teams that automates Space Planning via a COM interface.</p>
+
+        <ul class="highlights">
+            <li v-for="item in highlights" :key="item.title" class="highlight">
+                <span class="highlight-title">{{ item.title }}</span>
+                <span class="highlight-body">{{ item.body }}</span>
+            </li>
+        </ul>
+
+        <div class="brands">
+            <p class="brands-caption">Used by some of the world's largest brands</p>
+            <ul class="brand-list">
+                <li v-for="brand in brands" :key="brand.domain">
+                    <v-tooltip :text="brand.name" location="top">
+                        <template #activator="{ props }">
+                            <img
+                                v-bind="props"
+                                :src="logoUrl(brand.domain)"
+                                :alt="brand.name"
+                                class="brand-logo"
+                                width="40"
+                                height="40"
+                                loading="lazy"
+                            />
+                        </template>
+                    </v-tooltip>
+                </li>
+            </ul>
+        </div>
+
         <div class="tag-list">
             <TechChip label=".NET" icon="fa-brands fa-windows" url="https://dotnet.microsoft.com/"/>
             <TechChip label="Blazor" icon="fa-brands fa-windows" url="https://dotnet.microsoft.com/en-us/apps/aspnet/web-apps/blazor"/>
@@ -35,177 +83,83 @@ function logoUrl(domain: string) {
             <TechChip label="Entity Framework" icon="fa-solid fa-database" url="https://learn.microsoft.com/en-us/aspnet/entity-framework"/>
             <TechChip label="Excel" icon="fa-solid fa-file-excel" url="https://excel.cloud.microsoft/en-us/?wdOrigin=MARKETING.EXCEL.OPEN"/>
         </div>
-
-        <div class="brand-carousel-wrapper">
-            <div class="brand-carousel-header">Used by some of the world's largest brands</div>
-            <div class="brand-carousel-mask">
-                <div class="brand-carousel-track">
-                    <v-tooltip v-for="(brand, i) in [...brands, ...brands]" :key="`${brand.domain}-${i}`" :text="brand.name" location="top">
-                        <template #activator="{ props }">
-                            <div class="brand-logo-item" v-bind="props">
-                                <img :src="logoUrl(brand.domain)" :alt="brand.name" class="brand-logo" />
-                            </div>
-                        </template>
-                    </v-tooltip>
-                </div>
-            </div>
-        </div>
-
-        <div class="highlights-grid">
-            <div class="highlight-card">
-                <i class="fa-solid fa-gears highlight-icon"></i>
-                <div>
-                    <div class="highlight-title">Workflow Engine</div>
-                    <div class="highlight-body">Built a workflow system for tracking 10–30 concurrent actions across 1,000–10,000 planograms with performant real-time status updates.</div>
-                </div>
-            </div>
-            <div class="highlight-card">
-                <i class="fa-solid fa-code-branch highlight-icon"></i>
-                <div>
-                    <div class="highlight-title">Assortment Action</div>
-                    <div class="highlight-body">Designed a general-purpose assortment action with multi-level dependency resolution, complex business logic, and thorough unit and snapshot test coverage.</div>
-                </div>
-            </div>
-            <div class="highlight-card">
-                <i class="fa-solid fa-plug highlight-icon"></i>
-                <div>
-                    <div class="highlight-title">CKB Integration</div>
-                    <div class="highlight-body">Integrated an undocumented CKB database with minimal vendor support and designed a bulk-write cache layer that significantly outperformed the legacy record-by-record approach.</div>
-                </div>
-            </div>
-            <div class="highlight-card">
-                <i class="fa-solid fa-table-columns highlight-icon"></i>
-                <div>
-                    <div class="highlight-title">UX & Dashboards</div>
-                    <div class="highlight-body">Led UX improvements across complex analytical dashboards, making dense data navigable and actionable for both power users and less experienced stakeholders.</div>
-                </div>
-            </div>
-        </div>
-    </SlideSection>
+    </ProjectSection>
 </template>
 
 <style scoped>
-.project-desc {
-    font-family: 'Consolas', 'Courier New', Courier, monospace;
+.highlights {
+    list-style: none;
+    margin: 0.5rem 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.75rem 2.5rem;
+}
+
+.highlight {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.highlight-title {
     font-size: 1rem;
+    font-weight: 600;
     color: rgb(var(--v-theme-text));
-    opacity: 0.75;
-    margin: 0;
+}
+
+.highlight-body {
+    font-size: 0.9375rem;
     line-height: 1.6;
-    max-width: 600px;
+    color: var(--text-muted);
+}
+
+.brands {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+}
+
+.brands-caption {
+    margin: 0;
+    font-size: 0.9375rem;
+    color: var(--text-subtle);
+}
+
+.brand-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.625rem;
+}
+
+.brand-list li {
+    display: flex;
+}
+
+.brand-logo {
+    display: block;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    object-fit: cover;
+    background: var(--hairline);
 }
 
 .tag-list {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
-    max-width: 550px;
-}
-
-.highlights-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.75rem;
-    max-width: 680px;
-}
-
-.highlight-card {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.75rem;
-    padding: 0.85rem 1rem;
-    border-radius: 10px;
-    background: rgba(var(--v-theme-primary), 0.06);
-    border: 1px solid rgba(var(--v-theme-primary), 0.15);
-}
-
-.highlight-icon {
-    color: rgb(var(--v-theme-accent));
-    font-size: 1rem;
-    margin-top: 0.15rem;
-    flex-shrink: 0;
-}
-
-.highlight-title {
-    font-family: 'Consolas', 'Courier New', Courier, monospace;
-    font-size: 0.8rem;
-    font-weight: 700;
-    color: rgb(var(--v-theme-text));
-    margin-bottom: 0.3rem;
-}
-
-.highlight-body {
-    font-family: 'Consolas', 'Courier New', Courier, monospace;
-    font-size: 0.75rem;
-    color: rgb(var(--v-theme-text));
-    opacity: 0.65;
-    line-height: 1.5;
-}
-
-.brand-carousel-wrapper {
-    max-width: 680px;
-    width: 100%;
-}
-
-.brand-carousel-header {
-    font-family: 'Consolas', 'Courier New', Courier, monospace;
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: rgb(var(--v-theme-text));
-    opacity: 0.45;
-    margin-bottom: 0.75rem;
-}
-
-.brand-carousel-mask {
-    overflow: hidden;
-    /* exactly 4 slots: 4 × 150px + 3 × 20px gaps = 660px */
-    width: 660px;
-    max-width: 100%;
-    mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
-}
-
-.brand-carousel-track {
-    display: flex;
-    gap: 20px;
-    align-items: center;
-    width: max-content;
-    animation: scroll-left 24s linear infinite;
-}
-
-.brand-logo-item {
-    flex-shrink: 0;
-    width: 150px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 94px;
-}
-
-.brand-logo {
-    max-width: 140px;
-    max-height: 72px;
-    width: auto;
-    height: auto;
-    object-fit: contain;
-    filter: opacity(0.85);
-    transition: filter 0.25s ease;
-}
-
-.brand-logo:hover {
-    filter: opacity(1);
-}
-
-@keyframes scroll-left {
-    0%   { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
+    margin-top: 0.5rem;
 }
 
 @media only screen and (max-width: 600px) {
-    .highlights-grid {
+    .highlights {
         grid-template-columns: 1fr;
+        gap: 1.25rem;
     }
 }
 </style>

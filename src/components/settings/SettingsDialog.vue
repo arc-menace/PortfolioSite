@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, inject, type Ref } from 'vue';
+import { ref, computed } from 'vue';
 import { useTheme } from 'vuetify';
 import { useThemeColors } from '../../composables/useThemeColors';
 import { useGlobalStore } from '../../store/globalStore';
@@ -7,8 +7,6 @@ import { themePresets } from '../../models/themeColors';
 import { useHaptics } from '../../composables/useHaptics';
 
 const dialog = ref(false);
-const currentSlideId = inject<Ref<string>>('currentSlideId', ref('home'));
-const isTimelineSlide = computed(() => !['home', 'contact'].includes(currentSlideId.value));
 const theme = useTheme();
 const store = useGlobalStore();
 const { currentColors, selectedThemeId, applyThemePreset } = useThemeColors();
@@ -39,7 +37,7 @@ function onPresetClick(presetId: string) {
 
 <template>
     <div>
-        <v-btn icon @click="() => { hapticLight(); dialog = true; }" class="settings-btn" :class="{ 'settings-btn--timeline': isTimelineSlide }" aria-label="Open settings">
+        <v-btn icon @click="() => { hapticLight(); dialog = true; }" class="settings-btn" aria-label="Open settings">
             <i class="fa-solid fa-gear" aria-hidden="true"></i>
         </v-btn>
 
@@ -113,16 +111,12 @@ function onPresetClick(presetId: string) {
     background-color: transparent;
     box-shadow: none;
     margin-left: 1rem;
-    transition: margin-left 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    color: inherit;
 }
 
 @media only screen and (max-width: 480px) {
     .settings-btn {
         margin-left: 0.75rem;
-    }
-
-    .settings-btn--timeline {
-        margin-left: 2.5rem;
     }
 }
 

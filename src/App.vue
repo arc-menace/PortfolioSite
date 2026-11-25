@@ -1,22 +1,16 @@
 <script setup lang="ts">
-import { defineAsyncComponent, ref, provide, watch, type Ref } from 'vue'
+import { provide, watch } from 'vue'
 import { useTheme } from 'vuetify'
 import Navbar from './components/navbar/Navbar.vue'
 import Home from './pages/Home.vue'
+import About from './pages/About.vue'
+import Projects from './pages/Projects.vue'
+import Contact from './pages/Contact.vue'
 import PrivacyNotice from './components/privacy/PrivacyNotice.vue'
-import Slideshow from './components/slideshow/Slideshow.vue'
-import AboutIntro from './components/about/AboutIntro.vue'
-import DogsSection from './components/about/DogsSection.vue'
-import SmartHomeSection from './components/about/SmartHomeSection.vue'
-import ShelfIQ from './components/projects/ShelfIQ.vue'
-import WordlClone from './components/projects/WordlClone.vue'
-import GrowlerStation from './components/projects/GrowlerStation.vue'
 import { useGlobalStore } from './store/globalStore'
 import { useThemeColors } from './composables/useThemeColors'
-import { SLIDE_IDS } from './config/slides'
-
-const Projects = defineAsyncComponent(() => import('./pages/Projects.vue'))
-const Contact = defineAsyncComponent(() => import('./pages/Contact.vue'))
+import { useSectionNav } from './composables/useSectionNav'
+import type { SectionId } from './config/sections'
 
 const store = useGlobalStore()
 const theme = useTheme()
@@ -37,18 +31,20 @@ watch(() => currentColors.value.background, (newBg: string) => {
   document.body.style.backgroundColor = newBg
 }, { immediate: true })
 
-const slideIds = Object.values(SLIDE_IDS)
+const { activeSectionId, isScrolled, goToSection } = useSectionNav()
+provide('goToSection', goToSection)
+provide('activeSectionId', activeSectionId)
+provide('isScrolled', isScrolled)
 
-const slideshowRef = ref<{ goToId: (id: string) => void } | null>(null)
-provide('goToSlide', (id: string) => slideshowRef.value?.goToId(id))
-
-const currentSlideId = ref<string>(SLIDE_IDS.home)
-provide('currentSlideId', currentSlideId as Ref<string>)
-
-function onSlideChange(id: string) {
-  currentSlideId.value = id
+// Record each section the first time it scrolls into view.
+const viewedSections = new Set<SectionId>()
+watch(activeSectionId, (id) => {
+  if (viewedSections.has(id)) return
+  viewedSections.add(id)
   window.umami?.track('slide-view', { slide: id })
-}
+})
+
+const year = new Date().getFullYear()
 </script>
 
 <template>
@@ -59,18 +55,15 @@ function onSlideChange(id: string) {
   </header>
 
   <main id="main-content">
-    <Slideshow ref="slideshowRef" :slide-ids="slideIds" :top-color="currentColors.secondary" @slide-change="onSlideChange">
-      <div class="slide"><Home /></div>
-      <div class="slide"><AboutIntro /></div>
-      <div class="slide"><DogsSection /></div>
-      <div class="slide"><SmartHomeSection /></div>
-      <div class="slide"><Projects /></div>
-      <div class="slide"><ShelfIQ /></div>
-      <div class="slide"><WordlClone /></div>
-      <div class="slide"><GrowlerStation /></div>
-      <div class="slide"><Contact /></div>
-    </Slideshow>
+    <Home />
+    <About />
+    <Projects />
+    <Contact />
   </main>
+
+  <footer class="site-footer">
+    <div class="site-footer-inner">&copy; {{ year }} Joe Hahn</div>
+  </footer>
 
   <PrivacyNotice />
 </template>
@@ -90,5 +83,18 @@ function onSlideChange(id: string) {
 
 .skip-nav:focus {
   top: 0;
+}
+
+.site-footer {
+  padding: 0 var(--page-gutter);
+}
+
+.site-footer-inner {
+  max-width: var(--page-max-width);
+  margin: 0 auto;
+  padding: 1.5rem 0 2rem;
+  border-top: 1px solid var(--hairline);
+  font-size: 0.875rem;
+  color: var(--text-subtle);
 }
 </style>
